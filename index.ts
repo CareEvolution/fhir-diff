@@ -8,6 +8,8 @@ const medicationResourceTypes = [
   "MedicationAdministration",
 ];
 
+const labResourceTypes = ["Observation", "DiagnosticReport"];
+
 function pick_identifier(identifier?: r4.Identifier[]): string | undefined {
   if (!identifier || identifier.length === 0) {
     return undefined;
@@ -185,6 +187,22 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           ["http://loinc.org", "http://snomed.info/sct"]
         );
 
+        let value: string | undefined;
+
+        if (entry.resource.valueString) {
+          value = entry.resource.valueString;
+        } else if (entry.resource.valueQuantity?.value) {
+          if (entry.resource.valueQuantity.unit) {
+            value = `${entry.resource.valueQuantity.value} ${entry.resource.valueQuantity.unit}`;
+          } else {
+            value = entry.resource.valueQuantity.value?.toString();
+          }
+        } else if (entry.resource.valueInteger) {
+          value = entry.resource.valueInteger.toString();
+        } else if (entry.resource.valueCodeableConcept?.text) {
+          value = entry.resource.valueCodeableConcept.text;
+        }
+
         keys.push({
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
@@ -194,6 +212,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           primary_code: primary_coding_observation?.code,
           date: entry.resource.effectiveDateTime,
           text: entry.resource.code?.text,
+          value: value,
         });
         break;
 
@@ -257,9 +276,13 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
   return keys;
 }
 
+function build_ref(resource: r4.Resource): string {
+  return `${resource.resourceType}/${resource.id}`;
+}
+
 function build_reference(resource: ResourceAndKey): r4.Reference {
   return {
-    reference: `${resource.resourceType}/${resource.resource.id}`,
+    reference: build_ref(resource.resource),
   };
 }
 
@@ -274,79 +297,157 @@ function find_match_index(
   );
 
   if (byIdentifier !== -1) {
+    console.log(
+      `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        candidates[byIdentifier].resource
+      )} by identifier ${target.identifier}`
+    );
     return byIdentifier;
   }
 
-  const byNaturalKey = candidates.findIndex(
-    (k) =>
-      k.resourceType === target.resourceType &&
-      k.primary_code_system === target.primary_code_system &&
-      k.primary_code === target.primary_code &&
-      k.date === target.date
-  );
-  return byNaturalKey;
+  if (target.date || target.primary_code_system || target.primary_code) {
+    const byNaturalKey = candidates.findIndex(
+      (k) =>
+        k.resourceType === target.resourceType &&
+        k.primary_code_system === target.primary_code_system &&
+        k.primary_code === target.primary_code &&
+        k.date === target.date
+    );
+
+    if (byNaturalKey !== -1) {
+      console.log(
+        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+          candidates[byNaturalKey].resource
+        )} by natural key ${target.primary_code_system} ${
+          target.primary_code
+        } ${target.date}`
+      );
+      return byNaturalKey;
+    }
+  }
+
+  return -1;
 }
 
 function find_match_index_squishy(
   target: ResourceAndKey,
   candidates: ResourceAndKey[]
 ): number {
-  const byCode = candidates.findIndex(
-    (k) =>
-      k.resourceType === target.resourceType &&
-      k.primary_code_system === target.primary_code_system &&
-      k.primary_code === target.primary_code
-  );
+  if (target.primary_code && target.primary_code_system) {
+    const byCode = candidates.findIndex(
+      (k) =>
+        k.resourceType === target.resourceType &&
+        k.primary_code_system === target.primary_code_system &&
+        k.primary_code === target.primary_code
+    );
 
-  if (byCode !== -1) {
-    return byCode;
+    if (byCode !== -1) {
+      console.log(
+        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+          candidates[byCode].resource
+        )} by code ${target.primary_code_system} ${target.primary_code}`
+      );
+      return byCode;
+    }
   }
 
-  const byText = candidates.findIndex(
-    (k) =>
-      k.resourceType === target.resourceType &&
-      k.text === target.text &&
-      k.date === target.date
-  );
+  if (target.text) {
+    const byText = candidates.findIndex(
+      (k) =>
+        k.resourceType === target.resourceType &&
+        k.text === target.text &&
+        k.date === target.date
+    );
 
-  const byDate = candidates.findIndex(
-    (k) => k.resourceType === target.resourceType && k.date === target.date
-  );
-  return byDate;
+    if (byText !== -1) {
+      console.log(
+        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+          candidates[byText].resource
+        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`
+      );
+      return byText;
+    }
+  }
+
+  if (target.value) {
+    const byValue = candidates.findIndex(
+      (k) =>
+        k.resourceType === target.resourceType &&
+        k.date === target.date &&
+        k.value === target.value
+    );
+
+    if (byValue !== -1) {
+      console.log(
+        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+          candidates[byValue].resource
+        )} by value ${target.value} and date ${target.date}`
+      );
+
+      return byValue;
+    }
+  }
+
+  return -1;
 }
 
-function find_match_index_cross_resource_medications(
+function find_match_index_cross_resource(
   target: ResourceAndKey,
-  candidates: ResourceAndKey[]
+  candidates: ResourceAndKey[],
+  resourceTypes: string[]
 ): number {
-  if (!medicationResourceTypes.includes(target.resourceType)) {
+  if (!resourceTypes.includes(target.resourceType)) {
     return -1;
   }
 
-  const byCode = candidates.findIndex(
-    (k) =>
-      medicationResourceTypes.includes(k.resourceType) &&
-      k.resourceType === target.resourceType &&
-      k.primary_code_system === target.primary_code_system &&
-      k.primary_code === target.primary_code
-  );
+  if (target.primary_code && target.primary_code_system) {
+    const byCode = candidates.findIndex(
+      (k) =>
+        resourceTypes.includes(k.resourceType) &&
+        k.resourceType === target.resourceType &&
+        k.primary_code_system === target.primary_code_system &&
+        k.primary_code === target.primary_code
+    );
 
-  if (byCode !== -1) {
-    return byCode;
+    if (byCode !== -1) {
+      console.log(
+        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+          candidates[byCode].resource
+        )} by code ${target.primary_code_system} ${target.primary_code}`
+      );
+      return byCode;
+    }
   }
 
-  const byText = candidates.findIndex(
-    (k) =>
-      medicationResourceTypes.includes(k.resourceType) &&
-      k.text === target.text &&
-      k.date === target.date
-  );
+  if (target.text) {
+    const byText = candidates.findIndex(
+      (k) =>
+        resourceTypes.includes(k.resourceType) &&
+        k.text === target.text &&
+        k.date === target.date
+    );
 
-  const byDate = candidates.findIndex(
-    (k) =>
-      medicationResourceTypes.includes(k.resourceType) && k.date === target.date
-  );
-  return byDate;
+    if (byText !== -1) {
+      console.log(
+        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+          candidates[byText].resource
+        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`
+      );
+      return byText;
+    }
+  }
+
+  return -1;
+}
+
+function get_resource_type_group(resourceType: string): string[] | undefined {
+  if (medicationResourceTypes.includes(resourceType)) {
+    return medicationResourceTypes;
+  }
+  if (labResourceTypes.includes(resourceType)) {
+    return labResourceTypes;
+  }
+  return undefined;
 }
 
 export function fhir_bundles_match(
@@ -382,18 +483,28 @@ export function fhir_bundles_match(
   for (let bundle2Key of bundle2Keys) {
     const matchIndex = find_match_index_squishy(bundle2Key, unmatchedBundle1);
     if (matchIndex === -1) {
-      const crossResourceIndex = find_match_index_cross_resource_medications(
-        bundle2Key,
-        unmatchedBundle1
+      const resourceTypeGroup = get_resource_type_group(
+        bundle2Key.resourceType
       );
-      if (crossResourceIndex === -1) {
-        bundle2Only.push(bundle2Key);
+
+      if (resourceTypeGroup) {
+        const crossResourceIndex = find_match_index_cross_resource(
+          bundle2Key,
+          unmatchedBundle1,
+          resourceTypeGroup
+        );
+
+        if (crossResourceIndex === -1) {
+          bundle2Only.push(bundle2Key);
+        } else {
+          common.push({
+            bundle1: unmatchedBundle1[crossResourceIndex],
+            bundle2: bundle2Key,
+          });
+          unmatchedBundle1.splice(crossResourceIndex, 1);
+        }
       } else {
-        common.push({
-          bundle1: unmatchedBundle1[crossResourceIndex],
-          bundle2: bundle2Key,
-        });
-        unmatchedBundle1.splice(crossResourceIndex, 1);
+        bundle2Only.push(bundle2Key);
       }
     } else {
       common.push({
