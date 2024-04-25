@@ -15,5 +15,8 @@
   "publishConfig": {
     "registry": "https://proget.careevolution.com/npm/npm/"
   },
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@types/fhir": "^0.0.41"
+  }
 }
