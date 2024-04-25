@@ -22,6 +22,43 @@ function pick_identifier(identifier?: r4.Identifier[]): string | undefined {
   );
 }
 
+const rosettaInputCodeSystemRE =
+  /http:\/\/rosetta\.careevolution\.com\/codes\/Proprietary.([a-zA-Z0-9._-]+)(\/\w+)?/;
+const rosettaInputCodeSystem2RE =
+  /http:\/\/rosetta\.careevolution\.com\/codes\/([a-zA-Z0-9._-]+)(\/\w+)?/;
+const fhirCodesystemRE = /http:\/\/careevolution\.com\/fhircodes#(\w+)/;
+const oidRE = /urn:oid:(.*)/;   // not all things in CDAs that should be OIDs are OIDs, and naive template-based things won't be able to tell it's not an OID
+
+export function clean_code_system(
+  coding: r4.Coding | undefined
+): r4.Coding | undefined {
+  if (!coding?.system) {
+    return coding;
+  }
+
+  const rosettaMatch = coding.system.match(rosettaInputCodeSystemRE);
+  if (rosettaMatch) {
+    coding.system = rosettaMatch[1];
+  } else {
+    const rosetta2Match = coding.system.match(rosettaInputCodeSystem2RE);
+    if (rosetta2Match) {
+      coding.system = rosetta2Match[1];
+    } else {
+      const fhirMatch = coding.system.match(fhirCodesystemRE);
+      if (fhirMatch) {
+        coding.system = fhirMatch[1];
+      } else {
+        const oidMAtch = coding.system.match(oidRE);
+        if (oidMAtch) {
+          coding.system = oidMAtch[1];
+        }
+      }
+    }
+  }
+
+  return coding;
+}
+
 function pick_primary_coding(
   codeableConcept: r4.CodeableConcept | undefined,
   preferredSystems: string[]
@@ -33,7 +70,7 @@ function pick_primary_coding(
   const userSelected = codeableConcept.coding?.find((c) => c.userSelected);
 
   if (userSelected) {
-    return userSelected;
+    return clean_code_system(userSelected);
   }
 
   const preferredSystem = codeableConcept.coding?.find((c) =>
@@ -41,14 +78,34 @@ function pick_primary_coding(
   );
 
   if (preferredSystem) {
-    return preferredSystem;
+    return clean_code_system(preferredSystem);
   }
 
-  return codeableConcept.coding?.[0];
+  return clean_code_system(codeableConcept.coding?.[0]);
 }
 
-function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
-  const keys: ResourceAndKey[] = [];
+function clean_text(text: string | undefined): string | undefined {
+  if (!text) return text;
+
+  return text.replace(/\s+/g, " ").toLowerCase();
+}
+
+class KeyStore {
+  public all: ResourceAndKey[] = [];
+  public byFhirRef: Map<string, ResourceAndKey> = new Map();
+  public byFullUrl: Map<string, ResourceAndKey> = new Map();
+
+  public push(entry: r4.BundleEntry, key: ResourceAndKey) {
+    this.all.push(key);
+    this.byFhirRef.set(build_ref(key.resource), key);
+    if (entry.fullUrl) {
+      this.byFullUrl.set(entry.fullUrl, key);
+    }
+  }
+}
+
+function build_keys(bundle: r4.Bundle): KeyStore {
+  const keys = new KeyStore();
 
   for (let entry of bundle.entry || []) {
     if (!entry?.resource?.resourceType) {
@@ -56,7 +113,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
     }
     switch (entry.resource.resourceType) {
       case "Patient":
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -65,7 +122,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
         break;
       case "Encounter":
         const primary_coding = entry.resource.class;
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -80,7 +137,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           entry.resource.code,
           ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"]
         );
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -88,7 +145,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           primary_code_system: primary_coding_condition?.system,
           primary_code: primary_coding_condition?.code,
           date: entry.resource.onsetDateTime,
-          text: entry.resource.code?.text,
+          text: clean_text(entry.resource.code?.text),
         });
         break;
 
@@ -97,7 +154,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           entry.resource.medicationCodeableConcept,
           ["http://www.nlm.nih.gov/research/umls/rxnorm"]
         );
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -105,7 +162,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           primary_code_system: primary_coding_medadmin?.system,
           primary_code: primary_coding_medadmin?.code,
           date: entry.resource.effectiveDateTime,
-          text: entry.resource.medicationCodeableConcept?.text,
+          text: clean_text(entry.resource.medicationCodeableConcept?.text),
         });
         break;
 
@@ -114,7 +171,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           entry.resource.medicationCodeableConcept,
           ["http://www.nlm.nih.gov/research/umls/rxnorm"]
         );
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -122,7 +179,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           primary_code_system: primary_coding_medreq?.system,
           primary_code: primary_coding_medreq?.code,
           date: entry.resource.authoredOn,
-          text: entry.resource.medicationCodeableConcept?.text,
+          text: clean_text(entry.resource.medicationCodeableConcept?.text),
         });
         break;
 
@@ -131,7 +188,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           entry.resource.medicationCodeableConcept,
           ["http://www.nlm.nih.gov/research/umls/rxnorm"]
         );
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -141,7 +198,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           date:
             entry.resource.effectiveDateTime ||
             entry.resource.effectivePeriod?.start,
-          text: entry.resource.medicationCodeableConcept?.text,
+          text: clean_text(entry.resource.medicationCodeableConcept?.text),
         });
         break;
 
@@ -150,7 +207,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           entry.resource.code,
           ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"]
         );
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -160,7 +217,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           date:
             entry.resource.performedDateTime ||
             entry.resource.performedPeriod?.start,
-          text: entry.resource.code?.text,
+          text: clean_text(entry.resource.code?.text),
         });
         break;
 
@@ -169,7 +226,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           entry.resource.code,
           ["http://snomed.info/sct"]
         );
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -177,7 +234,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           primary_code_system: primary_coding_allergy?.system,
           primary_code: primary_coding_allergy?.code,
           date: entry.resource.onsetDateTime || entry.resource.recordedDate,
-          text: entry.resource.code?.text,
+          text: clean_text(entry.resource.code?.text),
         });
         break;
 
@@ -203,7 +260,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           value = entry.resource.valueCodeableConcept.text;
         }
 
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -211,7 +268,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           primary_code_system: primary_coding_observation?.system,
           primary_code: primary_coding_observation?.code,
           date: entry.resource.effectiveDateTime,
-          text: entry.resource.code?.text,
+          text: clean_text(entry.resource.code?.text),
           value: value,
         });
         break;
@@ -222,7 +279,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           ["http://loinc.org", "http://snomed.info/sct"]
         );
 
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -232,12 +289,12 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
           date:
             entry.resource.effectiveDateTime ||
             entry.resource.effectivePeriod?.start,
-          text: entry.resource.code?.text,
+          text: clean_text(entry.resource.code?.text),
         });
         break;
 
       case "Practitioner":
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -246,7 +303,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
         break;
 
       case "PractitionerRole":
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -255,7 +312,7 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
         break;
 
       case "Organization":
-        keys.push({
+        keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
           identifier:
@@ -270,6 +327,47 @@ function build_keys(bundle: r4.Bundle): ResourceAndKey[] {
       default:
         console.log("Unhandled resource type: " + entry.resource.resourceType);
         break;
+    }
+  }
+
+  // back fill dates for resources that have children
+
+  for (let key of keys.all.filter((k) => !k.date)) {
+    switch (key.resource.resourceType) {
+      case "Observation":
+        const observation = key.resource as r4.Observation;
+        if (observation.encounter?.reference) {
+          const encounterKey = keys.byFhirRef.get(
+            observation.encounter.reference
+          );
+          if (encounterKey && encounterKey.date) {
+            key.date = encounterKey.date;
+          }
+        }
+
+        if (
+          !key.date &&
+          observation.hasMember &&
+          observation.hasMember.length > 0
+        ) {
+          const memberDates: string[] = [];
+
+          for (let member of observation.hasMember) {
+            if (member.reference) {
+              const memberKey =
+                keys.byFhirRef.get(member.reference) ||
+                keys.byFullUrl.get(member.reference);
+              if (memberKey && memberKey.date) {
+                memberDates.push(memberKey.date);
+              }
+            }
+          }
+
+          const disitinctDates = new Set(memberDates);
+          if (disitinctDates.size === 1) {
+            key.date = disitinctDates.values().next().value;
+          }
+        }
     }
   }
 
@@ -437,6 +535,17 @@ function find_match_index_cross_resource(
     }
   }
 
+  if (
+    target.resourceType === "Observation" ||
+    target.resourceType === "DiagnosticReport"
+  ) {
+    console.log(
+      `target: ${build_ref(target.resource)} ${target.identifier} ${
+        target.primary_code_system
+      }/${target.primary_code} ${target.date} ${target.text?.substring(0, 50)}`
+    );
+  }
+
   return -1;
 }
 
@@ -455,10 +564,10 @@ export function fhir_bundles_match(
   bundle2: r4.Bundle
 ): FhirMatch {
   console.log("--- bundle1 ---");
-  var bundle1Keys = build_keys(bundle1);
+  var bundle1KeyStore = build_keys(bundle1);
 
   console.log("--- bundle2 ---");
-  var bundle2Keys = build_keys(bundle2);
+  var bundle2KeyStore = build_keys(bundle2);
 
   console.log("--- matching ---");
 
@@ -467,6 +576,9 @@ export function fhir_bundles_match(
   const common: { bundle1: ResourceAndKey; bundle2: ResourceAndKey }[] = [];
 
   const unmatchedBundle1: ResourceAndKey[] = [];
+
+  const bundle1Keys = [...bundle1KeyStore.all];
+  const bundle2Keys = [...bundle2KeyStore.all];
 
   // try strong matches first
   for (let bundle1Key of bundle1Keys) {
