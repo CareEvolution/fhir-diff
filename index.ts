@@ -90,7 +90,7 @@ function clean_text(text: string | undefined): string | undefined {
   return text.replace(/\s+/g, " ").toLowerCase();
 }
 
-class KeyStore {
+export class KeyStore {
   public all: ResourceAndKey[] = [];
   public byFhirRef: Map<string, ResourceAndKey> = new Map();
   public byFullUrl: Map<string, ResourceAndKey> = new Map();
