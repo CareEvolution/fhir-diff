@@ -1,0 +1,1316 @@
+{
+	"resourceType": "Bundle",
+	"type": "document",
+	"entry": [
+		{
+			"resource": {
+				"date": "2015-02-05T12:18:15-05:00",
+				"encounter": {
+					"reference": "urn:uuid:690487e1-3b05-37ea-c11f-fb3e15491628"
+				},
+				"section": [
+					{
+						"title": "Problem List",
+						"text": {
+							"div": "\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Date</th>\r\n                  <th>Problem</th>\r\n                  <th>Type</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"date_1\">6/7/2009 6:00:00 PM</td>\r\n                  <td ID=\"problem_1\">Streptobacillary fever</td>\r\n                  <td ID=\"type_1\">AdmittingDiagnosis</td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          ",
+							"status": "generated"
+						},
+						"extension": [
+							{
+								"valueBoolean": true,
+								"url": "entries-required"
+							}
+						],
+						"entry": [
+							{
+								"reference": "urn:uuid:8e8c1fd5-511e-f0fe-4996-b87f53efdf5e"
+							}
+						],
+						"code": {
+							"text": "Problem List",
+							"coding": [
+								{
+									"code": "11450-4",
+									"display": "Problem List",
+									"system": "http://loinc.org"
+								}
+							]
+						}
+					},
+					{
+						"title": "Allergies, adverse reactions, alerts",
+						"text": {
+							"div": "\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Type</th>\r\n                  <th>Substance</th>\r\n                  <th>Reported Date</th>\r\n                  <th>Reaction</th>\r\n                  <th>Severity</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"type_2\">Drug Allergy</td>\r\n                  <td ID=\"substance_2\">Amoxicillin</td>\r\n                  <td ID=\"reporteddate_2\"> </td>\r\n                  <td ID=\"reaction_2\">Rash</td>\r\n                  <td ID=\"severity_2\">Moderate</td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          ",
+							"status": "generated"
+						},
+						"entry": [
+							{
+								"reference": "urn:uuid:995630fb-cc9f-6494-7a9e-d4d2305aca8f"
+							}
+						],
+						"code": {
+							"text": "Allergies, adverse reactions, alerts",
+							"coding": [
+								{
+									"code": "48765-2",
+									"display": "Allergies, adverse reactions, alerts",
+									"system": "http://loinc.org"
+								}
+							]
+						}
+					},
+					{
+						"title": "Relevant diagnostic tests/laboratory data",
+						"text": {
+							"div": "\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th ID=\"labgroup_3\">CHEM24S</th>\r\n                  <th ID=\"labgroupdate_3\">6/9/2009 6:17:00 PM</th>\r\n                  <th ID=\"labgroupstatus_3\">P</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td />\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Test</th>\r\n                  <th>Date</th>\r\n                  <th>Value</th>\r\n                  <th>Acuity</th>\r\n                  <th>Normal Range</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"labname_4\">CHLORIDE</td>\r\n                  <td ID=\"date_4\">6/9/2009 6:17:00 PM</td>\r\n                  <td ID=\"value_4\">112 MMOL/L</td>\r\n                  <td ID=\"acuity_4\">H</td>\r\n                  <td ID=\"normalrange_4\">98-107 MMOL/L</td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th ID=\"labgroup_5\">CBC</th>\r\n                  <th ID=\"labgroupdate_5\">6/8/2009 12:09:00 PM</th>\r\n                  <th ID=\"labgroupstatus_5\">F</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td />\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Test</th>\r\n                  <th>Date</th>\r\n                  <th>Value</th>\r\n                  <th>Acuity</th>\r\n                  <th>Normal Range</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"labname_6\">WBC</td>\r\n                  <td ID=\"date_6\">6/8/2009 12:09:00 PM</td>\r\n                  <td ID=\"value_6\">16.6 K/CUMM</td>\r\n                  <td ID=\"acuity_6\">H</td>\r\n                  <td ID=\"normalrange_6\">4.0-10.5 K/CUMM</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"labname_7\">HGB</td>\r\n                  <td ID=\"date_7\">6/8/2009 12:09:00 PM</td>\r\n                  <td ID=\"value_7\">10.2 G/DL</td>\r\n                  <td ID=\"acuity_7\">L</td>\r\n                  <td ID=\"normalrange_7\">12.5-16.0 G/DL</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"labname_8\">PLT</td>\r\n                  <td ID=\"date_8\">6/8/2009 12:09:00 PM</td>\r\n                  <td ID=\"value_8\">132 K/CUMM</td>\r\n                  <td ID=\"acuity_8\">L</td>\r\n                  <td ID=\"normalrange_8\">150-450 K/CUMM</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"labname_9\">HCT</td>\r\n                  <td ID=\"date_9\">6/8/2009 12:09:00 PM</td>\r\n                  <td ID=\"value_9\">28.6 %</td>\r\n                  <td ID=\"acuity_9\">L</td>\r\n                  <td ID=\"normalrange_9\">37.0-47.0 %</td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th ID=\"labgroup_10\">Electrolytes measurement (procedure)</th>\r\n                  <th ID=\"labgroupdate_10\">6/8/2009 12:09:00 PM</th>\r\n                  <th ID=\"labgroupstatus_10\">F</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td />\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Test</th>\r\n                  <th>Date</th>\r\n                  <th>Value</th>\r\n                  <th>Acuity</th>\r\n                  <th>Normal Range</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"labname_11\">CARBON DIOXIDE</td>\r\n                  <td ID=\"date_11\">6/8/2009 12:09:00 PM</td>\r\n                  <td ID=\"value_11\">26 MMOL/L</td>\r\n                  <td ID=\"acuity_11\">N</td>\r\n                  <td ID=\"normalrange_11\">22-31 MMOL/L</td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th ID=\"reportheader_12\"> </th>\r\n                  <th ID=\"reportheaderdate_12\">6/7/2009 5:00:00 PM</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td />\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Report Content</th>\r\n                  <th>Status</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"reportcontent_13\">\r\n                    <paragraph>OPERATIVE NOTE</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>DICTATED BY: Jack Blue, MD</paragraph>\r\n                    <paragraph>DICTATED: 6/7/2009  8:03 P   000087489</paragraph>\r\n                    <paragraph>TRANSCRIBED:  6/8/2009  1:06 A  vl  D</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>PATIENT NAME: Test, Ihe</paragraph>\r\n                    <paragraph>HEALTH RECORD NO.: 123456783</paragraph>\r\n                    <paragraph>BILLING NO.: 88888888</paragraph>\r\n                    <paragraph>ROOM NO.: SIC</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>Date of Procedure: 11/28/06</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>PREOPERATIVE DIAGNOSES: Aortic stenosis and mitral</paragraph>\r\n                    <paragraph>insufficiency.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>POSTOPERATIVE DIAGNOSES: Aortic stenosis and mitral</paragraph>\r\n                    <paragraph>insufficiency.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>PROCEDURE PERFORMED: Aortic valve replacement with a 21 mm</paragraph>\r\n                    <paragraph>Edwards Magna bovine pericardial bioprosthesis and a reverse</paragraph>\r\n                    <paragraph>saphenous vein graft to the right coronary.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>SURGEON: Dr. Blue.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>ASSISTANT: Pat Yellow, CST.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>ANESTHESIA: General tracheal anesthesia, Dr. Green.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>Aortic cross clamp time was 117 minutes.</paragraph>\r\n                    <paragraph>Cardiopulmonary bypass time was 168 minutes.</paragraph>\r\n                    <paragraph>Atrial and ventricular pacing wires.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>Drains - 32 French mediastinal chest tube, 28 French</paragraph>\r\n                    <paragraph>mediastinal chest tube.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>FINDINGS: Good saphenous vein conduit, normal ascending aorta,</paragraph>\r\n                    <paragraph>aortic valve was trileaflet with heavy calcification to the</paragraph>\r\n                    <paragraph>leaflets. The annulus was not too heavily calcified with</paragraph>\r\n                    <paragraph>moderate aortic annular calcification.  Also noted was a right</paragraph>\r\n                    <paragraph>coronary ostial intimal flap that was noted after I was</paragraph>\r\n                    <paragraph>getting ready to seat the valve and this will be described in</paragraph>\r\n                    <paragraph>the text of the operation; therefore the right coronary was</paragraph>\r\n                    <paragraph>grafted.  The right coronary was a 2.5 mm vessel with no</paragraph>\r\n                    <paragraph>distal disease.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>INDICATIONS FOR PROCEDURE:  The patient is a 73-year-old woman</paragraph>\r\n                    <paragraph>who was found to have known aortic stenosis and found to have</paragraph>\r\n                    <paragraph>breast carcinoma needing resection of her breast cancer;</paragraph>\r\n                    <paragraph>however, has had severe aortic stenosis prior to undergoing</paragraph>\r\n                    <paragraph>breast cancer surgery.  She needed her heart fixed.  The</paragraph>\r\n                    <paragraph>patient is brought to the operating room for aortic valve</paragraph>\r\n                    <paragraph>replacement.  Preoperative echocardiogram demonstrates severe</paragraph>\r\n                    <paragraph>aortic stenosis and moderate aortic insufficiency and 2+</paragraph>\r\n                    <paragraph>mitral insufficiency.  Intraoperative transesophageal</paragraph>\r\n                    <paragraph>echocardiogram was performed by Dr. Mauve.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>DESCRIPTION OF THE PROCEDURE: The patient was brought to the</paragraph>\r\n                    <paragraph>operating room and placed in a comfortable supine position on</paragraph>\r\n                    <paragraph>the operating table.  She underwent induction of general</paragraph>\r\n                    <paragraph>endotracheal anesthesia and placement of invasive monitor,</paragraph>\r\n                    <paragraph>lines and intraoperative echocardiogram by Dr. Mauve.</paragraph>\r\n                    <paragraph>Echocardiogram demonstrated severe aortic stenosis and heavily</paragraph>\r\n                    <paragraph>calcified leaflets with moderate mitral insufficiency given</paragraph>\r\n                    <paragraph>her age.  It was my impression that decompressing her outflow</paragraph>\r\n                    <paragraph>tract would improve her mitral valve insufficiency.  The</paragraph>\r\n                    <paragraph>patient was then positioned, prepped and draped in the usual</paragraph>\r\n                    <paragraph>sterile fashion.  A median sternotomy was accomplished.  The</paragraph>\r\n                    <paragraph>chest was opened and a mediastinal dissection proceeded. The</paragraph>\r\n                    <paragraph>pericardium was opened and suspended. The patient was</paragraph>\r\n                    <paragraph>heparinized.  The distal ascending aorta was cannulated</paragraph>\r\n                    <paragraph>through double aortic pursestring sutures.  A two stage venous</paragraph>\r\n                    <paragraph>cannula was positioned to the right atrial appendage</paragraph>\r\n                    <paragraph>pursestring and the patient was initiated on cardiopulmonary</paragraph>\r\n                    <paragraph>bypass.  Antegrade and retrograde cardioplegia cannulas were</paragraph>\r\n                    <paragraph>positioned.  An LV sump cannula was positioned through right</paragraph>\r\n                    <paragraph>superior pulmonary vein.  The patient was cooled to 32 degrees</paragraph>\r\n                    <paragraph>centigrade. The aorta was cross clamped and antegrade and</paragraph>\r\n                    <paragraph>retrograde cold blood cardioplegia was administered.  After</paragraph>\r\n                    <paragraph>diastolic rest of the heart we made a transverse aortotomy</paragraph>\r\n                    <paragraph>with a hockey stick extension down into the noncoronary sinus.</paragraph>\r\n                    <paragraph>Exposure of the valve was actually pretty descent. Valve</paragraph>\r\n                    <paragraph>findings as noted previously. The valve was sharply excised.</paragraph>\r\n                    <paragraph>The majority of the annular debridement was done fortunately</paragraph>\r\n                    <paragraph>with the scissors; i.e., the majority of the annular</paragraph>\r\n                    <paragraph>calcifications were in the leaflets and not so much in the</paragraph>\r\n                    <paragraph>annulus.  Once we got the leaflets cut out the annulus was d</paragraph>\r\n                    <paragraph>brided of the remainder of the calcific debris. I incised it</paragraph>\r\n                    <paragraph>prior to placement of sutures and it sized out to 21 mm sized</paragraph>\r\n                    <paragraph>out very easily and in fact a 23 almost fit. I then placed</paragraph>\r\n                    <paragraph>multiple annular sutures circumferentially about the annulus</paragraph>\r\n                    <paragraph>that was consistent with interrupted 2-0 Ethibond horizontal</paragraph>\r\n                    <paragraph>mattress pledgeted sutures with pledgets on the ventricular</paragraph>\r\n                    <paragraph>side.  Once we got all our sutures in, I resized the 21 mm</paragraph>\r\n                    <paragraph>sizer.  A 21 interannular sizer was quit snug; however, the</paragraph>\r\n                    <paragraph>sizer on the supra-annular position looked quite comfortable.</paragraph>\r\n                    <paragraph>A 21 mm valve was brought up to the field and it was washed</paragraph>\r\n                    <paragraph>and then brought to operative field.  While I was examining</paragraph>\r\n                    <paragraph>the root of the heart I noted that there an intimal dissection</paragraph>\r\n                    <paragraph>of the ostium of the right coronary that is completely</paragraph>\r\n                    <paragraph>unexplainable. There was no direct cannulation of the right</paragraph>\r\n                    <paragraph>coronary ostium.  There was no mechanical debridement at the</paragraph>\r\n                    <paragraph>right coronary ostium but fortuitously identified the right</paragraph>\r\n                    <paragraph>coronary intimal tear and it was an intimal tear of the aortic</paragraph>\r\n                    <paragraph>wall and it extended to the right coronary ostium.  I tacked</paragraph>\r\n                    <paragraph>this intima down to the aortic wall with interrupted</paragraph>\r\n                    <paragraph>horizontal mattress 5-0 Prolene suture but I was very</paragraph>\r\n                    <paragraph>uncomfortable just simply leaving this in place that it posed</paragraph>\r\n                    <paragraph>the possibility for acute right coronary dissection, RV</paragraph>\r\n                    <paragraph>infarct, and inferior wall infarct postoperatively. Therefore,</paragraph>\r\n                    <paragraph>even though she did not have any coronary disease, I was very</paragraph>\r\n                    <paragraph>concerned about leaving her with an unprotected right</paragraph>\r\n                    <paragraph>coronary.  I therefore asked Pat Yellow, my assistant,</paragraph>\r\n                    <paragraph>to scrub and take a segment of vein from the left lower leg</paragraph>\r\n                    <paragraph>greater saphenous vein was harvested and the wound was closed</paragraph>\r\n                    <paragraph>in layers with absorbable suture.  While she was taking vein,</paragraph>\r\n                    <paragraph>I placed annular sutures through the valve, sewing ring the</paragraph>\r\n                    <paragraph>valve and then seated down into the annulus and it seated</paragraph>\r\n                    <paragraph>nicely.  It was seated first in the left coronary sinus</paragraph>\r\n                    <paragraph>followed by the right coronary sinus followed by the</paragraph>\r\n                    <paragraph>noncoronary sinus.  The remainder of the sutures was tied</paragraph>\r\n                    <paragraph>circumferentially.  I examined the valve and it appeared to be</paragraph>\r\n                    <paragraph>seated well and I was very pleased with the seating.</paragraph>\r\n                    <paragraph>Pat Yellow was still procuring vein when I was closing</paragraph>\r\n                    <paragraph>the aortotomy.  The aortotomy was closed in a two layer</paragraph>\r\n                    <paragraph>fashion with running 4-0 Prolene in a two layer fashion.  The</paragraph>\r\n                    <paragraph>first layer was a running horizontal mattress with 4-0 Prolene</paragraph>\r\n                    <paragraph>followed by over and over 4-0 Prolene.  By this time the vein</paragraph>\r\n                    <paragraph>was out.  I identified a spot in the mid right coronary about</paragraph>\r\n                    <paragraph>the level of the acute margin, made an arteriotomy and sewed</paragraph>\r\n                    <paragraph>the vein graft end-to-side with running 7-0 Prolene suture.  I</paragraph>\r\n                    <paragraph>made a single 4.4 mm aortotomy distal to my transverse</paragraph>\r\n                    <paragraph>aortotomy and anastomosed the vein graft end-to-side with</paragraph>\r\n                    <paragraph>running 5-0 Prolene suture.  The patient was rewarmed while I</paragraph>\r\n                    <paragraph>reconstructed the last anastomosis and a warm dose of</paragraph>\r\n                    <paragraph>cardioplegia was given through the retrograde cannula.  The</paragraph>\r\n                    <paragraph>patient was positioned in Trendelenburg position. The</paragraph>\r\n                    <paragraph>ventricle and aorta were de-aired out the ascending aorta.</paragraph>\r\n                    <paragraph>The patient was positioned head down position.  The aortic</paragraph>\r\n                    <paragraph>cross clamp was removed.  The patient's rhythm returned to</paragraph>\r\n                    <paragraph>ventricular fibrillation.  I defibrillated the heart several</paragraph>\r\n                    <paragraph>times with loading dose of Lidocaine and amiodarone and was</paragraph>\r\n                    <paragraph>finally able to get her defibrillated to a paced rhythm.  The</paragraph>\r\n                    <paragraph>graft was de-aired and the bulldog was released.  The</paragraph>\r\n                    <paragraph>aortotomy was hemostatic. Atrial and ventricular pacing wires</paragraph>\r\n                    <paragraph>were positioned and mediastinal drains were positioned and</paragraph>\r\n                    <paragraph>proximal graft markers were positioned.  With satisfactory</paragraph>\r\n                    <paragraph>reperfusion time, we went ahead and ventilated the patient,</paragraph>\r\n                    <paragraph>removed the retrograde cannula was previously removed.  The LV</paragraph>\r\n                    <paragraph>sump cannula was removed once I had the heart beating.  We</paragraph>\r\n                    <paragraph>then proceeded with echocardiogram interrogation.</paragraph>\r\n                    <paragraph>Echocardiogram interrogation demonstrated satisfactory</paragraph>\r\n                    <paragraph>de-airing and satisfactory valve function with no aortic</paragraph>\r\n                    <paragraph>insufficiency and only trivial mitral insufficiency.  With</paragraph>\r\n                    <paragraph>that result, we removed the antegrade cardioplegia needle and</paragraph>\r\n                    <paragraph>then weaned and separated from cardiopulmonary bypass on low</paragraph>\r\n                    <paragraph>dose inotropic support.  The venous cannula was removed. The</paragraph>\r\n                    <paragraph>pump line was administered through the aortic cannula with</paragraph>\r\n                    <paragraph>satisfactory hemodynamics.  Protamine was administered.  We</paragraph>\r\n                    <paragraph>gained hemostasis through the mediastinum.  The aorta was</paragraph>\r\n                    <paragraph>de-cannulated.  Pursestring sutures were secured. With</paragraph>\r\n                    <paragraph>satisfactory hemostasis we preceded closure.  The sternum was</paragraph>\r\n                    <paragraph>approximated with interrupted #7 stainless steel wires.  The</paragraph>\r\n                    <paragraph>deep fascia was closed with running #1 PDS.  The subcutaneous</paragraph>\r\n                    <paragraph>tissue was closed with 2-0 Vicryl. The skin edges were closed</paragraph>\r\n                    <paragraph>with 3-0 Monocryl.  The patient's wounds were dressed in a</paragraph>\r\n                    <paragraph>dry, sterile dressing.  The patient tolerated the procedure</paragraph>\r\n                    <paragraph>well with no operative complications.  The patient was</paragraph>\r\n                    <paragraph>returned to the surgical intensive care unit in critical</paragraph>\r\n                    <paragraph>condition.</paragraph>\r\n                    <paragraph />\r\n                    <paragraph />\r\n                    <paragraph />\r\n                    <paragraph />\r\n                    <paragraph>___________________________</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>Jack Blue, MD</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>cc:  Donald M Red, MD</paragraph>\r\n                    <paragraph>     Jack Blue, MD</paragraph>\r\n                    <paragraph>     Chip Orange, MD</paragraph>\r\n                    <paragraph />\r\n                    <paragraph>DOCUMENT #: 2487825</paragraph>\r\n                  </td>\r\n                  <td ID=\"reportstatus_13\">1         </td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          ",
+							"status": "generated"
+						},
+						"extension": [
+							{
+								"valueBoolean": true,
+								"url": "entries-required"
+							}
+						],
+						"entry": [
+							{
+								"reference": "urn:uuid:6fb53f8b-10e8-7190-808c-7c1ff6abb17c"
+							},
+							{
+								"reference": "urn:uuid:c9646cd1-0698-6b36-016f-e93a6b9efba7"
+							},
+							{
+								"reference": "urn:uuid:a66e9a4c-c25e-d9ca-3f58-af05f417d419"
+							},
+							{
+								"reference": "urn:uuid:396d0573-4858-7e4e-2a0d-16eb7ac3ada2"
+							}
+						],
+						"code": {
+							"text": "Relevant diagnostic tests/laboratory data",
+							"coding": [
+								{
+									"code": "30954-2",
+									"display": "Relevant diagnostic tests/laboratory data",
+									"system": "http://loinc.org"
+								}
+							]
+						}
+					},
+					{
+						"title": "Medications",
+						"text": {
+							"div": "\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Date</th>\r\n                  <th>Description</th>\r\n                  <th>Order Text</th>\r\n                  <th>Dose</th>\r\n                  <th>Frequency</th>\r\n                  <th>Status</th>\r\n                  <th>Disposition</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"date_14\">8/15/2009 9:00:00 AM</td>\r\n                  <td ID=\"medication_14\">Clopidogrel 75 MG oral tablet</td>\r\n                  <td ID=\"ordertext_14\"> </td>\r\n                  <td ID=\"dose_14\"> </td>\r\n                  <td ID=\"frequency_14\"> </td>\r\n                  <td ID=\"status_14\"> </td>\r\n                  <td ID=\"disposition_14\">Prescribed</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"date_15\">8/12/2009 5:00:00 PM</td>\r\n                  <td ID=\"medication_15\">Saline</td>\r\n                  <td ID=\"ordertext_15\"> </td>\r\n                  <td ID=\"dose_15\">0.5 ml - 0.5 ml</td>\r\n                  <td ID=\"frequency_15\"> </td>\r\n                  <td ID=\"status_15\">Administered</td>\r\n                  <td ID=\"disposition_15\">Administered</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"date_16\">8/11/2009 10:00:00 PM</td>\r\n                  <td ID=\"medication_16\">Acetaminophen 325 mg oral tablet</td>\r\n                  <td ID=\"ordertext_16\"> </td>\r\n                  <td ID=\"dose_16\">325 mg - 325 mg</td>\r\n                  <td ID=\"frequency_16\"> </td>\r\n                  <td ID=\"status_16\">Administered</td>\r\n                  <td ID=\"disposition_16\">Administered</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"date_17\">8/11/2009 5:00:00 PM</td>\r\n                  <td ID=\"medication_17\">Albuterol 0.09mg/actuat inhalant solution</td>\r\n                  <td ID=\"ordertext_17\"> </td>\r\n                  <td ID=\"dose_17\">5.5 mg - 5.5 mg</td>\r\n                  <td ID=\"frequency_17\"> </td>\r\n                  <td ID=\"status_17\">Administered</td>\r\n                  <td ID=\"disposition_17\">Administered</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"date_18\">6/10/2009 4:00:00 PM</td>\r\n                  <td ID=\"medication_18\">Cephalexin 500 MG oral tablet</td>\r\n                  <td ID=\"ordertext_18\"> </td>\r\n                  <td ID=\"dose_18\"> </td>\r\n                  <td ID=\"frequency_18\"> </td>\r\n                  <td ID=\"status_18\"> </td>\r\n                  <td ID=\"disposition_18\">Prescribed</td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          ",
+							"status": "generated"
+						},
+						"extension": [
+							{
+								"valueBoolean": true,
+								"url": "entries-required"
+							}
+						],
+						"entry": [
+							{
+								"reference": "urn:uuid:fd0797f5-a0b8-2c8e-7d45-55e94573a532"
+							},
+							{
+								"reference": "urn:uuid:d7eec8aa-f59b-eec5-f9ca-b0c85f176f6b"
+							},
+							{
+								"reference": "urn:uuid:1d551326-02b0-d734-4e7a-5a721346a502"
+							},
+							{
+								"reference": "urn:uuid:f80eb22b-712c-0762-69e4-0808910e6909"
+							},
+							{
+								"reference": "urn:uuid:77ff082e-e39e-3910-c2dd-c56e19f4cf82"
+							}
+						],
+						"code": {
+							"text": "Medications",
+							"coding": [
+								{
+									"code": "10160-0",
+									"display": "Medications",
+									"system": "http://loinc.org"
+								}
+							]
+						}
+					},
+					{
+						"title": "Procedures",
+						"text": {
+							"div": "\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Date</th>\r\n                  <th>Procedure</th>\r\n                  <th>Type</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"date_19\">8/10/2009 11:00:00 PM</td>\r\n                  <td ID=\"procedure_19\">Bronchoscopic bronchial thermoplasty, ablation of airway smooth muscle</td>\r\n                  <td ID=\"proceduretype_19\"> </td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"date_20\">7/1/2009 12:00:00 PM</td>\r\n                  <td ID=\"procedure_20\">Treatment for Upper Respiratory Infection</td>\r\n                  <td ID=\"proceduretype_20\">Primary</td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"date_21\">6/7/2009 8:30:00 PM</td>\r\n                  <td ID=\"procedure_21\">Other and unspecified thoracoscopic operations on thymus</td>\r\n                  <td ID=\"proceduretype_21\"> </td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"date_22\">6/7/2009 8:00:00 PM</td>\r\n                  <td ID=\"procedure_22\">Percutaneous denervation of facet</td>\r\n                  <td ID=\"proceduretype_22\"> </td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          ",
+							"status": "generated"
+						},
+						"extension": [
+							{
+								"valueBoolean": true,
+								"url": "entries-required"
+							}
+						],
+						"entry": [
+							{
+								"reference": "urn:uuid:f469dfe5-1a4f-3a69-63fe-b1b4a06e3137"
+							},
+							{
+								"reference": "urn:uuid:a7ce0604-7891-c41c-4dab-6698f1cb558c"
+							},
+							{
+								"reference": "urn:uuid:825b3996-b7bb-02ec-5a91-b1c4ae671c3e"
+							},
+							{
+								"reference": "urn:uuid:88cb7f59-75f2-2400-5a7c-7a35e58efcc1"
+							}
+						],
+						"code": {
+							"text": "Procedures",
+							"coding": [
+								{
+									"code": "47519-4",
+									"display": "Procedures",
+									"system": "http://loinc.org"
+								}
+							]
+						}
+					},
+					{
+						"title": "Encounter Information",
+						"text": {
+							"div": "\r\n            <table>\r\n              <thead>\r\n                <tr>\r\n                  <th>Admit Date</th>\r\n                  <th>Discharge Date</th>\r\n                  <th>Type</th>\r\n                  <th>Problems</th>\r\n                  <th>Providers</th>\r\n                  <th>Location</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr>\r\n                  <td ID=\"AdmitDate_23\">8/10/2009 10:00:00 PM</td>\r\n                  <td ID=\"DischargeDate_23\"> </td>\r\n                  <td ID=\"AdmitType_23\">PCP Visit</td>\r\n                  <td ID=\"Problems_23\"> </td>\r\n                  <td ID=\"Providers_23\"> </td>\r\n                  <td ID=\"Location_23\"> </td>\r\n                </tr>\r\n                <tr>\r\n                  <td ID=\"AdmitDate_24\">6/7/2009 5:00:00 PM</td>\r\n                  <td ID=\"DischargeDate_24\"> </td>\r\n                  <td ID=\"AdmitType_24\">Inpatient</td>\r\n                  <td ID=\"Problems_24\">\r\n                    <paragraph>Streptobacillary fever: AdmittingDiagnosis</paragraph>\r\n                    <paragraph />\r\n                  </td>\r\n                  <td ID=\"Providers_24\">\r\n                    <paragraph>Smith, David MD: PrimaryCarePhysician</paragraph>\r\n                    <paragraph />\r\n                  </td>\r\n                  <td ID=\"Location_24\"> </td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          ",
+							"status": "generated"
+						},
+						"entry": [
+							{
+								"reference": "urn:uuid:5b13b546-e42d-ef48-252f-9fe8212bf9a1"
+							},
+							{
+								"reference": "urn:uuid:a74e07f0-30fa-7992-d322-51d504bb6524"
+							}
+						],
+						"code": {
+							"text": "Encounter Information",
+							"coding": [
+								{
+									"code": "46240-8",
+									"display": "Encounter Information",
+									"system": "http://loinc.org"
+								}
+							]
+						}
+					},
+					{
+						"title": "Vital Signs",
+						"text": {
+							"div": "No Vital Signs Available",
+							"status": "generated"
+						},
+						"extension": [
+							{
+								"valueBoolean": true,
+								"url": "entries-required"
+							}
+						],
+						"entry": [
+							{
+								"reference": "urn:uuid:65ddf8e0-811a-7f66-f870-c96aae07873b"
+							}
+						],
+						"code": {
+							"text": "Vital Signs",
+							"coding": [
+								{
+									"code": "8716-3",
+									"display": "Vital Signs",
+									"system": "http://loinc.org"
+								}
+							]
+						}
+					}
+				],
+				"type": {
+					"text": "Summary of Episode Note",
+					"coding": [
+						{
+							"code": "34133-9",
+							"display": "Summary of Episode Note",
+							"system": "http://loinc.org"
+						}
+					]
+				},
+				"resourceType": "Composition",
+				"title": "Medical Summary Document",
+				"author": [
+					{
+						"reference": "urn:uuid:d67ff673-f171-dc26-4cf0-d01689f3266b"
+					}
+				],
+				"custodian": {
+					"reference": "urn:uuid:fc668339-ba0b-402d-fe26-1597c3a863b3"
+				},
+				"status": "final",
+				"id": "3d1e9964-5fbd-4180-85af-0d473e3b43ec",
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:a92e3ed3-6b00-a8cd-978e-83895b84d54a"
+		},
+		{
+			"resource": {
+				"performedPeriod": {
+					"start": "2009-08-10T23:00:00-04:00"
+				},
+				"resourceType": "Procedure",
+				"extension": [
+					{
+						"valueCode": "procedure",
+						"url": "rim-class"
+					}
+				],
+				"status": "completed",
+				"id": "26b2ff9e-9b02-fe28-3f27-a910af26318e",
+				"code": {
+					"text": "Bronchoscopic bronchial thermoplasty, ablation of airway smooth muscle",
+					"coding": [
+						{
+							"code": "3227",
+							"display": "Bronchoscopic bronchial thermoplasty, ablation of airway smooth muscle",
+							"system": "http://www.ama-assn.org/go/cpt"
+						}
+					]
+				},
+				"identifier": [
+					{
+						"value": "3cf8cd8b-58ad-e411-8260-0050b664cec5",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:f469dfe5-1a4f-3a69-63fe-b1b4a06e3137"
+		},
+		{
+			"resource": {
+				"performedPeriod": {
+					"start": "2009-07-01T12:00:00-04:00"
+				},
+				"resourceType": "Procedure",
+				"extension": [
+					{
+						"valueCode": "procedure",
+						"url": "rim-class"
+					}
+				],
+				"status": "completed",
+				"id": "0b52ead7-41ab-4951-e696-79da26b461b2",
+				"identifier": [
+					{
+						"value": "18f8cd8b-58ad-e411-8260-0050b664cec5",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:a7ce0604-7891-c41c-4dab-6698f1cb558c"
+		},
+		{
+			"resource": {
+				"performedPeriod": {
+					"start": "2009-06-07T20:30:00-04:00"
+				},
+				"resourceType": "Procedure",
+				"extension": [
+					{
+						"valueCode": "procedure",
+						"url": "rim-class"
+					}
+				],
+				"status": "completed",
+				"id": "b062e809-4a75-5c26-1d4f-336f2891237e",
+				"identifier": [
+					{
+						"value": "3bf8cd8b-58ad-e411-8260-0050b664cec5",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:825b3996-b7bb-02ec-5a91-b1c4ae671c3e"
+		},
+		{
+			"resource": {
+				"performedPeriod": {
+					"start": "2009-06-07T20:00:00-04:00"
+				},
+				"resourceType": "Procedure",
+				"extension": [
+					{
+						"valueCode": "procedure",
+						"url": "rim-class"
+					}
+				],
+				"status": "completed",
+				"id": "dab6e73d-1940-fa2c-12dc-cfb3318e6aa2",
+				"code": {
+					"text": "Percutaneous denervation of facet",
+					"coding": [
+						{
+							"code": "0396",
+							"display": "Percutaneous denervation of facet",
+							"system": "http://www.ama-assn.org/go/cpt"
+						}
+					]
+				},
+				"identifier": [
+					{
+						"value": "3af8cd8b-58ad-e411-8260-0050b664cec5",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:88cb7f59-75f2-2400-5a7c-7a35e58efcc1"
+		},
+		{
+			"resource": {
+				"name": "Community Health Information Exchange",
+				"telecom": [
+					{
+						"system": "email",
+						"value": "support@example.com"
+					},
+					{
+						"value": "1-304-888-8888"
+					},
+					{
+						"system": "phone",
+						"value": "1-304-555-4444",
+						"use": "work"
+					},
+					{
+						"system": "phone",
+						"value": "1-304-555-5555",
+						"use": "work"
+					}
+				],
+				"address": [
+					{
+						"line": [
+							"123 Healtheway"
+						],
+						"city": "Charleston",
+						"state": "WV",
+						"postalCode": "25311"
+					},
+					{
+						"line": [
+							"123 Healtheway"
+						],
+						"city": "Charleston",
+						"state": "WV",
+						"postalCode": "25311",
+						"country": "US"
+					}
+				],
+				"id": "1.3.6.1.4.1.37608",
+				"resourceType": "Organization"
+			},
+			"fullUrl": "urn:uuid:fc668339-ba0b-402d-fe26-1597c3a863b3"
+		},
+		{
+			"resource": {
+				"resourceType": "Encounter",
+				"status": "finished",
+				"class": {
+					"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+					"code": "AMB",
+					"display": "AMB"
+				},
+				"id": "66fbf518-f24b-7819-c7d6-072df459eb10"
+			},
+			"fullUrl": "urn:uuid:690487e1-3b05-37ea-c11f-fb3e15491628"
+		},
+		{
+			"resource": {
+				"meta": {
+					"profile": [
+						"http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+					]
+				},
+				"type": [
+					{
+						"text": "PCP Visit",
+						"coding": [
+							{
+								"code": "PCPVisit",
+								"display": "PCP Visit",
+								"system": "urn:oid:AvFusion"
+							}
+						]
+					}
+				],
+				"resourceType": "Encounter",
+				"status": "unknown",
+				"id": "f5ddea8f-977e-f542-3408-25b3f2a78baf",
+				"class": {
+					"code": "IMP",
+					"display": "inpatient encounter",
+					"system": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode"
+				},
+				"identifier": [
+					{
+						"value": "08f8cd8b-58ad-e411-8260-0050b664cec5",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"period": {
+					"start": "2009-08-10T22:00:00-04:00"
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:5b13b546-e42d-ef48-252f-9fe8212bf9a1"
+		},
+		{
+			"resource": {
+				"meta": {
+					"profile": [
+						"http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+					]
+				},
+				"type": [
+					{
+						"text": "Inpatient",
+						"coding": [
+							{
+								"code": "Inpatient",
+								"display": "Inpatient",
+								"system": "urn:oid:AvFusion"
+							}
+						]
+					}
+				],
+				"participant": [
+					{
+						"individual": {
+							"reference": "urn:uuid:7ff34f5a-8a2c-e7f7-b421-e6d156150d48"
+						}
+					}
+				],
+				"resourceType": "Encounter",
+				"status": "unknown",
+				"id": "2d031eac-f775-b1bc-fffe-f3f9a90ad0a3",
+				"class": {
+					"code": "IMP",
+					"display": "inpatient encounter",
+					"system": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode"
+				},
+				"identifier": [
+					{
+						"value": "07f8cd8b-58ad-e411-8260-0050b664cec5",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"period": {
+					"start": "2009-06-07T17:00:00-04:00"
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				},
+				"reasonReference": [
+					{
+						"reference": "urn:uuid:3962cf1f-77e3-d40c-e26e-c8c4a0f04687"
+					}
+				]
+			},
+			"fullUrl": "urn:uuid:a74e07f0-30fa-7992-d322-51d504bb6524"
+		},
+		{
+			"resource": {
+				"resourceType": "MedicationAdministration",
+				"medicationCodeableConcept": {
+					"coding": [
+						{
+							"system": "http://snomed.info/sct",
+							"code": "261665006",
+							"display": "Unknown Drug"
+						}
+					]
+				},
+				"id": "8e60b004-7209-b158-79a2-4308206b1f79",
+				"status": "completed",
+				"effectivePeriod": {
+					"start": "2009-08-12T17:00:00-04:00",
+					"end": "2009-08-12T17:00:00-04:00"
+				},
+				"dosage": {
+					"route": {
+						"text": "Respiratory (Inhalation)",
+						"coding": [
+							{
+								"code": "C38216",
+								"display": "Respiratory (Inhalation)",
+								"system": "http://ncithesaurus-stage.nci.nih.gov"
+							}
+						]
+					},
+					"text": "Saline"
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:1d551326-02b0-d734-4e7a-5a721346a502"
+		},
+		{
+			"resource": {
+				"resourceType": "MedicationAdministration",
+				"medicationCodeableConcept": {
+					"text": "Acetaminophen 325 mg oral tablet",
+					"coding": [
+						{
+							"code": "C0981193",
+							"display": "Acetaminophen 325 mg oral tablet",
+							"system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+						}
+					]
+				},
+				"id": "09f57d90-7b6c-0a0c-0973-a23239408e3a",
+				"status": "completed",
+				"effectivePeriod": {
+					"start": "2009-08-11T22:00:00-04:00",
+					"end": "2009-08-11T22:00:00-04:00"
+				},
+				"dosage": {
+					"text": "Acetaminophen 325 mg oral tablet"
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:f80eb22b-712c-0762-69e4-0808910e6909"
+		},
+		{
+			"resource": {
+				"resourceType": "MedicationAdministration",
+				"medicationCodeableConcept": {
+					"text": "Albuterol 0.09mg/actuat inhalant solution",
+					"coding": [
+						{
+							"code": "C0973886",
+							"display": "Albuterol 0.09mg/actuat inhalant solution",
+							"system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+						}
+					]
+				},
+				"id": "bf54814a-426a-7625-6777-475cb994c54b",
+				"status": "completed",
+				"effectivePeriod": {
+					"start": "2009-08-11T17:00:00-04:00",
+					"end": "2009-08-11T17:00:00-04:00"
+				},
+				"dosage": {
+					"text": "Albuterol 0.09mg/actuat inhalant solution"
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:77ff082e-e39e-3910-c2dd-c56e19f4cf82"
+		},
+		{
+			"resource": {
+				"resourceType": "MedicationStatement",
+				"medicationCodeableConcept": {
+					"text": "Clopidogrel 75 MG oral tablet",
+					"coding": [
+						{
+							"code": "309362",
+							"display": "Clopidogrel 75 MG oral tablet",
+							"system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+						}
+					]
+				},
+				"id": "6f83279e-5af2-80f1-08e1-a56c0a6dda31",
+				"status": "completed",
+				"dosage": [
+					{
+						"text": "Clopidogrel 75 MG oral tablet",
+						"asNeededBoolean": true
+					}
+				],
+				"effectivePeriod": {
+					"start": "2009-08-15T09:00:00-04:00"
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:fd0797f5-a0b8-2c8e-7d45-55e94573a532"
+		},
+		{
+			"resource": {
+				"resourceType": "MedicationStatement",
+				"medicationCodeableConcept": {
+					"text": "Cephalexin 500 MG oral tablet",
+					"coding": [
+						{
+							"code": "197454",
+							"display": "Cephalexin 500 MG oral tablet",
+							"system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+						}
+					]
+				},
+				"id": "d6bc332c-a2e8-68cb-3542-a3a985a92c85",
+				"status": "completed",
+				"dosage": [
+					{
+						"text": "Cephalexin 500 MG oral tablet",
+						"asNeededBoolean": true
+					}
+				],
+				"effectivePeriod": {
+					"start": "2009-06-10T16:00:00-04:00"
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:d7eec8aa-f59b-eec5-f9ca-b0c85f176f6b"
+		},
+		{
+			"resource": {
+				"address": [
+					{
+						"line": [
+							"34 Drury Lane"
+						],
+						"city": "Disney Land",
+						"state": "CA",
+						"postalCode": "90210"
+					}
+				],
+				"name": [
+					{
+						"given": [
+							"Patient"
+						],
+						"family": "Smith",
+						"use": "official"
+					}
+				],
+				"birthDate": "1956-08-13",
+				"resourceType": "Patient",
+				"extension": [
+					{
+						"url": "http://hl7.org/fhir/StructureDefinition/us-core-race"
+					}
+				],
+				"id": "patient",
+				"identifier": [
+					{
+						"value": "IheTestPatient",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "534-555-6666",
+						"use": "home"
+					}
+				],
+				"gender": "unknown"
+			},
+			"fullUrl": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+		},
+		{
+			"resource": {
+				"patient": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				},
+				"criticality": "unable-to-assess",
+				"clinicalStatus": {
+					"coding": [
+						{
+							"code": "active",
+							"system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical"
+						}
+					]
+				},
+				"meta": {
+					"profile": [
+						"http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance"
+					]
+				},
+				"type": "intolerance",
+				"resourceType": "AllergyIntolerance",
+				"extension": [
+					{
+						"valueCodeableConcept": {
+							"text": "Rash",
+							"coding": [
+								{
+									"code": "420134006",
+									"display": "Propensity to adverse reactions (disorder)",
+									"system": "http://snomed.info/sct"
+								}
+							]
+						},
+						"url": "http://onc.org/allergy-observation-value"
+					}
+				],
+				"recordedDate": "2008-03-10T00:00:00-04:00",
+				"id": "58ba1d37-5874-cd3a-c446-e57e429fb271",
+				"onsetDateTime": "2008-03-10T00:00:00-04:00",
+				"reaction": [
+					{
+						"onset": "2008-03-10T00:00:00-04:00"
+					}
+				]
+			},
+			"fullUrl": "urn:uuid:995630fb-cc9f-6494-7a9e-d4d2305aca8f"
+		},
+		{
+			"resource": {
+				"practitioner": {
+					"reference": "urn:uuid:38e3651b-9252-fadc-0d17-2e4692ca6d55"
+				},
+				"id": "a56d19b4-71cb-84e5-ba18-197715dedefa",
+				"resourceType": "PractitionerRole"
+			},
+			"fullUrl": "urn:uuid:7ff34f5a-8a2c-e7f7-b421-e6d156150d48"
+		},
+		{
+			"resource": {
+				"practitioner": {
+					"reference": "urn:uuid:5813a060-ce5b-ba6c-b891-35f996db2f1f"
+				},
+				"id": "WVHIN",
+				"organization": {
+					"reference": "urn:uuid:fc668339-ba0b-402d-fe26-1597c3a863b3"
+				},
+				"resourceType": "PractitionerRole",
+				"period": {
+					"start": "2015-02-05T12:18:15-05:00"
+				}
+			},
+			"fullUrl": "urn:uuid:d67ff673-f171-dc26-4cf0-d01689f3266b"
+		},
+		{
+			"resource": {
+				"name": [
+					{
+						"given": [
+							"David",
+							"K"
+						],
+						"family": "Smith",
+						"use": "official",
+						"suffix": [
+							"MD"
+						]
+					}
+				],
+				"address": [
+					{
+						"line": [
+							"543 Doctor Avenue"
+						],
+						"city": "New York",
+						"state": "NY",
+						"postalCode": "10001"
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "212-555-7351",
+						"use": "home"
+					}
+				],
+				"id": "be633384-8138-5548-7c96-f7ef99b5695d",
+				"identifier": [
+					{
+						"value": "c68394cb-57ad-e411-8260-0050b664cec5",
+						"system": "urn:oid:1.3.6.1.4.1.37608"
+					}
+				],
+				"resourceType": "Practitioner"
+			},
+			"fullUrl": "urn:uuid:38e3651b-9252-fadc-0d17-2e4692ca6d55"
+		},
+		{
+			"resource": {
+				"address": [
+					{
+						"line": [
+							"123 Healtheway"
+						],
+						"city": "Charleston",
+						"state": "WV",
+						"postalCode": "25311"
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "1-304-555-5555",
+						"use": "work"
+					},
+					{
+						"value": "1-304-888-8888"
+					},
+					{
+						"system": "email",
+						"value": "support@example.com"
+					}
+				],
+				"id": "WVHIN",
+				"identifier": [
+					{
+						"value": "NA",
+						"system": "http://hl7.org/fhir/sid/us-npi"
+					}
+				],
+				"resourceType": "Practitioner"
+			},
+			"fullUrl": "urn:uuid:5813a060-ce5b-ba6c-b891-35f996db2f1f"
+		},
+		{
+			"resource": {
+				"onsetDateTime": "2009-06-07T18:00:00-04:00",
+				"category": [
+					{
+						"coding": [
+							{
+								"system": "http://terminology.hl7.org/CodeSystem/condition-category",
+								"code": "problem-list-item",
+								"display": "Problem List Item"
+							}
+						]
+					}
+				],
+				"clinicalStatus": {
+					"coding": [
+						{
+							"code": "active",
+							"system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+						}
+					]
+				},
+				"meta": {
+					"profile": [
+						"http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns"
+					]
+				},
+				"resourceType": "Condition",
+				"id": "225bcfcf-0850-c8a2-60db-d73854b117cc",
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:8e8c1fd5-511e-f0fe-4996-b87f53efdf5e"
+		},
+		{
+			"resource": {
+				"valueString": "10.2 G/DL",
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "HGB"
+					}
+				],
+				"status": "final",
+				"effectiveDateTime": "2009-06-08T12:09:00-04:00",
+				"id": "8a0e8d33-1ab7-6cb7-1ed8-500e1aa12880",
+				"code": {
+					"text": "HGB",
+					"coding": [
+						{
+							"code": "38082009",
+							"display": "HGB",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:a29a63b0-d85f-c77c-6551-22b5a62fe0aa"
+		},
+		{
+			"resource": {
+				"valueString": "112 MMOL/L",
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "CHLORIDE"
+					}
+				],
+				"status": "final",
+				"effectiveDateTime": "2009-06-09T18:17:00-04:00",
+				"id": "bd2339d5-3bf1-d3c0-5115-fc66290a9cb2",
+				"code": {
+					"text": "CHLORIDE",
+					"coding": [
+						{
+							"code": "275790008",
+							"display": "CHLORIDE",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:571e4ad0-06b4-aebf-554f-563518c2d316"
+		},
+		{
+			"resource": {
+				"resourceType": "Observation",
+				"hasMember": [
+					{
+						"reference": "urn:uuid:172d1804-11c2-404b-a320-b1ddf53bb974"
+					}
+				],
+				"id": "7621da5c-44b0-8c90-3431-730ce0179af7",
+				"code": {
+					"text": "Electrolytes measurement (procedure)",
+					"coding": [
+						{
+							"code": "79301008",
+							"display": "Electrolytes measurement (procedure)",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"status": "final",
+				"category": [
+					{
+						"coding": [
+							{
+								"code": "laboratory",
+								"display": "Laboratory",
+								"system": "http://terminology.hl7.org/CodeSystem/observation-category"
+							}
+						]
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:a66e9a4c-c25e-d9ca-3f58-af05f417d419"
+		},
+		{
+			"resource": {
+				"resourceType": "Observation",
+				"hasMember": [
+					{
+						"reference": "urn:uuid:571e4ad0-06b4-aebf-554f-563518c2d316"
+					}
+				],
+				"id": "5a9b6f97-fc75-1fac-3566-b483d8b6895b",
+				"code": {
+					"text": "CHEM24S",
+					"coding": [
+						{
+							"code": "166312007",
+							"display": "CHEM24S",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"status": "final",
+				"category": [
+					{
+						"coding": [
+							{
+								"code": "laboratory",
+								"display": "Laboratory",
+								"system": "http://terminology.hl7.org/CodeSystem/observation-category"
+							}
+						]
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:6fb53f8b-10e8-7190-808c-7c1ff6abb17c"
+		},
+		{
+			"resource": {
+				"valueString": "OPERATIVE NOTE \n                      \n                     DICTATED BY: Jack Blue, MD \n                     DICTATED: 6/7/2009  8:03 P   000087489 \n                     TRANSCRIBED:  6/8/2009  1:06 A  vl  D \n                      \n                     PATIENT NAME: Test, Ihe \n                     HEALTH RECORD NO.: 123456783 \n                     BILLING NO.: 88888888 \n                     ROOM NO.: SIC \n                      \n                     Date of Procedure: 11/28/06 \n                      \n                     PREOPERATIVE DIAGNOSES: Aortic stenosis and mitral \n                     insufficiency. \n                      \n                     POSTOPERATIVE DIAGNOSES: Aortic stenosis and mitral \n                     insufficiency. \n                      \n                     PROCEDURE PERFORMED: Aortic valve replacement with a 21 mm \n                     Edwards Magna bovine pericardial bioprosthesis and a reverse \n                     saphenous vein graft to the right coronary. \n                      \n                     SURGEON: Dr. Blue. \n                      \n                     ASSISTANT: Pat Yellow, CST. \n                      \n                     ANESTHESIA: General tracheal anesthesia, Dr. Green. \n                      \n                     Aortic cross clamp time was 117 minutes. \n                     Cardiopulmonary bypass time was 168 minutes. \n                     Atrial and ventricular pacing wires. \n                      \n                     Drains - 32 French mediastinal chest tube, 28 French \n                     mediastinal chest tube. \n                      \n                     FINDINGS: Good saphenous vein conduit, normal ascending aorta, \n                     aortic valve was trileaflet with heavy calcification to the \n                     leaflets. The annulus was not too heavily calcified with \n                     moderate aortic annular calcification.  Also noted was a right \n                     coronary ostial intimal flap that was noted after I was \n                     getting ready to seat the valve and this will be described in \n                     the text of the operation; therefore the right coronary was \n                     grafted.  The right coronary was a 2.5 mm vessel with no \n                     distal disease. \n                      \n                     INDICATIONS FOR PROCEDURE:  The patient is a 73-year-old woman \n                     who was found to have known aortic stenosis and found to have \n                     breast carcinoma needing resection of her breast cancer; \n                     however, has had severe aortic stenosis prior to undergoing \n                     breast cancer surgery.  She needed her heart fixed.  The \n                     patient is brought to the operating room for aortic valve \n                     replacement.  Preoperative echocardiogram demonstrates severe \n                     aortic stenosis and moderate aortic insufficiency and 2+ \n                     mitral insufficiency.  Intraoperative transesophageal \n                     echocardiogram was performed by Dr. Mauve. \n                      \n                     DESCRIPTION OF THE PROCEDURE: The patient was brought to the \n                     operating room and placed in a comfortable supine position on \n                     the operating table.  She underwent induction of general \n                     endotracheal anesthesia and placement of invasive monitor, \n                     lines and intraoperative echocardiogram by Dr. Mauve. \n                     Echocardiogram demonstrated severe aortic stenosis and heavily \n                     calcified leaflets with moderate mitral insufficiency given \n                     her age.  It was my impression that decompressing her outflow \n                     tract would improve her mitral valve insufficiency.  The \n                     patient was then positioned, prepped and draped in the usual \n                     sterile fashion.  A median sternotomy was accomplished.  The \n                     chest was opened and a mediastinal dissection proceeded. The \n                     pericardium was opened and suspended. The patient was \n                     heparinized.  The distal ascending aorta was cannulated \n                     through double aortic pursestring sutures.  A two stage venous \n                     cannula was positioned to the right atrial appendage \n                     pursestring and the patient was initiated on cardiopulmonary \n                     bypass.  Antegrade and retrograde cardioplegia cannulas were \n                     positioned.  An LV sump cannula was positioned through right \n                     superior pulmonary vein.  The patient was cooled to 32 degrees \n                     centigrade. The aorta was cross clamped and antegrade and \n                     retrograde cold blood cardioplegia was administered.  After \n                     diastolic rest of the heart we made a transverse aortotomy \n                     with a hockey stick extension down into the noncoronary sinus. \n                     Exposure of the valve was actually pretty descent. Valve \n                     findings as noted previously. The valve was sharply excised. \n                     The majority of the annular debridement was done fortunately \n                     with the scissors; i.e., the majority of the annular \n                     calcifications were in the leaflets and not so much in the \n                     annulus.  Once we got the leaflets cut out the annulus was d \n                     brided of the remainder of the calcific debris. I incised it \n                     prior to placement of sutures and it sized out to 21 mm sized \n                     out very easily and in fact a 23 almost fit. I then placed \n                     multiple annular sutures circumferentially about the annulus \n                     that was consistent with interrupted 2-0 Ethibond horizontal \n                     mattress pledgeted sutures with pledgets on the ventricular \n                     side.  Once we got all our sutures in, I resized the 21 mm \n                     sizer.  A 21 interannular sizer was quit snug; however, the \n                     sizer on the supra-annular position looked quite comfortable. \n                     A 21 mm valve was brought up to the field and it was washed \n                     and then brought to operative field.  While I was examining \n                     the root of the heart I noted that there an intimal dissection \n                     of the ostium of the right coronary that is completely \n                     unexplainable. There was no direct cannulation of the right \n                     coronary ostium.  There was no mechanical debridement at the \n                     right coronary ostium but fortuitously identified the right \n                     coronary intimal tear and it was an intimal tear of the aortic \n                     wall and it extended to the right coronary ostium.  I tacked \n                     this intima down to the aortic wall with interrupted \n                     horizontal mattress 5-0 Prolene suture but I was very \n                     uncomfortable just simply leaving this in place that it posed \n                     the possibility for acute right coronary dissection, RV \n                     infarct, and inferior wall infarct postoperatively. Therefore, \n                     even though she did not have any coronary disease, I was very \n                     concerned about leaving her with an unprotected right \n                     coronary.  I therefore asked Pat Yellow, my assistant, \n                     to scrub and take a segment of vein from the left lower leg \n                     greater saphenous vein was harvested and the wound was closed \n                     in layers with absorbable suture.  While she was taking vein, \n                     I placed annular sutures through the valve, sewing ring the \n                     valve and then seated down into the annulus and it seated \n                     nicely.  It was seated first in the left coronary sinus \n                     followed by the right coronary sinus followed by the \n                     noncoronary sinus.  The remainder of the sutures was tied \n                     circumferentially.  I examined the valve and it appeared to be \n                     seated well and I was very pleased with the seating. \n                     Pat Yellow was still procuring vein when I was closing \n                     the aortotomy.  The aortotomy was closed in a two layer \n                     fashion with running 4-0 Prolene in a two layer fashion.  The \n                     first layer was a running horizontal mattress with 4-0 Prolene \n                     followed by over and over 4-0 Prolene.  By this time the vein \n                     was out.  I identified a spot in the mid right coronary about \n                     the level of the acute margin, made an arteriotomy and sewed \n                     the vein graft end-to-side with running 7-0 Prolene suture.  I \n                     made a single 4.4 mm aortotomy distal to my transverse \n                     aortotomy and anastomosed the vein graft end-to-side with \n                     running 5-0 Prolene suture.  The patient was rewarmed while I \n                     reconstructed the last anastomosis and a warm dose of \n                     cardioplegia was given through the retrograde cannula.  The \n                     patient was positioned in Trendelenburg position. The \n                     ventricle and aorta were de-aired out the ascending aorta. \n                     The patient was positioned head down position.  The aortic \n                     cross clamp was removed.  The patient's rhythm returned to \n                     ventricular fibrillation.  I defibrillated the heart several \n                     times with loading dose of Lidocaine and amiodarone and was \n                     finally able to get her defibrillated to a paced rhythm.  The \n                     graft was de-aired and the bulldog was released.  The \n                     aortotomy was hemostatic. Atrial and ventricular pacing wires \n                     were positioned and mediastinal drains were positioned and \n                     proximal graft markers were positioned.  With satisfactory \n                     reperfusion time, we went ahead and ventilated the patient, \n                     removed the retrograde cannula was previously removed.  The LV \n                     sump cannula was removed once I had the heart beating.  We \n                     then proceeded with echocardiogram interrogation. \n                     Echocardiogram interrogation demonstrated satisfactory \n                     de-airing and satisfactory valve function with no aortic \n                     insufficiency and only trivial mitral insufficiency.  With \n                     that result, we removed the antegrade cardioplegia needle and \n                     then weaned and separated from cardiopulmonary bypass on low \n                     dose inotropic support.  The venous cannula was removed. The \n                     pump line was administered through the aortic cannula with \n                     satisfactory hemodynamics.  Protamine was administered.  We \n                     gained hemostasis through the mediastinum.  The aorta was \n                     de-cannulated.  Pursestring sutures were secured. With \n                     satisfactory hemostasis we preceded closure.  The sternum was \n                     approximated with interrupted #7 stainless steel wires.  The \n                     deep fascia was closed with running #1 PDS.  The subcutaneous \n                     tissue was closed with 2-0 Vicryl. The skin edges were closed \n                     with 3-0 Monocryl.  The patient's wounds were dressed in a \n                     dry, sterile dressing.  The patient tolerated the procedure \n                     well with no operative complications.  The patient was \n                     returned to the surgical intensive care unit in critical \n                     condition. \n                      \n                      \n                      \n                      \n                     ___________________________ \n                      \n                     Jack Blue, MD \n                      \n                     cc:  Donald M Red, MD \n                          Jack Blue, MD \n                          Chip Orange, MD \n                      \n                     DOCUMENT #: 2487825",
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "OPERATIVE NOTE \n                      \n                     DICTATED BY: Jack Blue, MD \n                     DICTATED: 6/7/2009  8:03 P   000087489 \n                     TRANSCRIBED:  6/8/2009  1:06 A  vl  D \n                      \n                     PATIENT NAME: Test, Ihe \n                     HEALTH RECORD NO.: 123456783 \n                     BILLING NO.: 88888888 \n                     ROOM NO.: SIC \n                      \n                     Date of Procedure: 11/28/06 \n                      \n                     PREOPERATIVE DIAGNOSES: Aortic stenosis and mitral \n                     insufficiency. \n                      \n                     POSTOPERATIVE DIAGNOSES: Aortic stenosis and mitral \n                     insufficiency. \n                      \n                     PROCEDURE PERFORMED: Aortic valve replacement with a 21 mm \n                     Edwards Magna bovine pericardial bioprosthesis and a reverse \n                     saphenous vein graft to the right coronary. \n                      \n                     SURGEON: Dr. Blue. \n                      \n                     ASSISTANT: Pat Yellow, CST. \n                      \n                     ANESTHESIA: General tracheal anesthesia, Dr. Green. \n                      \n                     Aortic cross clamp time was 117 minutes. \n                     Cardiopulmonary bypass time was 168 minutes. \n                     Atrial and ventricular pacing wires. \n                      \n                     Drains - 32 French mediastinal chest tube, 28 French \n                     mediastinal chest tube. \n                      \n                     FINDINGS: Good saphenous vein conduit, normal ascending aorta, \n                     aortic valve was trileaflet with heavy calcification to the \n                     leaflets. The annulus was not too heavily calcified with \n                     moderate aortic annular calcification.  Also noted was a right \n                     coronary ostial intimal flap that was noted after I was \n                     getting ready to seat the valve and this will be described in \n                     the text of the operation; therefore the right coronary was \n                     grafted.  The right coronary was a 2.5 mm vessel with no \n                     distal disease. \n                      \n                     INDICATIONS FOR PROCEDURE:  The patient is a 73-year-old woman \n                     who was found to have known aortic stenosis and found to have \n                     breast carcinoma needing resection of her breast cancer; \n                     however, has had severe aortic stenosis prior to undergoing \n                     breast cancer surgery.  She needed her heart fixed.  The \n                     patient is brought to the operating room for aortic valve \n                     replacement.  Preoperative echocardiogram demonstrates severe \n                     aortic stenosis and moderate aortic insufficiency and 2+ \n                     mitral insufficiency.  Intraoperative transesophageal \n                     echocardiogram was performed by Dr. Mauve. \n                      \n                     DESCRIPTION OF THE PROCEDURE: The patient was brought to the \n                     operating room and placed in a comfortable supine position on \n                     the operating table.  She underwent induction of general \n                     endotracheal anesthesia and placement of invasive monitor, \n                     lines and intraoperative echocardiogram by Dr. Mauve. \n                     Echocardiogram demonstrated severe aortic stenosis and heavily \n                     calcified leaflets with moderate mitral insufficiency given \n                     her age.  It was my impression that decompressing her outflow \n                     tract would improve her mitral valve insufficiency.  The \n                     patient was then positioned, prepped and draped in the usual \n                     sterile fashion.  A median sternotomy was accomplished.  The \n                     chest was opened and a mediastinal dissection proceeded. The \n                     pericardium was opened and suspended. The patient was \n                     heparinized.  The distal ascending aorta was cannulated \n                     through double aortic pursestring sutures.  A two stage venous \n                     cannula was positioned to the right atrial appendage \n                     pursestring and the patient was initiated on cardiopulmonary \n                     bypass.  Antegrade and retrograde cardioplegia cannulas were \n                     positioned.  An LV sump cannula was positioned through right \n                     superior pulmonary vein.  The patient was cooled to 32 degrees \n                     centigrade. The aorta was cross clamped and antegrade and \n                     retrograde cold blood cardioplegia was administered.  After \n                     diastolic rest of the heart we made a transverse aortotomy \n                     with a hockey stick extension down into the noncoronary sinus. \n                     Exposure of the valve was actually pretty descent. Valve \n                     findings as noted previously. The valve was sharply excised. \n                     The majority of the annular debridement was done fortunately \n                     with the scissors; i.e., the majority of the annular \n                     calcifications were in the leaflets and not so much in the \n                     annulus.  Once we got the leaflets cut out the annulus was d \n                     brided of the remainder of the calcific debris. I incised it \n                     prior to placement of sutures and it sized out to 21 mm sized \n                     out very easily and in fact a 23 almost fit. I then placed \n                     multiple annular sutures circumferentially about the annulus \n                     that was consistent with interrupted 2-0 Ethibond horizontal \n                     mattress pledgeted sutures with pledgets on the ventricular \n                     side.  Once we got all our sutures in, I resized the 21 mm \n                     sizer.  A 21 interannular sizer was quit snug; however, the \n                     sizer on the supra-annular position looked quite comfortable. \n                     A 21 mm valve was brought up to the field and it was washed \n                     and then brought to operative field.  While I was examining \n                     the root of the heart I noted that there an intimal dissection \n                     of the ostium of the right coronary that is completely \n                     unexplainable. There was no direct cannulation of the right \n                     coronary ostium.  There was no mechanical debridement at the \n                     right coronary ostium but fortuitously identified the right \n                     coronary intimal tear and it was an intimal tear of the aortic \n                     wall and it extended to the right coronary ostium.  I tacked \n                     this intima down to the aortic wall with interrupted \n                     horizontal mattress 5-0 Prolene suture but I was very \n                     uncomfortable just simply leaving this in place that it posed \n                     the possibility for acute right coronary dissection, RV \n                     infarct, and inferior wall infarct postoperatively. Therefore, \n                     even though she did not have any coronary disease, I was very \n                     concerned about leaving her with an unprotected right \n                     coronary.  I therefore asked Pat Yellow, my assistant, \n                     to scrub and take a segment of vein from the left lower leg \n                     greater saphenous vein was harvested and the wound was closed \n                     in layers with absorbable suture.  While she was taking vein, \n                     I placed annular sutures through the valve, sewing ring the \n                     valve and then seated down into the annulus and it seated \n                     nicely.  It was seated first in the left coronary sinus \n                     followed by the right coronary sinus followed by the \n                     noncoronary sinus.  The remainder of the sutures was tied \n                     circumferentially.  I examined the valve and it appeared to be \n                     seated well and I was very pleased with the seating. \n                     Pat Yellow was still procuring vein when I was closing \n                     the aortotomy.  The aortotomy was closed in a two layer \n                     fashion with running 4-0 Prolene in a two layer fashion.  The \n                     first layer was a running horizontal mattress with 4-0 Prolene \n                     followed by over and over 4-0 Prolene.  By this time the vein \n                     was out.  I identified a spot in the mid right coronary about \n                     the level of the acute margin, made an arteriotomy and sewed \n                     the vein graft end-to-side with running 7-0 Prolene suture.  I \n                     made a single 4.4 mm aortotomy distal to my transverse \n                     aortotomy and anastomosed the vein graft end-to-side with \n                     running 5-0 Prolene suture.  The patient was rewarmed while I \n                     reconstructed the last anastomosis and a warm dose of \n                     cardioplegia was given through the retrograde cannula.  The \n                     patient was positioned in Trendelenburg position. The \n                     ventricle and aorta were de-aired out the ascending aorta. \n                     The patient was positioned head down position.  The aortic \n                     cross clamp was removed.  The patient's rhythm returned to \n                     ventricular fibrillation.  I defibrillated the heart several \n                     times with loading dose of Lidocaine and amiodarone and was \n                     finally able to get her defibrillated to a paced rhythm.  The \n                     graft was de-aired and the bulldog was released.  The \n                     aortotomy was hemostatic. Atrial and ventricular pacing wires \n                     were positioned and mediastinal drains were positioned and \n                     proximal graft markers were positioned.  With satisfactory \n                     reperfusion time, we went ahead and ventilated the patient, \n                     removed the retrograde cannula was previously removed.  The LV \n                     sump cannula was removed once I had the heart beating.  We \n                     then proceeded with echocardiogram interrogation. \n                     Echocardiogram interrogation demonstrated satisfactory \n                     de-airing and satisfactory valve function with no aortic \n                     insufficiency and only trivial mitral insufficiency.  With \n                     that result, we removed the antegrade cardioplegia needle and \n                     then weaned and separated from cardiopulmonary bypass on low \n                     dose inotropic support.  The venous cannula was removed. The \n                     pump line was administered through the aortic cannula with \n                     satisfactory hemodynamics.  Protamine was administered.  We \n                     gained hemostasis through the mediastinum.  The aorta was \n                     de-cannulated.  Pursestring sutures were secured. With \n                     satisfactory hemostasis we preceded closure.  The sternum was \n                     approximated with interrupted #7 stainless steel wires.  The \n                     deep fascia was closed with running #1 PDS.  The subcutaneous \n                     tissue was closed with 2-0 Vicryl. The skin edges were closed \n                     with 3-0 Monocryl.  The patient's wounds were dressed in a \n                     dry, sterile dressing.  The patient tolerated the procedure \n                     well with no operative complications.  The patient was \n                     returned to the surgical intensive care unit in critical \n                     condition. \n                      \n                      \n                      \n                      \n                     ___________________________ \n                      \n                     Jack Blue, MD \n                      \n                     cc:  Donald M Red, MD \n                          Jack Blue, MD \n                          Chip Orange, MD \n                      \n                     DOCUMENT #: 2487825"
+					}
+				],
+				"status": "final",
+				"effectiveDateTime": "2009-06-07T17:00:00-04:00",
+				"id": "4e43fa06-acc1-d1ed-9ff7-3fefc27b0ba9",
+				"code": {
+					"text": "OPERATIVE NOTE \n                      \n                     DICTATED BY: Jack Blue, MD \n                     DICTATED: 6/7/2009  8:03 P   000087489 \n                     TRANSCRIBED:  6/8/2009  1:06 A  vl  D \n                      \n                     PATIENT NAME: Test, Ihe \n                     HEALTH RECORD NO.: 123456783 \n                     BILLING NO.: 88888888 \n                     ROOM NO.: SIC \n                      \n                     Date of Procedure: 11/28/06 \n                      \n                     PREOPERATIVE DIAGNOSES: Aortic stenosis and mitral \n                     insufficiency. \n                      \n                     POSTOPERATIVE DIAGNOSES: Aortic stenosis and mitral \n                     insufficiency. \n                      \n                     PROCEDURE PERFORMED: Aortic valve replacement with a 21 mm \n                     Edwards Magna bovine pericardial bioprosthesis and a reverse \n                     saphenous vein graft to the right coronary. \n                      \n                     SURGEON: Dr. Blue. \n                      \n                     ASSISTANT: Pat Yellow, CST. \n                      \n                     ANESTHESIA: General tracheal anesthesia, Dr. Green. \n                      \n                     Aortic cross clamp time was 117 minutes. \n                     Cardiopulmonary bypass time was 168 minutes. \n                     Atrial and ventricular pacing wires. \n                      \n                     Drains - 32 French mediastinal chest tube, 28 French \n                     mediastinal chest tube. \n                      \n                     FINDINGS: Good saphenous vein conduit, normal ascending aorta, \n                     aortic valve was trileaflet with heavy calcification to the \n                     leaflets. The annulus was not too heavily calcified with \n                     moderate aortic annular calcification.  Also noted was a right \n                     coronary ostial intimal flap that was noted after I was \n                     getting ready to seat the valve and this will be described in \n                     the text of the operation; therefore the right coronary was \n                     grafted.  The right coronary was a 2.5 mm vessel with no \n                     distal disease. \n                      \n                     INDICATIONS FOR PROCEDURE:  The patient is a 73-year-old woman \n                     who was found to have known aortic stenosis and found to have \n                     breast carcinoma needing resection of her breast cancer; \n                     however, has had severe aortic stenosis prior to undergoing \n                     breast cancer surgery.  She needed her heart fixed.  The \n                     patient is brought to the operating room for aortic valve \n                     replacement.  Preoperative echocardiogram demonstrates severe \n                     aortic stenosis and moderate aortic insufficiency and 2+ \n                     mitral insufficiency.  Intraoperative transesophageal \n                     echocardiogram was performed by Dr. Mauve. \n                      \n                     DESCRIPTION OF THE PROCEDURE: The patient was brought to the \n                     operating room and placed in a comfortable supine position on \n                     the operating table.  She underwent induction of general \n                     endotracheal anesthesia and placement of invasive monitor, \n                     lines and intraoperative echocardiogram by Dr. Mauve. \n                     Echocardiogram demonstrated severe aortic stenosis and heavily \n                     calcified leaflets with moderate mitral insufficiency given \n                     her age.  It was my impression that decompressing her outflow \n                     tract would improve her mitral valve insufficiency.  The \n                     patient was then positioned, prepped and draped in the usual \n                     sterile fashion.  A median sternotomy was accomplished.  The \n                     chest was opened and a mediastinal dissection proceeded. The \n                     pericardium was opened and suspended. The patient was \n                     heparinized.  The distal ascending aorta was cannulated \n                     through double aortic pursestring sutures.  A two stage venous \n                     cannula was positioned to the right atrial appendage \n                     pursestring and the patient was initiated on cardiopulmonary \n                     bypass.  Antegrade and retrograde cardioplegia cannulas were \n                     positioned.  An LV sump cannula was positioned through right \n                     superior pulmonary vein.  The patient was cooled to 32 degrees \n                     centigrade. The aorta was cross clamped and antegrade and \n                     retrograde cold blood cardioplegia was administered.  After \n                     diastolic rest of the heart we made a transverse aortotomy \n                     with a hockey stick extension down into the noncoronary sinus. \n                     Exposure of the valve was actually pretty descent. Valve \n                     findings as noted previously. The valve was sharply excised. \n                     The majority of the annular debridement was done fortunately \n                     with the scissors; i.e., the majority of the annular \n                     calcifications were in the leaflets and not so much in the \n                     annulus.  Once we got the leaflets cut out the annulus was d \n                     brided of the remainder of the calcific debris. I incised it \n                     prior to placement of sutures and it sized out to 21 mm sized \n                     out very easily and in fact a 23 almost fit. I then placed \n                     multiple annular sutures circumferentially about the annulus \n                     that was consistent with interrupted 2-0 Ethibond horizontal \n                     mattress pledgeted sutures with pledgets on the ventricular \n                     side.  Once we got all our sutures in, I resized the 21 mm \n                     sizer.  A 21 interannular sizer was quit snug; however, the \n                     sizer on the supra-annular position looked quite comfortable. \n                     A 21 mm valve was brought up to the field and it was washed \n                     and then brought to operative field.  While I was examining \n                     the root of the heart I noted that there an intimal dissection \n                     of the ostium of the right coronary that is completely \n                     unexplainable. There was no direct cannulation of the right \n                     coronary ostium.  There was no mechanical debridement at the \n                     right coronary ostium but fortuitously identified the right \n                     coronary intimal tear and it was an intimal tear of the aortic \n                     wall and it extended to the right coronary ostium.  I tacked \n                     this intima down to the aortic wall with interrupted \n                     horizontal mattress 5-0 Prolene suture but I was very \n                     uncomfortable just simply leaving this in place that it posed \n                     the possibility for acute right coronary dissection, RV \n                     infarct, and inferior wall infarct postoperatively. Therefore, \n                     even though she did not have any coronary disease, I was very \n                     concerned about leaving her with an unprotected right \n                     coronary.  I therefore asked Pat Yellow, my assistant, \n                     to scrub and take a segment of vein from the left lower leg \n                     greater saphenous vein was harvested and the wound was closed \n                     in layers with absorbable suture.  While she was taking vein, \n                     I placed annular sutures through the valve, sewing ring the \n                     valve and then seated down into the annulus and it seated \n                     nicely.  It was seated first in the left coronary sinus \n                     followed by the right coronary sinus followed by the \n                     noncoronary sinus.  The remainder of the sutures was tied \n                     circumferentially.  I examined the valve and it appeared to be \n                     seated well and I was very pleased with the seating. \n                     Pat Yellow was still procuring vein when I was closing \n                     the aortotomy.  The aortotomy was closed in a two layer \n                     fashion with running 4-0 Prolene in a two layer fashion.  The \n                     first layer was a running horizontal mattress with 4-0 Prolene \n                     followed by over and over 4-0 Prolene.  By this time the vein \n                     was out.  I identified a spot in the mid right coronary about \n                     the level of the acute margin, made an arteriotomy and sewed \n                     the vein graft end-to-side with running 7-0 Prolene suture.  I \n                     made a single 4.4 mm aortotomy distal to my transverse \n                     aortotomy and anastomosed the vein graft end-to-side with \n                     running 5-0 Prolene suture.  The patient was rewarmed while I \n                     reconstructed the last anastomosis and a warm dose of \n                     cardioplegia was given through the retrograde cannula.  The \n                     patient was positioned in Trendelenburg position. The \n                     ventricle and aorta were de-aired out the ascending aorta. \n                     The patient was positioned head down position.  The aortic \n                     cross clamp was removed.  The patient's rhythm returned to \n                     ventricular fibrillation.  I defibrillated the heart several \n                     times with loading dose of Lidocaine and amiodarone and was \n                     finally able to get her defibrillated to a paced rhythm.  The \n                     graft was de-aired and the bulldog was released.  The \n                     aortotomy was hemostatic. Atrial and ventricular pacing wires \n                     were positioned and mediastinal drains were positioned and \n                     proximal graft markers were positioned.  With satisfactory \n                     reperfusion time, we went ahead and ventilated the patient, \n                     removed the retrograde cannula was previously removed.  The LV \n                     sump cannula was removed once I had the heart beating.  We \n                     then proceeded with echocardiogram interrogation. \n                     Echocardiogram interrogation demonstrated satisfactory \n                     de-airing and satisfactory valve function with no aortic \n                     insufficiency and only trivial mitral insufficiency.  With \n                     that result, we removed the antegrade cardioplegia needle and \n                     then weaned and separated from cardiopulmonary bypass on low \n                     dose inotropic support.  The venous cannula was removed. The \n                     pump line was administered through the aortic cannula with \n                     satisfactory hemodynamics.  Protamine was administered.  We \n                     gained hemostasis through the mediastinum.  The aorta was \n                     de-cannulated.  Pursestring sutures were secured. With \n                     satisfactory hemostasis we preceded closure.  The sternum was \n                     approximated with interrupted #7 stainless steel wires.  The \n                     deep fascia was closed with running #1 PDS.  The subcutaneous \n                     tissue was closed with 2-0 Vicryl. The skin edges were closed \n                     with 3-0 Monocryl.  The patient's wounds were dressed in a \n                     dry, sterile dressing.  The patient tolerated the procedure \n                     well with no operative complications.  The patient was \n                     returned to the surgical intensive care unit in critical \n                     condition. \n                      \n                      \n                      \n                      \n                     ___________________________ \n                      \n                     Jack Blue, MD \n                      \n                     cc:  Donald M Red, MD \n                          Jack Blue, MD \n                          Chip Orange, MD \n                      \n                     DOCUMENT #: 2487825",
+					"coding": [
+						{
+							"code": "Operative",
+							"display": "Operative",
+							"system": "urn:oid:DemoNamespace"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:de549ead-df02-1449-16e0-677399fa5666"
+		},
+		{
+			"resource": {
+				"valueString": "28.6 %",
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "HCT"
+					}
+				],
+				"status": "final",
+				"effectiveDateTime": "2009-06-08T12:09:00-04:00",
+				"id": "a2af6714-fcc6-308d-84b6-bade108dfa70",
+				"code": {
+					"text": "HCT",
+					"coding": [
+						{
+							"code": "28317006",
+							"display": "HCT",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:26fa4d2a-780a-7ba8-4425-276ddedf1e4c"
+		},
+		{
+			"resource": {
+				"valueCodeableConcept": {
+					"text": "Streptobacillary fever",
+					"coding": [
+						{
+							"code": "0261",
+							"display": "Streptobacillary fever",
+							"system": "urn:oid:2.16.840.1.113883.6.103"
+						}
+					]
+				},
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "Streptobacillary fever"
+					}
+				],
+				"status": "final",
+				"effectivePeriod": {
+					"start": "2009-06-07T18:00:00-04:00"
+				},
+				"id": "0057a015-560a-7d64-22de-6e0e589f3b36",
+				"code": {
+					"text": "Problem",
+					"coding": [
+						{
+							"code": "55607006",
+							"display": "Problem",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:3962cf1f-77e3-d40c-e26e-c8c4a0f04687"
+		},
+		{
+			"resource": {
+				"resourceType": "Observation",
+				"hasMember": [
+					{
+						"reference": "urn:uuid:e9fce56d-5e93-3225-76c3-f2899c62e570"
+					},
+					{
+						"reference": "urn:uuid:a29a63b0-d85f-c77c-6551-22b5a62fe0aa"
+					},
+					{
+						"reference": "urn:uuid:293acca7-0e8b-0375-b930-59356be4c5f1"
+					},
+					{
+						"reference": "urn:uuid:26fa4d2a-780a-7ba8-4425-276ddedf1e4c"
+					}
+				],
+				"id": "22476306-f0c3-ee02-00cd-a385448818e0",
+				"code": {
+					"text": "CBC",
+					"coding": [
+						{
+							"code": "26604007",
+							"display": "CBC",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"status": "final",
+				"category": [
+					{
+						"coding": [
+							{
+								"code": "laboratory",
+								"display": "Laboratory",
+								"system": "http://terminology.hl7.org/CodeSystem/observation-category"
+							}
+						]
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:c9646cd1-0698-6b36-016f-e93a6b9efba7"
+		},
+		{
+			"resource": {
+				"valueString": "16.6 K/CUMM",
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "WBC"
+					}
+				],
+				"status": "final",
+				"effectiveDateTime": "2009-06-08T12:09:00-04:00",
+				"id": "663c6a21-2ddf-d195-cd35-14fe98d43021",
+				"code": {
+					"text": "WBC",
+					"coding": [
+						{
+							"code": "767002",
+							"display": "WBC",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:e9fce56d-5e93-3225-76c3-f2899c62e570"
+		},
+		{
+			"resource": {
+				"valueString": "132 K/CUMM",
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "PLT"
+					}
+				],
+				"status": "final",
+				"effectiveDateTime": "2009-06-08T12:09:00-04:00",
+				"id": "9f76f28f-c676-6649-300d-cd2f7b32c028",
+				"code": {
+					"text": "PLT",
+					"coding": [
+						{
+							"code": "16378004",
+							"display": "PLT",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:293acca7-0e8b-0375-b930-59356be4c5f1"
+		},
+		{
+			"resource": {
+				"resourceType": "Observation",
+				"hasMember": [
+					{
+						"reference": "urn:uuid:de549ead-df02-1449-16e0-677399fa5666"
+					}
+				],
+				"id": "c185ed25-8382-446f-92fd-a6779cde15f5",
+				"code": {
+					"coding": [
+						{
+							"code": "Operative",
+							"display": "Operative",
+							"system": "urn:oid:DemoNamespace"
+						}
+					]
+				},
+				"status": "final",
+				"category": [
+					{
+						"coding": [
+							{
+								"code": "laboratory",
+								"display": "Laboratory",
+								"system": "http://terminology.hl7.org/CodeSystem/observation-category"
+							}
+						]
+					}
+				],
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:396d0573-4858-7e4e-2a0d-16eb7ac3ada2"
+		},
+		{
+			"resource": {
+				"valueString": "26 MMOL/L",
+				"resourceType": "Observation",
+				"note": [
+					{
+						"text": "CARBON DIOXIDE"
+					}
+				],
+				"status": "final",
+				"effectiveDateTime": "2009-06-08T12:09:00-04:00",
+				"id": "3b7561b9-2cb0-a7c2-eeb7-8270939ea03a",
+				"code": {
+					"text": "CARBON DIOXIDE",
+					"coding": [
+						{
+							"code": "31811003",
+							"display": "CARBON DIOXIDE",
+							"system": "http://snomed.info/sct"
+						}
+					]
+				},
+				"subject": {
+					"reference": "urn:uuid:9f8231b9-aa93-0d4b-04a7-44e76a7a0a5b"
+				}
+			},
+			"fullUrl": "urn:uuid:172d1804-11c2-404b-a320-b1ddf53bb974"
+		}
+	]
+}

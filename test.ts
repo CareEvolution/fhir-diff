@@ -1,54 +1,12 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import * as r4 from 'fhir/r4';
 import { fhir_bundles_match } from ".";
 
-const bundle1 :r4.Bundle = {
-    resourceType: "Bundle",
-    entry: [
-        {
-            resource: {
-                resourceType: "Patient",
-                id: "1"
-            }
-        },
-        {
-            resource: {
-                resourceType: "Encounter",
-                id: "A",
-                "class": {
-                    system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-                    code: "AMB",
-                    display: "ambulatory"
-                },
-                "status": "finished",
-            }
-        }
-    ],
-    type: "searchset"
-};
+const dataPath = './data/synthetic';
 
-const bundle2 :r4.Bundle = {
-    resourceType: "Bundle",
-    entry: [
-        {
-            resource: {
-                resourceType: "Patient",
-                id: "1"
-            }
-        },{
-            resource: {
-                resourceType: "Encounter",
-                id: "A",
-                "class": {
-                    system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-                    code: "IMP",
-                    display: "inpatient"
-                },
-                "status": "finished",
-            }
-        }
-    ],
-    type: "searchset"
-};
+const bundle1 = JSON.parse(fs.readFileSync(path.join(dataPath, 'careevolution.json'), 'utf8')) as r4.Bundle;
+const bundle2 = JSON.parse(fs.readFileSync(path.join(dataPath, 'health_samurai_1.json'), 'utf8')) as r4.Bundle;
 
 const match = fhir_bundles_match(bundle1, bundle2);
 
