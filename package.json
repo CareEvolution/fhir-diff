@@ -1,0 +1,20 @@
+{
+  "name": "fhir-diff",
+  "version": "0.0.0-hackathon001",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "private": true,
+  "publishConfig":{ 
+    "registry":"https://proget.careevolution.com/npm/npm/"
+  }
+}
