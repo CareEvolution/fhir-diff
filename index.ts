@@ -10,7 +10,7 @@ const medicationResourceTypes = [
 
 const labResourceTypes = ["Observation", "DiagnosticReport"];
 
-function pick_identifier(identifier?: r4.Identifier[]): string | undefined {
+export function pick_identifier(identifier?: r4.Identifier[]): string | undefined {
   if (!identifier || identifier.length === 0) {
     return undefined;
   }
@@ -59,7 +59,7 @@ export function clean_code_system(
   return coding;
 }
 
-function pick_primary_coding(
+export function pick_primary_coding(
   codeableConcept: r4.CodeableConcept | undefined,
   preferredSystems: string[]
 ): r4.Coding | undefined {
@@ -104,7 +104,7 @@ class KeyStore {
   }
 }
 
-function build_keys(bundle: r4.Bundle): KeyStore {
+export function build_keys(bundle: r4.Bundle): KeyStore {
   const keys = new KeyStore();
 
   for (let entry of bundle.entry || []) {
