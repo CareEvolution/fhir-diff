@@ -7,4 +7,5 @@ export interface ResourceAndKey {
     primary_code_system?: string;
     primary_code?: string;
     date?: string;
+    text?: string;
 }
