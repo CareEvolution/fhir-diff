@@ -222,10 +222,12 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
         break;
 
       case "AllergyIntolerance":
+        const allergyIntoleranceSystems = 
+        ["http://snomed.info/sct"];
         const primary_coding_allergy = pick_primary_coding(
           entry.resource.code,
-          ["http://snomed.info/sct"]
-        );
+          allergyIntoleranceSystems
+        ) || entry.resource.reaction?.map(reaction => pick_primary_coding(reaction.substance, allergyIntoleranceSystems))?.find(s => !!s);
         keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
@@ -368,6 +370,42 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
             key.date = disitinctDates.values().next().value;
           }
         }
+        break;
+        case "DiagnosticReport":
+          const diagnosticReport = key.resource as r4.DiagnosticReport;
+          if (diagnosticReport.encounter?.reference) {
+            const encounterKey = keys.byFhirRef.get(
+              diagnosticReport.encounter.reference
+            );
+            if (encounterKey && encounterKey.date) {
+              key.date = encounterKey.date;
+            }
+          }
+  
+          if (
+            !key.date &&
+            diagnosticReport.result &&
+            diagnosticReport.result.length > 0
+          ) {
+            const resultDates: string[] = [];
+  
+            for (let result of diagnosticReport.result) {
+              if (result.reference) {
+                const resultKey =
+                  keys.byFhirRef.get(result.reference) ||
+                  keys.byFullUrl.get(result.reference);
+                if (resultKey && resultKey.date) {
+                  resultDates.push(resultKey.date);
+                }
+              }
+            }
+  
+            const disitinctDates = new Set(resultDates);
+            if (disitinctDates.size === 1) {
+              key.date = disitinctDates.values().next().value;
+            }
+          }
+          break;
     }
   }
 
