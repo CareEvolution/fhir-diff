@@ -1,6 +1,6 @@
 {
   "name": "@careevolution/fhir-diff",
-  "version": "0.0.0-hackathon001",
+  "version": "0.0.0-hackathon002",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
