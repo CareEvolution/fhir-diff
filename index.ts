@@ -1,16 +1,20 @@
 import * as r4 from "fhir/r4";
 import { FhirMatch } from "./models/fhir_match";
 import { ResourceAndKey } from "./models/resource_and_key";
+import wellKnownUrls from "./data/well-known-urls";
 
 const medicationResourceTypes = [
   "MedicationRequest",
   "MedicationStatement",
   "MedicationAdministration",
+  "Medication",
 ];
 
 const labResourceTypes = ["Observation", "DiagnosticReport"];
 
-export function pick_identifier(identifier?: r4.Identifier[]): string | undefined {
+export function pick_identifier(
+  identifier?: r4.Identifier[]
+): string | undefined {
   if (!identifier || identifier.length === 0) {
     return undefined;
   }
@@ -27,12 +31,17 @@ const rosettaInputCodeSystemRE =
 const rosettaInputCodeSystem2RE =
   /http:\/\/rosetta\.careevolution\.com\/codes\/([a-zA-Z0-9._-]+)(\/\w+)?/;
 const fhirCodesystemRE = /http:\/\/careevolution\.com\/fhircodes#(\w+)/;
-const oidRE = /urn:oid:(.*)/;   // not all things in CDAs that should be OIDs are OIDs, and naive template-based things won't be able to tell it's not an OID
+const oidRE = /urn:oid:(.*)/; // not all things in CDAs that should be OIDs are OIDs, and naive template-based things won't be able to tell it's not an OID
+const fakeFhirUrlRE = /http:\/\/terminology\.hl7\.org\/CodeSystem\/(.*)/;   // MS makes up terminology.hl7.org urls for custom stuff in CDAs
 
 export function clean_code_system(
   coding: r4.Coding | undefined
 ): r4.Coding | undefined {
   if (!coding?.system) {
+    return coding;
+  }
+
+  if(wellKnownUrls.has(coding.system)) {
     return coding;
   }
 
@@ -52,6 +61,12 @@ export function clean_code_system(
         if (oidMAtch) {
           coding.system = oidMAtch[1];
         }
+        else {
+          const fakeFhirUrlMatch = coding.system.match(fakeFhirUrlRE);
+          if (fakeFhirUrlMatch) {
+            coding.system = fakeFhirUrlMatch[1];
+          }
+        }
       }
     }
   }
@@ -67,7 +82,7 @@ export function pick_primary_coding(
     return undefined;
   }
 
-  const userSelected = codeableConcept.coding?.find((c) => c.userSelected);
+  const userSelected = codeableConcept.coding?.find((c) => c.userSelected === undefined || c.userSelected === true);
 
   if (userSelected) {
     return clean_code_system(userSelected);
@@ -80,7 +95,7 @@ export function pick_primary_coding(
   if (preferredSystem) {
     return clean_code_system(preferredSystem);
   }
-
+  
   return clean_code_system(codeableConcept.coding?.[0]);
 }
 
@@ -202,6 +217,21 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
         });
         break;
 
+      case "Medication":
+        const primary_coding_med = pick_primary_coding(entry.resource.code, [
+          "http://www.nlm.nih.gov/research/umls/rxnorm",
+        ]);
+        keys.push(entry, {
+          resource: entry.resource,
+          resourceType: entry.resource.resourceType,
+          identifier:
+            pick_identifier(entry.resource.identifier) || entry.resource.id,
+          primary_code_system: primary_coding_med?.system,
+          primary_code: primary_coding_med?.code,
+          text: clean_text(entry.resource.code?.text),
+        });
+        break;
+
       case "Procedure":
         const primary_coding_procedure = pick_primary_coding(
           entry.resource.code,
@@ -222,12 +252,14 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
         break;
 
       case "AllergyIntolerance":
-        const allergyIntoleranceSystems = 
-        ["http://snomed.info/sct"];
-        const primary_coding_allergy = pick_primary_coding(
-          entry.resource.code,
-          allergyIntoleranceSystems
-        ) || entry.resource.reaction?.map(reaction => pick_primary_coding(reaction.substance, allergyIntoleranceSystems))?.find(s => !!s);
+        const allergyIntoleranceSystems = ["http://snomed.info/sct"];
+        const primary_coding_allergy =
+          pick_primary_coding(entry.resource.code, allergyIntoleranceSystems) ||
+          entry.resource.reaction
+            ?.map((reaction) =>
+              pick_primary_coding(reaction.substance, allergyIntoleranceSystems)
+            )
+            ?.find((s) => !!s);
         keys.push(entry, {
           resource: entry.resource,
           resourceType: entry.resource.resourceType,
@@ -371,41 +403,41 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
           }
         }
         break;
-        case "DiagnosticReport":
-          const diagnosticReport = key.resource as r4.DiagnosticReport;
-          if (diagnosticReport.encounter?.reference) {
-            const encounterKey = keys.byFhirRef.get(
-              diagnosticReport.encounter.reference
-            );
-            if (encounterKey && encounterKey.date) {
-              key.date = encounterKey.date;
-            }
+      case "DiagnosticReport":
+        const diagnosticReport = key.resource as r4.DiagnosticReport;
+        if (diagnosticReport.encounter?.reference) {
+          const encounterKey = keys.byFhirRef.get(
+            diagnosticReport.encounter.reference
+          );
+          if (encounterKey && encounterKey.date) {
+            key.date = encounterKey.date;
           }
-  
-          if (
-            !key.date &&
-            diagnosticReport.result &&
-            diagnosticReport.result.length > 0
-          ) {
-            const resultDates: string[] = [];
-  
-            for (let result of diagnosticReport.result) {
-              if (result.reference) {
-                const resultKey =
-                  keys.byFhirRef.get(result.reference) ||
-                  keys.byFullUrl.get(result.reference);
-                if (resultKey && resultKey.date) {
-                  resultDates.push(resultKey.date);
-                }
+        }
+
+        if (
+          !key.date &&
+          diagnosticReport.result &&
+          diagnosticReport.result.length > 0
+        ) {
+          const resultDates: string[] = [];
+
+          for (let result of diagnosticReport.result) {
+            if (result.reference) {
+              const resultKey =
+                keys.byFhirRef.get(result.reference) ||
+                keys.byFullUrl.get(result.reference);
+              if (resultKey && resultKey.date) {
+                resultDates.push(resultKey.date);
               }
             }
-  
-            const disitinctDates = new Set(resultDates);
-            if (disitinctDates.size === 1) {
-              key.date = disitinctDates.values().next().value;
-            }
           }
-          break;
+
+          const disitinctDates = new Set(resultDates);
+          if (disitinctDates.size === 1) {
+            key.date = disitinctDates.values().next().value;
+          }
+        }
+        break;
     }
   }
 
@@ -470,20 +502,21 @@ function find_match_index_squishy(
   candidates: ResourceAndKey[]
 ): number {
   if (target.primary_code && target.primary_code_system) {
-    const byCode = candidates.findIndex(
+    const byCodeAndSystem = candidates.findIndex(
       (k) =>
         k.resourceType === target.resourceType &&
         k.primary_code_system === target.primary_code_system &&
-        k.primary_code === target.primary_code
+        k.primary_code === target.primary_code &&
+        k.date == target.date
     );
 
-    if (byCode !== -1) {
+    if (byCodeAndSystem !== -1) {
       console.log(
         `Matched ${build_ref(target.resource)} <=> ${build_ref(
-          candidates[byCode].resource
+          candidates[byCodeAndSystem].resource
         )} by code ${target.primary_code_system} ${target.primary_code}`
       );
-      return byCode;
+      return byCodeAndSystem;
     }
   }
 
@@ -521,6 +554,24 @@ function find_match_index_squishy(
       );
 
       return byValue;
+    }
+  }
+
+  if (target.primary_code) {
+    const byCodeOnly = candidates.findIndex(
+      (k) =>
+        k.resourceType === target.resourceType &&
+        k.primary_code === target.primary_code &&
+        k.date == target.date
+    );
+
+    if (byCodeOnly !== -1) {
+      console.log(
+        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+          candidates[byCodeOnly].resource
+        )} by code only ${target.primary_code}`
+      );
+      return byCodeOnly;
     }
   }
 

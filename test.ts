@@ -6,7 +6,7 @@ import { fhir_bundles_match } from ".";
 const dataPath = './data/synthetic';
 
 const bundle1 = JSON.parse(fs.readFileSync(path.join(dataPath, 'careevolution.json'), 'utf8')) as r4.Bundle;
-const bundle2 = JSON.parse(fs.readFileSync(path.join(dataPath, 'health_samurai_1.json'), 'utf8')) as r4.Bundle;
+const bundle2 = JSON.parse(fs.readFileSync(path.join(dataPath, 'microsoft.json'), 'utf8')) as r4.Bundle;
 
 const match = fhir_bundles_match(bundle1, bundle2);
 
