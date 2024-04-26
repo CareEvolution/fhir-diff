@@ -112,7 +112,7 @@ export class KeyStore {
 
   public push(entry: r4.BundleEntry, key: ResourceAndKey) {
     this.all.push(key);
-    this.byFhirRef.set(build_ref(key.resource), key);
+    this.byFhirRef.set(buildRef(key.resource), key);
     if (entry.fullUrl) {
       this.byFullUrl.set(entry.fullUrl, key);
     }
@@ -444,13 +444,13 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
   return keys;
 }
 
-function build_ref(resource: r4.Resource): string {
+export function buildRef(resource: r4.Resource): string {
   return `${resource.resourceType}/${resource.id}`;
 }
 
 function build_reference(resource: ResourceAndKey): r4.Reference {
   return {
-    reference: build_ref(resource.resource),
+    reference: buildRef(resource.resource),
   };
 }
 
@@ -466,7 +466,7 @@ function find_match_index(
 
   if (byIdentifier !== -1) {
     console.log(
-      `Matched ${build_ref(target.resource)} <=> ${build_ref(
+      `Matched ${buildRef(target.resource)} <=> ${buildRef(
         candidates[byIdentifier].resource
       )} by identifier ${target.identifier}`
     );
@@ -484,7 +484,7 @@ function find_match_index(
 
     if (byNaturalKey !== -1) {
       console.log(
-        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byNaturalKey].resource
         )} by natural key ${target.primary_code_system} ${
           target.primary_code
@@ -512,7 +512,7 @@ function find_match_index_squishy(
 
     if (byCodeAndSystem !== -1) {
       console.log(
-        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byCodeAndSystem].resource
         )} by code ${target.primary_code_system} ${target.primary_code}`
       );
@@ -530,7 +530,7 @@ function find_match_index_squishy(
 
     if (byText !== -1) {
       console.log(
-        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byText].resource
         )} by text ${target.text?.substring(0, 50)} and date ${target.date}`
       );
@@ -548,7 +548,7 @@ function find_match_index_squishy(
 
     if (byValue !== -1) {
       console.log(
-        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byValue].resource
         )} by value ${target.value} and date ${target.date}`
       );
@@ -567,7 +567,7 @@ function find_match_index_squishy(
 
     if (byCodeOnly !== -1) {
       console.log(
-        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byCodeOnly].resource
         )} by code only ${target.primary_code}`
       );
@@ -598,7 +598,7 @@ function find_match_index_cross_resource(
 
     if (byCode !== -1) {
       console.log(
-        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byCode].resource
         )} by code ${target.primary_code_system} ${target.primary_code}`
       );
@@ -616,7 +616,7 @@ function find_match_index_cross_resource(
 
     if (byText !== -1) {
       console.log(
-        `Matched ${build_ref(target.resource)} <=> ${build_ref(
+        `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byText].resource
         )} by text ${target.text?.substring(0, 50)} and date ${target.date}`
       );
@@ -629,7 +629,7 @@ function find_match_index_cross_resource(
     target.resourceType === "DiagnosticReport"
   ) {
     console.log(
-      `target: ${build_ref(target.resource)} ${target.identifier} ${
+      `target: ${buildRef(target.resource)} ${target.identifier} ${
         target.primary_code_system
       }/${target.primary_code} ${target.date} ${target.text?.substring(0, 50)}`
     );
