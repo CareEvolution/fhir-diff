@@ -13,7 +13,7 @@ const medicationResourceTypes = [
 const labResourceTypes = ["Observation", "DiagnosticReport"];
 
 export function pick_identifier(
-  identifier?: r4.Identifier[]
+  identifier?: r4.Identifier[],
 ): string | undefined {
   if (!identifier || identifier.length === 0) {
     return undefined;
@@ -32,16 +32,16 @@ const rosettaInputCodeSystem2RE =
   /http:\/\/rosetta\.careevolution\.com\/codes\/([a-zA-Z0-9._-]+)(\/\w+)?/;
 const fhirCodesystemRE = /http:\/\/careevolution\.com\/fhircodes#(\w+)/;
 const oidRE = /urn:oid:(.*)/; // not all things in CDAs that should be OIDs are OIDs, and naive template-based things won't be able to tell it's not an OID
-const fakeFhirUrlRE = /http:\/\/terminology\.hl7\.org\/CodeSystem\/(.*)/;   // MS makes up terminology.hl7.org urls for custom stuff in CDAs
+const fakeFhirUrlRE = /http:\/\/terminology\.hl7\.org\/CodeSystem\/(.*)/; // MS makes up terminology.hl7.org urls for custom stuff in CDAs
 
 export function clean_code_system(
-  coding: r4.Coding | undefined
+  coding: r4.Coding | undefined,
 ): r4.Coding | undefined {
   if (!coding?.system) {
     return coding;
   }
 
-  if(wellKnownUrls.has(coding.system)) {
+  if (wellKnownUrls.has(coding.system)) {
     return coding;
   }
 
@@ -60,8 +60,7 @@ export function clean_code_system(
         const oidMAtch = coding.system.match(oidRE);
         if (oidMAtch) {
           coding.system = oidMAtch[1];
-        }
-        else {
+        } else {
           const fakeFhirUrlMatch = coding.system.match(fakeFhirUrlRE);
           if (fakeFhirUrlMatch) {
             coding.system = fakeFhirUrlMatch[1];
@@ -76,26 +75,28 @@ export function clean_code_system(
 
 export function pick_primary_coding(
   codeableConcept: r4.CodeableConcept | undefined,
-  preferredSystems: string[]
+  preferredSystems: string[],
 ): r4.Coding | undefined {
   if (!codeableConcept?.coding) {
     return undefined;
   }
 
-  const userSelected = codeableConcept.coding?.find((c) => c.userSelected === undefined || c.userSelected === true);
+  const userSelected = codeableConcept.coding?.find(
+    (c) => c.userSelected === undefined || c.userSelected === true,
+  );
 
   if (userSelected) {
     return clean_code_system(userSelected);
   }
 
   const preferredSystem = codeableConcept.coding?.find((c) =>
-    preferredSystems.includes(c.system!)
+    preferredSystems.includes(c.system!),
   );
 
   if (preferredSystem) {
     return clean_code_system(preferredSystem);
   }
-  
+
   return clean_code_system(codeableConcept.coding?.[0]);
 }
 
@@ -150,7 +151,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
       case "Condition":
         const primary_coding_condition = pick_primary_coding(
           entry.resource.code,
-          ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"]
+          ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"],
         );
         keys.push(entry, {
           resource: entry.resource,
@@ -167,7 +168,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
       case "MedicationAdministration":
         const primary_coding_medadmin = pick_primary_coding(
           entry.resource.medicationCodeableConcept,
-          ["http://www.nlm.nih.gov/research/umls/rxnorm"]
+          ["http://www.nlm.nih.gov/research/umls/rxnorm"],
         );
         keys.push(entry, {
           resource: entry.resource,
@@ -184,7 +185,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
       case "MedicationRequest":
         const primary_coding_medreq = pick_primary_coding(
           entry.resource.medicationCodeableConcept,
-          ["http://www.nlm.nih.gov/research/umls/rxnorm"]
+          ["http://www.nlm.nih.gov/research/umls/rxnorm"],
         );
         keys.push(entry, {
           resource: entry.resource,
@@ -201,7 +202,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
       case "MedicationStatement":
         const primary_coding_medstate = pick_primary_coding(
           entry.resource.medicationCodeableConcept,
-          ["http://www.nlm.nih.gov/research/umls/rxnorm"]
+          ["http://www.nlm.nih.gov/research/umls/rxnorm"],
         );
         keys.push(entry, {
           resource: entry.resource,
@@ -235,7 +236,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
       case "Procedure":
         const primary_coding_procedure = pick_primary_coding(
           entry.resource.code,
-          ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"]
+          ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"],
         );
         keys.push(entry, {
           resource: entry.resource,
@@ -257,7 +258,10 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
           pick_primary_coding(entry.resource.code, allergyIntoleranceSystems) ||
           entry.resource.reaction
             ?.map((reaction) =>
-              pick_primary_coding(reaction.substance, allergyIntoleranceSystems)
+              pick_primary_coding(
+                reaction.substance,
+                allergyIntoleranceSystems,
+              ),
             )
             ?.find((s) => !!s);
         keys.push(entry, {
@@ -275,7 +279,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
       case "Observation":
         const primary_coding_observation = pick_primary_coding(
           entry.resource.code,
-          ["http://loinc.org", "http://snomed.info/sct"]
+          ["http://loinc.org", "http://snomed.info/sct"],
         );
 
         let value: string | undefined;
@@ -310,7 +314,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
       case "DiagnosticReport":
         const primary_coding_diagnostic_report = pick_primary_coding(
           entry.resource.code,
-          ["http://loinc.org", "http://snomed.info/sct"]
+          ["http://loinc.org", "http://snomed.info/sct"],
         );
 
         keys.push(entry, {
@@ -372,7 +376,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
         const observation = key.resource as r4.Observation;
         if (observation.encounter?.reference) {
           const encounterKey = keys.byFhirRef.get(
-            observation.encounter.reference
+            observation.encounter.reference,
           );
           if (encounterKey && encounterKey.date) {
             key.date = encounterKey.date;
@@ -407,7 +411,7 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
         const diagnosticReport = key.resource as r4.DiagnosticReport;
         if (diagnosticReport.encounter?.reference) {
           const encounterKey = keys.byFhirRef.get(
-            diagnosticReport.encounter.reference
+            diagnosticReport.encounter.reference,
           );
           if (encounterKey && encounterKey.date) {
             key.date = encounterKey.date;
@@ -456,19 +460,19 @@ function build_reference(resource: ResourceAndKey): r4.Reference {
 
 function find_match_index(
   target: ResourceAndKey,
-  candidates: ResourceAndKey[]
+  candidates: ResourceAndKey[],
 ): number {
   const byIdentifier = candidates.findIndex(
     (k) =>
       k.resourceType === target.resourceType &&
-      k.identifier === target.identifier
+      k.identifier === target.identifier,
   );
 
   if (byIdentifier !== -1) {
     console.log(
       `Matched ${buildRef(target.resource)} <=> ${buildRef(
-        candidates[byIdentifier].resource
-      )} by identifier ${target.identifier}`
+        candidates[byIdentifier].resource,
+      )} by identifier ${target.identifier}`,
     );
     return byIdentifier;
   }
@@ -479,16 +483,16 @@ function find_match_index(
         k.resourceType === target.resourceType &&
         k.primary_code_system === target.primary_code_system &&
         k.primary_code === target.primary_code &&
-        k.date === target.date
+        k.date === target.date,
     );
 
     if (byNaturalKey !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byNaturalKey].resource
+          candidates[byNaturalKey].resource,
         )} by natural key ${target.primary_code_system} ${
           target.primary_code
-        } ${target.date}`
+        } ${target.date}`,
       );
       return byNaturalKey;
     }
@@ -499,7 +503,7 @@ function find_match_index(
 
 function find_match_index_squishy(
   target: ResourceAndKey,
-  candidates: ResourceAndKey[]
+  candidates: ResourceAndKey[],
 ): number {
   if (target.primary_code && target.primary_code_system) {
     const byCodeAndSystem = candidates.findIndex(
@@ -507,14 +511,14 @@ function find_match_index_squishy(
         k.resourceType === target.resourceType &&
         k.primary_code_system === target.primary_code_system &&
         k.primary_code === target.primary_code &&
-        k.date == target.date
+        k.date == target.date,
     );
 
     if (byCodeAndSystem !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byCodeAndSystem].resource
-        )} by code ${target.primary_code_system} ${target.primary_code}`
+          candidates[byCodeAndSystem].resource,
+        )} by code ${target.primary_code_system} ${target.primary_code}`,
       );
       return byCodeAndSystem;
     }
@@ -525,14 +529,14 @@ function find_match_index_squishy(
       (k) =>
         k.resourceType === target.resourceType &&
         k.text === target.text &&
-        k.date === target.date
+        k.date === target.date,
     );
 
     if (byText !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byText].resource
-        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`
+          candidates[byText].resource,
+        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`,
       );
       return byText;
     }
@@ -543,14 +547,14 @@ function find_match_index_squishy(
       (k) =>
         k.resourceType === target.resourceType &&
         k.date === target.date &&
-        k.value === target.value
+        k.value === target.value,
     );
 
     if (byValue !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byValue].resource
-        )} by value ${target.value} and date ${target.date}`
+          candidates[byValue].resource,
+        )} by value ${target.value} and date ${target.date}`,
       );
 
       return byValue;
@@ -562,14 +566,14 @@ function find_match_index_squishy(
       (k) =>
         k.resourceType === target.resourceType &&
         k.primary_code === target.primary_code &&
-        k.date == target.date
+        k.date == target.date,
     );
 
     if (byCodeOnly !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byCodeOnly].resource
-        )} by code only ${target.primary_code}`
+          candidates[byCodeOnly].resource,
+        )} by code only ${target.primary_code}`,
       );
       return byCodeOnly;
     }
@@ -581,7 +585,7 @@ function find_match_index_squishy(
 function find_match_index_cross_resource(
   target: ResourceAndKey,
   candidates: ResourceAndKey[],
-  resourceTypes: string[]
+  resourceTypes: string[],
 ): number {
   if (!resourceTypes.includes(target.resourceType)) {
     return -1;
@@ -593,14 +597,14 @@ function find_match_index_cross_resource(
         resourceTypes.includes(k.resourceType) &&
         k.resourceType === target.resourceType &&
         k.primary_code_system === target.primary_code_system &&
-        k.primary_code === target.primary_code
+        k.primary_code === target.primary_code,
     );
 
     if (byCode !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byCode].resource
-        )} by code ${target.primary_code_system} ${target.primary_code}`
+          candidates[byCode].resource,
+        )} by code ${target.primary_code_system} ${target.primary_code}`,
       );
       return byCode;
     }
@@ -611,14 +615,14 @@ function find_match_index_cross_resource(
       (k) =>
         resourceTypes.includes(k.resourceType) &&
         k.text === target.text &&
-        k.date === target.date
+        k.date === target.date,
     );
 
     if (byText !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byText].resource
-        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`
+          candidates[byText].resource,
+        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`,
       );
       return byText;
     }
@@ -631,7 +635,7 @@ function find_match_index_cross_resource(
     console.log(
       `target: ${buildRef(target.resource)} ${target.identifier} ${
         target.primary_code_system
-      }/${target.primary_code} ${target.date} ${target.text?.substring(0, 50)}`
+      }/${target.primary_code} ${target.date} ${target.text?.substring(0, 50)}`,
     );
   }
 
@@ -650,7 +654,7 @@ function get_resource_type_group(resourceType: string): string[] | undefined {
 
 export function fhir_bundles_match(
   bundle1: r4.Bundle,
-  bundle2: r4.Bundle
+  bundle2: r4.Bundle,
 ): FhirMatch {
   console.log("--- bundle1 ---");
   var bundle1KeyStore = build_keys(bundle1);
@@ -685,14 +689,14 @@ export function fhir_bundles_match(
     const matchIndex = find_match_index_squishy(bundle2Key, unmatchedBundle1);
     if (matchIndex === -1) {
       const resourceTypeGroup = get_resource_type_group(
-        bundle2Key.resourceType
+        bundle2Key.resourceType,
       );
 
       if (resourceTypeGroup) {
         const crossResourceIndex = find_match_index_cross_resource(
           bundle2Key,
           unmatchedBundle1,
-          resourceTypeGroup
+          resourceTypeGroup,
         );
 
         if (crossResourceIndex === -1) {

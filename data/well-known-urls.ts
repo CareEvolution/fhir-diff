@@ -1,4 +1,4 @@
-const wellKnownUrls = new Set<string>()
+const wellKnownUrls = new Set<string>();
 
 wellKnownUrls.add("http://hl7.org/fhir/abstract-types");
 wellKnownUrls.add("http://hl7.org/fhir/account-status");
@@ -11,7 +11,9 @@ wellKnownUrls.add("http://hl7.org/fhir/action-relationship-type");
 wellKnownUrls.add("http://hl7.org/fhir/action-required-behavior");
 wellKnownUrls.add("http://hl7.org/fhir/action-selection-behavior");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/action-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/activity-definition-category");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/activity-definition-category",
+);
 wellKnownUrls.add("http://hl7.org/fhir/additionalmaterials");
 wellKnownUrls.add("http://hl7.org/fhir/address-type");
 wellKnownUrls.add("http://hl7.org/fhir/address-use");
@@ -20,21 +22,41 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adjudication-reason");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adjudication");
 wellKnownUrls.add("http://hl7.org/fhir/administrative-gender");
 wellKnownUrls.add("http://hl7.org/fhir/adverse-event-actuality");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adverse-event-category");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adverse-event-causality-assess");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adverse-event-causality-method");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adverse-event-outcome");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adverse-event-seriousness");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/adverse-event-severity");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/allerg-intol-substance-exp-risk");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/adverse-event-category",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/adverse-event-causality-assess",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/adverse-event-causality-method",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/adverse-event-outcome",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/adverse-event-seriousness",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/adverse-event-severity",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/allerg-intol-substance-exp-risk",
+);
 wellKnownUrls.add("http://hl7.org/fhir/allergy-intolerance-category");
 wellKnownUrls.add("http://hl7.org/fhir/allergy-intolerance-criticality");
 wellKnownUrls.add("http://hl7.org/fhir/allergy-intolerance-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/allergyintolerance-verification");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+);
 wellKnownUrls.add("http://hl7.org/fhir/animal-genderstatus");
 wellKnownUrls.add("http://hl7.org/fhir/animal-species");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/appointment-cancellation-reason");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/appointment-cancellation-reason",
+);
 wellKnownUrls.add("http://hl7.org/fhir/appointmentstatus");
 wellKnownUrls.add("http://hl7.org/fhir/assert-direction-codes");
 wellKnownUrls.add("http://hl7.org/fhir/assert-operator-codes");
@@ -57,27 +79,45 @@ wellKnownUrls.add("http://hl7.org/fhir/care-plan-activity-status");
 wellKnownUrls.add("http://hl7.org/fhir/care-team-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/catalogType");
 wellKnownUrls.add("http://cds-hooks.hl7.org/CodeSystem/indicator");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/certainty-subcomponent-rating");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/certainty-subcomponent-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/chargeitem-billingcodes");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/certainty-subcomponent-rating",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/certainty-subcomponent-type",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/chargeitem-billingcodes",
+);
 wellKnownUrls.add("http://hl7.org/fhir/chargeitem-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/choice-list-orientation");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/choice-list-orientation",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/chromosome-human");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/claimcareteamrole");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/claim-exception");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/claiminformationcategory");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/claiminformationcategory",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/modifiers");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-claimsubtype");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/claim-type");
 wellKnownUrls.add("http://hl7.org/fhir/claim-use");
 wellKnownUrls.add("http://hl7.org/fhir/code-search-support");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/common-tags");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/communication-category");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/communication-not-done-reason");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/communication-category",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/communication-not-done-reason",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/communication-topic");
 wellKnownUrls.add("http://hl7.org/fhir/compartment-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/composite-measure-scoring");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/composition-altcode-kind");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/composite-measure-scoring",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/composition-altcode-kind",
+);
 wellKnownUrls.add("http://hl7.org/fhir/composition-attestation-mode");
 wellKnownUrls.add("http://hl7.org/fhir/composition-status");
 wellKnownUrls.add("http://hl7.org/fhir/concept-map-equivalence");
@@ -91,7 +131,9 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/condition-state");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/condition-ver-status");
 wellKnownUrls.add("http://hl7.org/fhir/conditional-delete-status");
 wellKnownUrls.add("http://hl7.org/fhir/conditional-read-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/conformance-expectation");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/conformance-expectation",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/consentaction");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/consentcategorycodes");
 wellKnownUrls.add("http://hl7.org/fhir/consent-data-meaning");
@@ -112,8 +154,12 @@ wellKnownUrls.add("http://hl7.org/fhir/contract-asset-context");
 wellKnownUrls.add("http://hl7.org/fhir/contract-asset-scope");
 wellKnownUrls.add("http://hl7.org/fhir/contract-asset-subtype");
 wellKnownUrls.add("http://hl7.org/fhir/contract-asset-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/contract-content-derivative");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/contract-data-meaning");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/contract-content-derivative",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/contract-data-meaning",
+);
 wellKnownUrls.add("http://hl7.org/fhir/contract-decision-mode");
 wellKnownUrls.add("http://hl7.org/fhir/contract-definition-subtype");
 wellKnownUrls.add("http://hl7.org/fhir/contract-definition-type");
@@ -125,19 +171,29 @@ wellKnownUrls.add("http://hl7.org/fhir/contract-scope");
 wellKnownUrls.add("http://hl7.org/fhir/contract-security-category");
 wellKnownUrls.add("http://hl7.org/fhir/contract-security-classification");
 wellKnownUrls.add("http://hl7.org/fhir/contract-security-control");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/contractsignertypecodes");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/contractsignertypecodes",
+);
 wellKnownUrls.add("http://hl7.org/fhir/contract-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/contractsubtypecodes");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/contracttermsubtypecodes");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/contracttermtypecodes");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/contracttermsubtypecodes",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/contracttermtypecodes",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/contract-type");
 wellKnownUrls.add("http://hl7.org/fhir/contributor-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/copy-number-event");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/coverage-class");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/coverage-copay-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-coverage-financial-exception");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/ex-coverage-financial-exception",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/coverage-selfpay");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/coverageeligibilityresponse-ex-auth-support");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/coverageeligibilityresponse-ex-auth-support",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/data-absent-reason");
 wellKnownUrls.add("http://hl7.org/fhir/data-types");
 wellKnownUrls.add("http://hl7.org/fhir/days-of-week");
@@ -154,7 +210,9 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/device-status-reason");
 wellKnownUrls.add("http://hl7.org/fhir/device-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/diagnosis-role");
 wellKnownUrls.add("http://hl7.org/fhir/diagnostic-report-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/dicom-audit-lifecycle");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/dicom-audit-lifecycle",
+);
 wellKnownUrls.add("http://dicom.nema.org/resources/ontology/DCM");
 wellKnownUrls.add("http://hl7.org/fhir/discriminator-type");
 wellKnownUrls.add("http://hl7.org/fhir/document-mode");
@@ -166,14 +224,22 @@ wellKnownUrls.add("http://hl7.org/fhir/eligibilityrequest-purpose");
 wellKnownUrls.add("http://hl7.org/fhir/eligibilityresponse-purpose");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/admit-source");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/diet");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/discharge-disposition");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/discharge-disposition",
+);
 wellKnownUrls.add("http://hl7.org/fhir/encounter-location-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/participant-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/encounter-special-arrangements");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/encounter-special-arrangements",
+);
 wellKnownUrls.add("http://hl7.org/fhir/encounter-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/encounter-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/endpoint-connection-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/endpoint-payload-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+);
 wellKnownUrls.add("http://hl7.org/fhir/endpoint-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/entformula-additive");
 wellKnownUrls.add("http://hl7.org/fhir/episode-of-care-status");
@@ -183,13 +249,21 @@ wellKnownUrls.add("http://hl7.org/fhir/event-resource-types");
 wellKnownUrls.add("http://hl7.org/fhir/event-status");
 wellKnownUrls.add("http://hl7.org/fhir/event-timing");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/evidence-quality");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/evidence-variant-state");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/evidence-variant-state",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-benefitcategory");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-diagnosis-on-admission");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-diagnosisrelatedgroup");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/ex-diagnosis-on-admission",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/ex-diagnosisrelatedgroup",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-diagnosistype");
 wellKnownUrls.add("http://hl7.org/fhir/ex-onsettype");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-payee-resource-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/ex-payee-resource-type",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-paymenttype");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-procedure-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-programcode");
@@ -197,22 +271,32 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-revenue-center");
 wellKnownUrls.add("http://hl7.org/fhir/CodeSystem/example-supplement");
 wellKnownUrls.add("http://hl7.org/fhir/CodeSystem/example");
 wellKnownUrls.add("http://hl7.org/fhir/examplescenario-actor-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/expansion-parameter-source");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/expansion-processing-rule");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/expansion-parameter-source",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/expansion-processing-rule",
+);
 wellKnownUrls.add("http://hl7.org/fhir/explanationofbenefit-status");
 wellKnownUrls.add("http://hl7.org/fhir/exposure-state");
 wellKnownUrls.add("http://hl7.org/fhir/expression-language");
 wellKnownUrls.add("http://hl7.org/fhir/extension-context-type");
 wellKnownUrls.add("http://hl7.org/fhir/extra-activity-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/extra-security-role-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
+);
 wellKnownUrls.add("http://hl7.org/fhir/feeding-device");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/codesystem-altcode-kind");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/codesystem-altcode-kind",
+);
 wellKnownUrls.add("http://hl7.org/fhir/codesystem-content-mode");
 wellKnownUrls.add("http://hl7.org/fhir/codesystem-hierarchy-meaning");
 wellKnownUrls.add("http://hl7.org/fhir/FHIR-version");
 wellKnownUrls.add("http://hl7.org/fhir/filter-operator");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/financialtaskcode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/financialtaskinputtype");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/financialtaskinputtype",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/flag-category");
 wellKnownUrls.add("http://hl7.org/fhir/flag-priority-code");
 wellKnownUrls.add("http://hl7.org/fhir/flag-status");
@@ -222,11 +306,15 @@ wellKnownUrls.add("http://hl7.org/fhir/fm-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/forms-codes");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/fundsreserve");
 wellKnownUrls.add("http://hl7.org/fhir/gender-identity");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/goal-acceptance-status");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/goal-acceptance-status",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/goal-achievement");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/goal-category");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/goal-priority");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/goal-relationship-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/goal-relationship-type",
+);
 wellKnownUrls.add("http://hl7.org/fhir/goal-status-reason");
 wellKnownUrls.add("http://hl7.org/fhir/goal-status");
 wellKnownUrls.add("http://hl7.org/fhir/graph-compartment-rule");
@@ -237,7 +325,9 @@ wellKnownUrls.add("http://hl7.org/fhir/guidance-response-status");
 wellKnownUrls.add("http://hl7.org/fhir/guide-page-generation");
 wellKnownUrls.add("http://hl7.org/fhir/guide-parameter-code");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/handling-condition");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/history-absent-reason");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/history-absent-reason",
+);
 wellKnownUrls.add("http://hl7.org/fhir/history-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/hl7-work-group");
 wellKnownUrls.add("http://hl7.org/fhir/http-operations");
@@ -246,13 +336,25 @@ wellKnownUrls.add("http://hl7.org/fhir/sid/ex-icd-10-procedures");
 wellKnownUrls.add("http://hl7.org/fhir/identifier-use");
 wellKnownUrls.add("http://hl7.org/fhir/identity-assuranceLevel");
 wellKnownUrls.add("http://hl7.org/fhir/imagingstudy-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/immunization-evaluation-dose-status-reason");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/immunization-evaluation-dose-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/immunization-funding-source");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/immunization-evaluation-dose-status-reason",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/immunization-evaluation-dose-status",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/immunization-funding-source",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/immunization-origin");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/immunization-program-eligibility");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/immunization-recommendation-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/immunization-program-eligibility",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/immunization-recommendation-status",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/implantStatus");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/applicability");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/insurance-plan-type");
@@ -269,13 +371,17 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/library-type");
 wellKnownUrls.add("http://hl7.org/fhir/link-type");
 wellKnownUrls.add("http://hl7.org/fhir/linkage-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/list-empty-reason");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/list-example-use-codes");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/list-example-use-codes",
+);
 wellKnownUrls.add("urn:oid:1.2.36.1.2001.1001.101.104.16592");
 wellKnownUrls.add("http://hl7.org/fhir/list-mode");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/list-order");
 wellKnownUrls.add("http://hl7.org/fhir/list-status");
 wellKnownUrls.add("http://hl7.org/fhir/location-mode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/location-physical-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/location-physical-type",
+);
 wellKnownUrls.add("http://hl7.org/fhir/location-status");
 wellKnownUrls.add("http://hl7.org/fhir/map-context-type");
 wellKnownUrls.add("http://hl7.org/fhir/map-group-type-mode");
@@ -286,33 +392,65 @@ wellKnownUrls.add("http://hl7.org/fhir/map-target-list-mode");
 wellKnownUrls.add("http://hl7.org/fhir/map-transform");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/match-grade");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/measure-data-usage");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/measure-improvement-notation");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/measure-population");
 wellKnownUrls.add("http://hl7.org/fhir/measure-report-status");
 wellKnownUrls.add("http://hl7.org/fhir/measure-report-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/measure-scoring");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/measure-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/med-admin-perform-function");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/med-admin-perform-function",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/media-modality");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/media-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medication-admin-category");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medication-admin-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medication-statement-category");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medication-admin-category",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medication-admin-status",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medication-statement-category",
+);
 wellKnownUrls.add("http://hl7.org/fhir/CodeSystem/medication-statement-status");
 wellKnownUrls.add("http://hl7.org/fhir/CodeSystem/medication-status");
-wellKnownUrls.add("http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-category");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationdispense-performer-function");
-wellKnownUrls.add("http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-status-reason");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationdispense-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationknowledge-characteristic");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationknowledge-package-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationknowledge-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationrequest-category");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationrequest-course-of-therapy");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-category",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationdispense-performer-function",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-status-reason",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationdispense-status",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationknowledge-characteristic",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationknowledge-package-type",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationknowledge-status",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationrequest-course-of-therapy",
+);
 wellKnownUrls.add("http://hl7.org/fhir/CodeSystem/medicationrequest-intent");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/medicationrequest-status-reason");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/medicationrequest-status-reason",
+);
 wellKnownUrls.add("http://hl7.org/fhir/CodeSystem/medicationrequest-status");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/message-reasons-encounter");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/message-reasons-encounter",
+);
 wellKnownUrls.add("http://hl7.org/fhir/message-significance-category");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/message-transport");
 wellKnownUrls.add("http://hl7.org/fhir/messageheader-response-request");
@@ -333,7 +471,9 @@ wellKnownUrls.add("http://hl7.org/fhir/note-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/object-role");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/observation-category");
 wellKnownUrls.add("http://hl7.org/fhir/observation-range-category");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/observation-statistics");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/observation-statistics",
+);
 wellKnownUrls.add("http://hl7.org/fhir/observation-status");
 wellKnownUrls.add("http://hl7.org/fhir/operation-kind");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/operation-outcome");
@@ -346,14 +486,18 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/parameter-group");
 wellKnownUrls.add("http://hl7.org/fhir/participantrequired");
 wellKnownUrls.add("http://hl7.org/fhir/participationstatus");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/payeetype");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/payment-adjustment-reason");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/payment-adjustment-reason",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/paymentstatus");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/payment-type");
 wellKnownUrls.add("http://hl7.org/fhir/permitted-data-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/plan-definition-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/practitioner-role");
 wellKnownUrls.add("http://hl7.org/fhir/practitioner-specialty");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/precision-estimate-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/precision-estimate-type",
+);
 wellKnownUrls.add("http://hl7.org/fhir/procedure-progress-status-code");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/processpriority");
 wellKnownUrls.add("http://hl7.org/fhir/product-category");
@@ -362,9 +506,13 @@ wellKnownUrls.add("http://hl7.org/fhir/product-storage-scale");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/program");
 wellKnownUrls.add("http://hl7.org/fhir/property-representation");
 wellKnownUrls.add("http://hl7.org/fhir/provenance-participant-role");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/provenance-participant-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+);
 wellKnownUrls.add("http://hl7.org/fhir/provenance-entity-role");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-providerqualification");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/ex-providerqualification",
+);
 wellKnownUrls.add("http://hl7.org/fhir/publication-status");
 wellKnownUrls.add("http://hl7.org/fhir/quality-type");
 wellKnownUrls.add("http://hl7.org/fhir/quantity-comparator");
@@ -374,18 +522,30 @@ wellKnownUrls.add("http://hl7.org/fhir/questionnaire-display-category");
 wellKnownUrls.add("http://hl7.org/fhir/questionnaire-enable-behavior");
 wellKnownUrls.add("http://hl7.org/fhir/questionnaire-enable-operator");
 wellKnownUrls.add("http://hl7.org/fhir/questionnaire-item-control");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/questionnaire-usage-mode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/reaction-event-certainty");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/questionnaire-usage-mode",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/reaction-event-certainty",
+);
 wellKnownUrls.add("http://hl7.org/fhir/reaction-event-severity");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/reason-medication-given");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/reason-medication-given",
+);
 wellKnownUrls.add("http://hl7.org/fhir/reason-medication-not-given");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/recommendation-strength");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/recommendation-strength",
+);
 wellKnownUrls.add("http://hl7.org/fhir/reference-handling-policy");
 wellKnownUrls.add("http://hl7.org/fhir/reference-version-rules");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/referencerange-meaning");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/referencerange-meaning",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/rejection-criteria");
 wellKnownUrls.add("http://hl7.org/fhir/related-artifact-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-relatedclaimrelationship");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/ex-relatedclaimrelationship",
+);
 wellKnownUrls.add("http://hl7.org/fhir/relation-type");
 wellKnownUrls.add("http://hl7.org/fhir/relationship");
 wellKnownUrls.add("http://hl7.org/fhir/remittance-outcome");
@@ -399,14 +559,22 @@ wellKnownUrls.add("http://hl7.org/fhir/request-priority");
 wellKnownUrls.add("http://hl7.org/fhir/request-resource-types");
 wellKnownUrls.add("http://hl7.org/fhir/request-status");
 wellKnownUrls.add("http://hl7.org/fhir/research-element-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/research-study-objective-type");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/research-study-phase");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/research-study-prim-purp-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/research-study-reason-stopped");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/research-study-prim-purp-type",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/research-study-reason-stopped",
+);
 wellKnownUrls.add("http://hl7.org/fhir/research-study-status");
 wellKnownUrls.add("http://hl7.org/fhir/research-subject-status");
 wellKnownUrls.add("http://hl7.org/fhir/resource-aggregation-mode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/resource-security-category");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/resource-security-category",
+);
 wellKnownUrls.add("http://hl7.org/fhir/resource-slicing-rules");
 wellKnownUrls.add("http://hl7.org/fhir/resource-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/resource-type-link");
@@ -415,7 +583,9 @@ wellKnownUrls.add("http://hl7.org/fhir/resource-validation-mode");
 wellKnownUrls.add("http://hl7.org/fhir/response-code");
 wellKnownUrls.add("http://hl7.org/fhir/restful-capability-mode");
 wellKnownUrls.add("http://hl7.org/fhir/restful-interaction");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/restful-security-service");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/restful-security-service",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/risk-estimate-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/risk-probability");
 wellKnownUrls.add("http://hl7.org/fhir/search-comparator");
@@ -430,8 +600,12 @@ wellKnownUrls.add("http://hl7.org/fhir/ex-servicemodifier");
 wellKnownUrls.add("http://hl7.org/fhir/ex-pharmaservice");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-serviceplace");
 wellKnownUrls.add("http://hl7.org/fhir/ex-serviceproduct");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/service-provision-conditions");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/service-referral-method");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/service-provision-conditions",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/service-referral-method",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/service-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-USCLS");
 wellKnownUrls.add("urn:iso-astm:E1762-95:2013");
@@ -446,7 +620,9 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/standards-status");
 wellKnownUrls.add("http://hl7.org/fhir/strand-type");
 wellKnownUrls.add("http://hl7.org/fhir/structure-definition-kind");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/study-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/subscriber-relationship");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+);
 wellKnownUrls.add("http://hl7.org/fhir/subscription-channel-type");
 wellKnownUrls.add("http://hl7.org/fhir/subscription-status");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/subscription-tag");
@@ -463,9 +639,15 @@ wellKnownUrls.add("http://hl7.org/fhir/CodeSystem/task-code");
 wellKnownUrls.add("http://hl7.org/fhir/task-intent");
 wellKnownUrls.add("http://hl7.org/fhir/task-status");
 wellKnownUrls.add("http://hl7.org/fhir/ex-fdi");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/testscript-operation-codes");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/testscript-profile-destination-types");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/testscript-profile-origin-types");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/testscript-operation-codes",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/testscript-profile-destination-types",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/testscript-profile-origin-types",
+);
 wellKnownUrls.add("urn:oid:2.16.840.1.113883.3.1937.98.5.8");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-tooth");
 wellKnownUrls.add("http://hl7.org/fhir/transaction-mode");
@@ -475,120 +657,216 @@ wellKnownUrls.add("http://hl7.org/fhir/udi-entry-type");
 wellKnownUrls.add("http://hl7.org/fhir/ex-udi");
 wellKnownUrls.add("http://hl7.org/fhir/unknown-content-code");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/usage-context-type");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AcknowledgementCondition");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AcknowledgementDetailCode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AcknowledgementDetailType");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AcknowledgementType");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-AcknowledgementCondition",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-AcknowledgementDetailCode",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-AcknowledgementDetailType",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-AcknowledgementType",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActClass");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActCode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActExposureLevelCode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActInvoiceElementModifier");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ActExposureLevelCode",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ActInvoiceElementModifier",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActMood");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActPriority");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActReason");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActRelationshipCheckpoint");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActRelationshipJoin");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActRelationshipSplit");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActRelationshipSubset");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActRelationshipType");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ActRelationshipCheckpoint",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ActRelationshipJoin",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ActRelationshipSplit",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ActRelationshipSubset",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ActRelationshipType",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActSite");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActStatus");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActUncertainty");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ActUSPrivacyLaw");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AddressPartType");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AddressUse");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-AmericanIndianAlaskaNativeLanguages");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-AmericanIndianAlaskaNativeLanguages",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-Calendar");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-CalendarCycle");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-CalendarType");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-Charset");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-CodingRationale");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-CommunicationFunctionType");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-CompressionAlgorithm");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-CommunicationFunctionType",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-CompressionAlgorithm",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-Confidentiality");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ContainerCap");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ContainerSeparator");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ContentProcessingMode");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ContainerSeparator",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ContentProcessingMode",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ContextControl");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-DataOperation");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-Dentition");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-DeviceAlertLevel");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-DocumentCompletion");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-DocumentCompletion",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-DocumentStorage");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EducationLevel");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EmployeeJobClass");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EncounterAdmissionSource");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EncounterSpecialCourtesy");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-EncounterAdmissionSource",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-EncounterSpecialCourtesy",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityClass");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityCode");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityDeterminer");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityHandling");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityNamePartQualifier");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityNamePartQualifierR2");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityNamePartType");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityNamePartTypeR2");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-EntityNamePartQualifier",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-EntityNamePartQualifierR2",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-EntityNamePartType",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-EntityNamePartTypeR2",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityNameUse");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityNameUseR2");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityRisk");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EntityStatus");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-EquipmentAlertLevel");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-EquipmentAlertLevel",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-Ethnicity");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ExposureMode");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-GenderStatus");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7ApprovalStatus");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7CMETAttribution");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-HL7ContextConductionStyle");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-hl7CMETAttribution",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-HL7ContextConductionStyle",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7ITSType");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7ITSVersionCode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7PublishingDomain");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7PublishingSection");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7PublishingSubSection");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-hl7PublishingDomain",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-hl7PublishingSection",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-hl7PublishingSubSection",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7Realm");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-HL7StandardVersionCode");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-HL7StandardVersionCode",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-HL7UpdateMode");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7V3Conformance");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-hl7VoteResolution");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-HtmlLinkType");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-IdentifierReliability");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-IdentifierReliability",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-IdentifierScope");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-IntegrityCheckAlgorithm");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityMode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityProficiency");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-IntegrityCheckAlgorithm",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityMode",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityProficiency",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-LivingArrangement");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-LocalMarkupIgnore");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-LocalRemoteControlState");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ManagedParticipationStatus");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-LocalRemoteControlState",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ManagedParticipationStatus",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-MapRelationship");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-MaritalStatus");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-MessageWaitingPriority");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-MessageWaitingPriority",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ModifyIndicator");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-NullFlavor");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ObservationCategory");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ObservationCategory",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ObservationMethod");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ObservationValue");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ParticipationMode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ParticipationSignature");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ParticipationSignature",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ParticipationType");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-PatientImportance");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-PaymentTerms");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-PersonDisabilityType");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ProbabilityDistributionType");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-PersonDisabilityType",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ProbabilityDistributionType",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ProcessingID");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ProcessingMode");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-QueryParameterValue");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-QueryParameterValue",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-QueryPriority");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-QueryRequestLimit");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-QueryResponse");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-QueryStatusCode");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-Race");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-RelationalOperator");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-RelationshipConjunction");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-RelationalOperator",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-RelationshipConjunction",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ResponseLevel");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ResponseModality");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-ResponseMode");
@@ -597,30 +875,50 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-RoleCode");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-RoleLinkStatus");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-RoleLinkType");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-RoleStatus");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-RouteOfAdministration",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-Sequencing");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-SetOperator");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-SpecimenType");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-styleType");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-SubstitutionCondition");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TableCellHorizontalAlign");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-SubstitutionCondition",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-TableCellHorizontalAlign",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TableCellScope");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TableCellVerticalAlign");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-TableCellVerticalAlign",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TableFrame");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TableRules");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TargetAwareness");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TelecommunicationCapabilities");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-TelecommunicationCapabilities",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TimingEvent");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TransmissionRelationshipTypeCode");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-TransmissionRelationshipTypeCode",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-triggerEventID");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-VaccineManufacturer");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/v3-WorkClassificationODH");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-VaccineManufacturer",
+);
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/v3-WorkClassificationODH",
+);
 wellKnownUrls.add("http://hl7.org/fhir/variable-type");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/variant-state");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/can-push-updates");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/verificationresult-communication-method");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/verificationresult-communication-method",
+);
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/failure-action");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/need");
 wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/primary-source-type");
@@ -632,7 +930,9 @@ wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/validation-type");
 wellKnownUrls.add("http://hl7.org/fhir/versioning-policy");
 wellKnownUrls.add("http://hl7.org/fhir/vision-base-codes");
 wellKnownUrls.add("http://hl7.org/fhir/vision-eye-codes");
-wellKnownUrls.add("http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct");
+wellKnownUrls.add(
+  "http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct",
+);
 wellKnownUrls.add("http://hl7.org/fhir/w3c-provenance-activity-type");
 
 export default wellKnownUrls;

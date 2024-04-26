@@ -176,9 +176,7 @@
         "name": "Community Health Information Exchange",
         "address": [
           {
-            "line": [
-              "123 Healtheway"
-            ],
+            "line": ["123 Healtheway"],
             "city": "Charleston",
             "state": "WV",
             "country": "US",
@@ -242,9 +240,7 @@
         "name": "Community Health Information Exchange",
         "address": [
           {
-            "line": [
-              "123 Healtheway"
-            ],
+            "line": ["123 Healtheway"],
             "city": "Charleston",
             "state": "WV",
             "postalCode": "25311"
@@ -281,9 +277,7 @@
         "name": [
           {
             "family": "Smith",
-            "given": [
-              "Patient"
-            ]
+            "given": ["Patient"]
           }
         ],
         "birthDate": "1956-08-13",
@@ -326,9 +320,7 @@
         ],
         "address": [
           {
-            "line": [
-              "34 Drury Lane"
-            ],
+            "line": ["34 Drury Lane"],
             "city": "Disney Land",
             "state": "CA",
             "postalCode": "90210"
