@@ -120,242 +120,372 @@ export class KeyStore {
   }
 }
 
+function buildKeyPatient(patient: r4.Patient): ResourceAndKey {
+  return {
+    resource: patient,
+    resourceType: "Patient",
+    identifier: pick_identifier(patient.identifier) || patient.id,
+  };
+}
+
+function buildKeyEncounter(encounter: r4.Encounter): ResourceAndKey {
+  const primary_coding = encounter.class;
+  return {
+    resource: encounter,
+    resourceType: encounter.resourceType,
+    identifier: pick_identifier(encounter.identifier) || encounter.id,
+    primary_code_system: primary_coding?.system,
+    primary_code: primary_coding?.code,
+    date: encounter.period?.start,
+  };
+}
+
+function buildKeyCondition(condition: r4.Condition): ResourceAndKey {
+  const primary_coding = pick_primary_coding(condition.code, [
+    "http://snomed.info/sct",
+    "http://www.icd10data.com/icd10pcs",
+  ]);
+  return {
+    resource: condition,
+    resourceType: condition.resourceType,
+    identifier: pick_identifier(condition.identifier) || condition.id,
+    primary_code_system: primary_coding?.system,
+    primary_code: primary_coding?.code,
+    date: condition.onsetDateTime,
+    text: clean_text(condition.code?.text),
+  };
+}
+
+function buildKeyMedicationAdministration(
+  medadmin: r4.MedicationAdministration,
+): ResourceAndKey {
+  const primary_coding = pick_primary_coding(
+    medadmin.medicationCodeableConcept,
+    ["http://www.nlm.nih.gov/research/umls/rxnorm"],
+  );
+  return {
+    resource: medadmin,
+    resourceType: medadmin.resourceType,
+    identifier: pick_identifier(medadmin.identifier) || medadmin.id,
+    primary_code_system: primary_coding?.system,
+    primary_code: primary_coding?.code,
+    date: medadmin.effectiveDateTime,
+    text: clean_text(medadmin.medicationCodeableConcept?.text),
+  };
+}
+
+function buildKeyMedicationRequest(
+  medRequest: r4.MedicationRequest,
+): ResourceAndKey {
+  const primary_coding = pick_primary_coding(
+    medRequest.medicationCodeableConcept,
+    ["http://www.nlm.nih.gov/research/umls/rxnorm"],
+  );
+  return {
+    resource: medRequest,
+    resourceType: medRequest.resourceType,
+    identifier: pick_identifier(medRequest.identifier) || medRequest.id,
+    primary_code_system: primary_coding?.system,
+    primary_code: primary_coding?.code,
+    date: medRequest.authoredOn,
+    text: clean_text(medRequest.medicationCodeableConcept?.text),
+  };
+}
+
+function buildKeyMedicationStatement(
+  medStatement: r4.MedicationStatement,
+): ResourceAndKey {
+  const primary_coding = pick_primary_coding(
+    medStatement.medicationCodeableConcept,
+    ["http://www.nlm.nih.gov/research/umls/rxnorm"],
+  );
+  return {
+    resource: medStatement,
+    resourceType: medStatement.resourceType,
+    identifier: pick_identifier(medStatement.identifier) || medStatement.id,
+    primary_code_system: primary_coding?.system,
+    primary_code: primary_coding?.code,
+    date: medStatement.effectiveDateTime || medStatement.effectivePeriod?.start,
+    text: clean_text(medStatement.medicationCodeableConcept?.text),
+  };
+}
+
+function buildKeyMedication(medication: r4.Medication): ResourceAndKey {
+  const primary_coding = pick_primary_coding(medication.code, [
+    "http://www.nlm.nih.gov/research/umls/rxnorm",
+  ]);
+  return {
+    resource: medication,
+    resourceType: medication.resourceType,
+    identifier: pick_identifier(medication.identifier) || medication.id,
+    primary_code_system: primary_coding?.system,
+    primary_code: primary_coding?.code,
+    text: clean_text(medication.code?.text),
+  };
+}
+
+function buildKeyProcedure(procedure: r4.Procedure): ResourceAndKey {
+  const primary_coding = pick_primary_coding(procedure.code, [
+    "http://snomed.info/sct",
+    "http://www.icd10data.com/icd10pcs",
+  ]);
+  return {
+    resource: procedure,
+    resourceType: procedure.resourceType,
+    identifier: pick_identifier(procedure.identifier) || procedure.id,
+    primary_code_system: primary_coding?.system,
+    primary_code: primary_coding?.code,
+    date: procedure.performedDateTime || procedure.performedPeriod?.start,
+    text: clean_text(procedure.code?.text),
+  };
+}
+
+function buildKeyAllergyInterolerance(
+  allergyIntolerance: r4.AllergyIntolerance,
+): ResourceAndKey {
+  const allergyIntoleranceSystems = ["http://snomed.info/sct"];
+  const primary_coding_allergy =
+    pick_primary_coding(allergyIntolerance.code, allergyIntoleranceSystems) ||
+    allergyIntolerance.reaction
+      ?.map((reaction) =>
+        pick_primary_coding(reaction.substance, allergyIntoleranceSystems),
+      )
+      ?.find((s) => !!s);
+  return {
+    resource: allergyIntolerance,
+    resourceType: allergyIntolerance.resourceType,
+    identifier:
+      pick_identifier(allergyIntolerance.identifier) || allergyIntolerance.id,
+    primary_code_system: primary_coding_allergy?.system,
+    primary_code: primary_coding_allergy?.code,
+    date: allergyIntolerance.onsetDateTime || allergyIntolerance.recordedDate,
+    text: clean_text(allergyIntolerance.code?.text),
+  };
+}
+
+function buildKeyObservation(observation: r4.Observation): ResourceAndKey {
+  const primary_coding_observation = pick_primary_coding(observation.code, [
+    "http://loinc.org",
+    "http://snomed.info/sct",
+  ]);
+
+  let value: string | undefined;
+
+  if (observation.valueString) {
+    value = observation.valueString;
+  } else if (observation.valueQuantity?.value) {
+    if (observation.valueQuantity.unit) {
+      value = `${observation.valueQuantity.value} ${observation.valueQuantity.unit}`;
+    } else {
+      value = observation.valueQuantity.value?.toString();
+    }
+  } else if (observation.valueInteger) {
+    value = observation.valueInteger.toString();
+  } else if (observation.valueCodeableConcept?.text) {
+    value = observation.valueCodeableConcept.text;
+  }
+
+  return {
+    resource: observation,
+    resourceType: observation.resourceType,
+    identifier: pick_identifier(observation.identifier) || observation.id,
+    primary_code_system: primary_coding_observation?.system,
+    primary_code: primary_coding_observation?.code,
+    date: observation.effectiveDateTime,
+    text: clean_text(observation.code?.text),
+    value: value,
+  };
+}
+
+function buildKeyDiagnosticReport(
+  diagnosticReport: r4.DiagnosticReport,
+): ResourceAndKey {
+  const primary_coding_diagnostic_report = pick_primary_coding(
+    diagnosticReport.code,
+    ["http://loinc.org", "http://snomed.info/sct"],
+  );
+
+  return {
+    resource: diagnosticReport,
+    resourceType: diagnosticReport.resourceType,
+    identifier:
+      pick_identifier(diagnosticReport.identifier) || diagnosticReport.id,
+    primary_code_system: primary_coding_diagnostic_report?.system,
+    primary_code: primary_coding_diagnostic_report?.code,
+    date: diagnosticReport.effectiveDateTime,
+    text: clean_text(diagnosticReport.code?.text),
+  };
+}
+
+function buildKeyPractitioner(practitioner: r4.Practitioner): ResourceAndKey {
+  return {
+    resource: practitioner,
+    resourceType: practitioner.resourceType,
+    identifier: pick_identifier(practitioner.identifier) || practitioner.id,
+  };
+}
+
+function buildKeyPractitionerRole(
+  practitionerRole: r4.PractitionerRole,
+): ResourceAndKey {
+  return {
+    resource: practitionerRole,
+    resourceType: practitionerRole.resourceType,
+    identifier:
+      pick_identifier(practitionerRole.identifier) || practitionerRole.id,
+  };
+}
+
+function buildKeyOrganization(organization: r4.Organization): ResourceAndKey {
+  return {
+    resource: organization,
+    resourceType: organization.resourceType,
+    identifier: pick_identifier(organization.identifier) || organization.id,
+  };
+}
+
+function setObservationDate(observationKey: ResourceAndKey, keys: KeyStore) {
+  if (observationKey.date) {
+    return;
+  }
+
+  const observation = observationKey.resource as r4.Observation;
+
+  if (observation.encounter?.reference) {
+    const encounterKey = keys.byFhirRef.get(observation.encounter.reference);
+    if (encounterKey && encounterKey.date) {
+      observationKey.date = encounterKey.date;
+      return;
+    }
+  }
+
+  if (observation.hasMember && observation.hasMember.length > 0) {
+    const memberDates: string[] = [];
+
+    for (const member of observation.hasMember) {
+      if (member.reference) {
+        const memberKey = keys.byFhirRef.get(member.reference);
+        if (memberKey && memberKey.date) {
+          memberDates.push(memberKey.date);
+        }
+      }
+    }
+
+    const disitinctDates = new Set(memberDates);
+    if (disitinctDates.size === 1) {
+      observationKey.date = disitinctDates.values().next().value;
+      return;
+    }
+  }
+}
+
+function setDiagnosticReportDate(
+  diagnosticReportKey: ResourceAndKey,
+  keys: KeyStore,
+) {
+  if (diagnosticReportKey.date) {
+    return;
+  }
+
+  const diagnosticReport = diagnosticReportKey.resource as r4.DiagnosticReport;
+  if (diagnosticReport.encounter?.reference) {
+    const encounterKey = keys.byFhirRef.get(
+      diagnosticReport.encounter.reference,
+    );
+    if (encounterKey && encounterKey.date) {
+      diagnosticReportKey.date = encounterKey.date;
+      return;
+    }
+  }
+
+  if (
+    !diagnosticReportKey.date &&
+    diagnosticReport.result &&
+    diagnosticReport.result.length > 0
+  ) {
+    const resultDates: string[] = [];
+
+    for (const result of diagnosticReport.result) {
+      if (result.reference) {
+        const resultKey =
+          keys.byFhirRef.get(result.reference) ||
+          keys.byFullUrl.get(result.reference);
+        if (resultKey && resultKey.date) {
+          resultDates.push(resultKey.date);
+        }
+      }
+    }
+
+    const disitinctDates = new Set(resultDates);
+    if (disitinctDates.size === 1) {
+      diagnosticReportKey.date = disitinctDates.values().next().value;
+      return;
+    }
+  }
+}
+
 export function build_keys(bundle: r4.Bundle): KeyStore {
   const keys = new KeyStore();
 
-  for (let entry of bundle.entry || []) {
+  for (const entry of bundle.entry || []) {
     if (!entry?.resource?.resourceType) {
       continue;
     }
     switch (entry.resource.resourceType) {
       case "Patient":
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-        });
+        keys.push(entry, buildKeyPatient(entry.resource));
         break;
+
       case "Encounter":
-        const primary_coding = entry.resource.class;
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding?.system,
-          primary_code: primary_coding?.code,
-          date: entry.resource.period?.start,
-        });
+        keys.push(entry, buildKeyEncounter(entry.resource));
         break;
+
       case "Condition":
-        const primary_coding_condition = pick_primary_coding(
-          entry.resource.code,
-          ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"],
-        );
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_condition?.system,
-          primary_code: primary_coding_condition?.code,
-          date: entry.resource.onsetDateTime,
-          text: clean_text(entry.resource.code?.text),
-        });
+        keys.push(entry, buildKeyCondition(entry.resource));
         break;
 
       case "MedicationAdministration":
-        const primary_coding_medadmin = pick_primary_coding(
-          entry.resource.medicationCodeableConcept,
-          ["http://www.nlm.nih.gov/research/umls/rxnorm"],
-        );
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_medadmin?.system,
-          primary_code: primary_coding_medadmin?.code,
-          date: entry.resource.effectiveDateTime,
-          text: clean_text(entry.resource.medicationCodeableConcept?.text),
-        });
+        keys.push(entry, buildKeyMedicationAdministration(entry.resource));
         break;
 
       case "MedicationRequest":
-        const primary_coding_medreq = pick_primary_coding(
-          entry.resource.medicationCodeableConcept,
-          ["http://www.nlm.nih.gov/research/umls/rxnorm"],
-        );
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_medreq?.system,
-          primary_code: primary_coding_medreq?.code,
-          date: entry.resource.authoredOn,
-          text: clean_text(entry.resource.medicationCodeableConcept?.text),
-        });
+        keys.push(entry, buildKeyMedicationRequest(entry.resource));
         break;
 
       case "MedicationStatement":
-        const primary_coding_medstate = pick_primary_coding(
-          entry.resource.medicationCodeableConcept,
-          ["http://www.nlm.nih.gov/research/umls/rxnorm"],
-        );
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_medstate?.system,
-          primary_code: primary_coding_medstate?.code,
-          date:
-            entry.resource.effectiveDateTime ||
-            entry.resource.effectivePeriod?.start,
-          text: clean_text(entry.resource.medicationCodeableConcept?.text),
-        });
+        keys.push(entry, buildKeyMedicationStatement(entry.resource));
         break;
 
       case "Medication":
-        const primary_coding_med = pick_primary_coding(entry.resource.code, [
-          "http://www.nlm.nih.gov/research/umls/rxnorm",
-        ]);
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_med?.system,
-          primary_code: primary_coding_med?.code,
-          text: clean_text(entry.resource.code?.text),
-        });
+        keys.push(entry, buildKeyMedication(entry.resource));
         break;
 
       case "Procedure":
-        const primary_coding_procedure = pick_primary_coding(
-          entry.resource.code,
-          ["http://snomed.info/sct", "http://www.icd10data.com/icd10pcs"],
-        );
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_procedure?.system,
-          primary_code: primary_coding_procedure?.code,
-          date:
-            entry.resource.performedDateTime ||
-            entry.resource.performedPeriod?.start,
-          text: clean_text(entry.resource.code?.text),
-        });
+        keys.push(entry, buildKeyProcedure(entry.resource));
         break;
 
       case "AllergyIntolerance":
-        const allergyIntoleranceSystems = ["http://snomed.info/sct"];
-        const primary_coding_allergy =
-          pick_primary_coding(entry.resource.code, allergyIntoleranceSystems) ||
-          entry.resource.reaction
-            ?.map((reaction) =>
-              pick_primary_coding(
-                reaction.substance,
-                allergyIntoleranceSystems,
-              ),
-            )
-            ?.find((s) => !!s);
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_allergy?.system,
-          primary_code: primary_coding_allergy?.code,
-          date: entry.resource.onsetDateTime || entry.resource.recordedDate,
-          text: clean_text(entry.resource.code?.text),
-        });
+        keys.push(entry, buildKeyAllergyInterolerance(entry.resource));
         break;
 
       case "Observation":
-        const primary_coding_observation = pick_primary_coding(
-          entry.resource.code,
-          ["http://loinc.org", "http://snomed.info/sct"],
-        );
-
-        let value: string | undefined;
-
-        if (entry.resource.valueString) {
-          value = entry.resource.valueString;
-        } else if (entry.resource.valueQuantity?.value) {
-          if (entry.resource.valueQuantity.unit) {
-            value = `${entry.resource.valueQuantity.value} ${entry.resource.valueQuantity.unit}`;
-          } else {
-            value = entry.resource.valueQuantity.value?.toString();
-          }
-        } else if (entry.resource.valueInteger) {
-          value = entry.resource.valueInteger.toString();
-        } else if (entry.resource.valueCodeableConcept?.text) {
-          value = entry.resource.valueCodeableConcept.text;
-        }
-
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_observation?.system,
-          primary_code: primary_coding_observation?.code,
-          date: entry.resource.effectiveDateTime,
-          text: clean_text(entry.resource.code?.text),
-          value: value,
-        });
+        keys.push(entry, buildKeyObservation(entry.resource));
         break;
 
       case "DiagnosticReport":
-        const primary_coding_diagnostic_report = pick_primary_coding(
-          entry.resource.code,
-          ["http://loinc.org", "http://snomed.info/sct"],
-        );
-
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-          primary_code_system: primary_coding_diagnostic_report?.system,
-          primary_code: primary_coding_diagnostic_report?.code,
-          date:
-            entry.resource.effectiveDateTime ||
-            entry.resource.effectivePeriod?.start,
-          text: clean_text(entry.resource.code?.text),
-        });
+        keys.push(entry, buildKeyDiagnosticReport(entry.resource));
         break;
 
       case "Practitioner":
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-        });
+        keys.push(entry, buildKeyPractitioner(entry.resource));
         break;
 
       case "PractitionerRole":
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-        });
+        keys.push(entry, buildKeyPractitionerRole(entry.resource));
         break;
 
       case "Organization":
-        keys.push(entry, {
-          resource: entry.resource,
-          resourceType: entry.resource.resourceType,
-          identifier:
-            pick_identifier(entry.resource.identifier) || entry.resource.id,
-        });
+        keys.push(entry, buildKeyOrganization(entry.resource));
         break;
 
       case "OperationOutcome":
@@ -370,77 +500,13 @@ export function build_keys(bundle: r4.Bundle): KeyStore {
 
   // back fill dates for resources that have children
 
-  for (let key of keys.all.filter((k) => !k.date)) {
+  for (const key of keys.all.filter((k) => !k.date)) {
     switch (key.resource.resourceType) {
       case "Observation":
-        const observation = key.resource as r4.Observation;
-        if (observation.encounter?.reference) {
-          const encounterKey = keys.byFhirRef.get(
-            observation.encounter.reference,
-          );
-          if (encounterKey && encounterKey.date) {
-            key.date = encounterKey.date;
-          }
-        }
-
-        if (
-          !key.date &&
-          observation.hasMember &&
-          observation.hasMember.length > 0
-        ) {
-          const memberDates: string[] = [];
-
-          for (let member of observation.hasMember) {
-            if (member.reference) {
-              const memberKey =
-                keys.byFhirRef.get(member.reference) ||
-                keys.byFullUrl.get(member.reference);
-              if (memberKey && memberKey.date) {
-                memberDates.push(memberKey.date);
-              }
-            }
-          }
-
-          const disitinctDates = new Set(memberDates);
-          if (disitinctDates.size === 1) {
-            key.date = disitinctDates.values().next().value;
-          }
-        }
+        setObservationDate(key, keys);
         break;
       case "DiagnosticReport":
-        const diagnosticReport = key.resource as r4.DiagnosticReport;
-        if (diagnosticReport.encounter?.reference) {
-          const encounterKey = keys.byFhirRef.get(
-            diagnosticReport.encounter.reference,
-          );
-          if (encounterKey && encounterKey.date) {
-            key.date = encounterKey.date;
-          }
-        }
-
-        if (
-          !key.date &&
-          diagnosticReport.result &&
-          diagnosticReport.result.length > 0
-        ) {
-          const resultDates: string[] = [];
-
-          for (let result of diagnosticReport.result) {
-            if (result.reference) {
-              const resultKey =
-                keys.byFhirRef.get(result.reference) ||
-                keys.byFullUrl.get(result.reference);
-              if (resultKey && resultKey.date) {
-                resultDates.push(resultKey.date);
-              }
-            }
-          }
-
-          const disitinctDates = new Set(resultDates);
-          if (disitinctDates.size === 1) {
-            key.date = disitinctDates.values().next().value;
-          }
-        }
+        setDiagnosticReportDate(key, keys);
         break;
     }
   }
@@ -657,10 +723,10 @@ export function fhir_bundles_match(
   bundle2: r4.Bundle,
 ): FhirMatch {
   console.log("--- bundle1 ---");
-  var bundle1KeyStore = build_keys(bundle1);
+  const bundle1KeyStore = build_keys(bundle1);
 
   console.log("--- bundle2 ---");
-  var bundle2KeyStore = build_keys(bundle2);
+  const bundle2KeyStore = build_keys(bundle2);
 
   console.log("--- matching ---");
 
@@ -674,7 +740,7 @@ export function fhir_bundles_match(
   const bundle2Keys = [...bundle2KeyStore.all];
 
   // try strong matches first
-  for (let bundle1Key of bundle1Keys) {
+  for (const bundle1Key of bundle1Keys) {
     const matchIndex = find_match_index(bundle1Key, bundle2Keys);
     if (matchIndex === -1) {
       unmatchedBundle1.push(bundle1Key);
@@ -685,7 +751,7 @@ export function fhir_bundles_match(
   }
 
   // now try squishy matches for terrible non-CE data
-  for (let bundle2Key of bundle2Keys) {
+  for (const bundle2Key of bundle2Keys) {
     const matchIndex = find_match_index_squishy(bundle2Key, unmatchedBundle1);
     if (matchIndex === -1) {
       const resourceTypeGroup = get_resource_type_group(

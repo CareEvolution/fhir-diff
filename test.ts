@@ -14,14 +14,14 @@ const bundle2 = JSON.parse(
 
 const match = fhir_bundles_match(bundle1, bundle2);
 
-for (let ref of match.bundle1Only) {
+for (const ref of match.bundle1Only) {
   console.log(`bundle1Only: ${ref.reference}`);
 }
 
-for (let ref of match.common) {
+for (const ref of match.common) {
   console.log(`common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference}`);
 }
 
-for (let ref of match.bundle2Only) {
+for (const ref of match.bundle2Only) {
   console.log(`bundle2Only: ${ref.reference}`);
 }
