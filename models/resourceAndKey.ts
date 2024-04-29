@@ -4,8 +4,8 @@ export interface ResourceAndKey {
   resource: r4.Resource;
   resourceType: string;
   identifier?: string;
-  primary_code_system?: string;
-  primary_code?: string;
+  primaryCodeSystem?: string;
+  primaryCode?: string;
   date?: string;
   text?: string;
   value?: string;

@@ -134,12 +134,12 @@ function findMatchIndex(
     return byIdentifier;
   }
 
-  if (target.date || target.primary_code_system || target.primary_code) {
+  if (target.date || target.primaryCodeSystem || target.primaryCode) {
     const byNaturalKey = candidates.findIndex(
       (k) =>
         k.resourceType === target.resourceType &&
-        k.primary_code_system === target.primary_code_system &&
-        k.primary_code === target.primary_code &&
+        k.primaryCodeSystem === target.primaryCodeSystem &&
+        k.primaryCode === target.primaryCode &&
         k.date === target.date,
     );
 
@@ -147,8 +147,8 @@ function findMatchIndex(
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byNaturalKey].resource,
-        )} by natural key ${target.primary_code_system} ${
-          target.primary_code
+        )} by natural key ${target.primaryCodeSystem} ${
+          target.primaryCode
         } ${target.date}`,
       );
       return byNaturalKey;
@@ -162,12 +162,12 @@ function findMatchIndexSquishy(
   target: ResourceAndKey,
   candidates: ResourceAndKey[],
 ): number {
-  if (target.primary_code && target.primary_code_system) {
+  if (target.primaryCode && target.primaryCodeSystem) {
     const byCodeAndSystem = candidates.findIndex(
       (k) =>
         k.resourceType === target.resourceType &&
-        k.primary_code_system === target.primary_code_system &&
-        k.primary_code === target.primary_code &&
+        k.primaryCodeSystem === target.primaryCodeSystem &&
+        k.primaryCode === target.primaryCode &&
         k.date == target.date,
     );
 
@@ -175,7 +175,7 @@ function findMatchIndexSquishy(
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byCodeAndSystem].resource,
-        )} by code ${target.primary_code_system} ${target.primary_code}`,
+        )} by code ${target.primaryCodeSystem} ${target.primaryCode}`,
       );
       return byCodeAndSystem;
     }
@@ -218,11 +218,11 @@ function findMatchIndexSquishy(
     }
   }
 
-  if (target.primary_code) {
+  if (target.primaryCode) {
     const byCodeOnly = candidates.findIndex(
       (k) =>
         k.resourceType === target.resourceType &&
-        k.primary_code === target.primary_code &&
+        k.primaryCode === target.primaryCode &&
         k.date == target.date,
     );
 
@@ -230,7 +230,7 @@ function findMatchIndexSquishy(
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byCodeOnly].resource,
-        )} by code only ${target.primary_code}`,
+        )} by code only ${target.primaryCode}`,
       );
       return byCodeOnly;
     }
@@ -248,20 +248,20 @@ function findMatchIndexCrossResource(
     return -1;
   }
 
-  if (target.primary_code && target.primary_code_system) {
+  if (target.primaryCode && target.primaryCodeSystem) {
     const byCode = candidates.findIndex(
       (k) =>
         resourceTypes.includes(k.resourceType) &&
         k.resourceType === target.resourceType &&
-        k.primary_code_system === target.primary_code_system &&
-        k.primary_code === target.primary_code,
+        k.primaryCodeSystem === target.primaryCodeSystem &&
+        k.primaryCode === target.primaryCode,
     );
 
     if (byCode !== -1) {
       console.log(
         `Matched ${buildRef(target.resource)} <=> ${buildRef(
           candidates[byCode].resource,
-        )} by code ${target.primary_code_system} ${target.primary_code}`,
+        )} by code ${target.primaryCodeSystem} ${target.primaryCode}`,
       );
       return byCode;
     }
@@ -291,8 +291,8 @@ function findMatchIndexCrossResource(
   ) {
     console.log(
       `target: ${buildRef(target.resource)} ${target.identifier} ${
-        target.primary_code_system
-      }/${target.primary_code} ${target.date} ${target.text?.substring(0, 50)}`,
+        target.primaryCodeSystem
+      }/${target.primaryCode} ${target.date} ${target.text?.substring(0, 50)}`,
     );
   }
 

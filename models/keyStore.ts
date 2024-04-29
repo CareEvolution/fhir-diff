@@ -2,7 +2,7 @@ import * as r4 from "fhir/r4";
 import { ResourceAndKey } from "./resourceAndKey";
 import { buildRef, pickIdentifier, pickPrimaryCoding } from "./fhirUtil";
 
-function clean_text(text: string | undefined): string | undefined {
+function cleanText(text: string | undefined): string | undefined {
   if (!text) return text;
 
   return text.replace(/\s+/g, " ").toLowerCase();
@@ -106,19 +106,19 @@ export class KeyStore {
   }
 
   public buildKeyEncounter(encounter: r4.Encounter): ResourceAndKey {
-    const primary_coding = encounter.class;
+    const primaryCoding = encounter.class;
     return {
       resource: encounter,
       resourceType: encounter.resourceType,
       identifier: pickIdentifier(encounter.identifier) || encounter.id,
-      primary_code_system: primary_coding?.system,
-      primary_code: primary_coding?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: encounter.period?.start,
     };
   }
 
   public buildKeyCondition(condition: r4.Condition): ResourceAndKey {
-    const primary_coding = pickPrimaryCoding(condition.code, [
+    const primaryCoding = pickPrimaryCoding(condition.code, [
       "http://snomed.info/sct",
       "http://www.icd10data.com/icd10pcs",
     ]);
@@ -126,17 +126,17 @@ export class KeyStore {
       resource: condition,
       resourceType: condition.resourceType,
       identifier: pickIdentifier(condition.identifier) || condition.id,
-      primary_code_system: primary_coding?.system,
-      primary_code: primary_coding?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: condition.onsetDateTime,
-      text: clean_text(condition.code?.text),
+      text: cleanText(condition.code?.text),
     };
   }
 
   public buildKeyMedicationAdministration(
     medadmin: r4.MedicationAdministration,
   ): ResourceAndKey {
-    const primary_coding = pickPrimaryCoding(
+    const primaryCoding = pickPrimaryCoding(
       medadmin.medicationCodeableConcept,
       ["http://www.nlm.nih.gov/research/umls/rxnorm"],
     );
@@ -144,17 +144,17 @@ export class KeyStore {
       resource: medadmin,
       resourceType: medadmin.resourceType,
       identifier: pickIdentifier(medadmin.identifier) || medadmin.id,
-      primary_code_system: primary_coding?.system,
-      primary_code: primary_coding?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: medadmin.effectiveDateTime,
-      text: clean_text(medadmin.medicationCodeableConcept?.text),
+      text: cleanText(medadmin.medicationCodeableConcept?.text),
     };
   }
 
   public buildKeyMedicationRequest(
     medRequest: r4.MedicationRequest,
   ): ResourceAndKey {
-    const primary_coding = pickPrimaryCoding(
+    const primaryCoding = pickPrimaryCoding(
       medRequest.medicationCodeableConcept,
       ["http://www.nlm.nih.gov/research/umls/rxnorm"],
     );
@@ -162,17 +162,17 @@ export class KeyStore {
       resource: medRequest,
       resourceType: medRequest.resourceType,
       identifier: pickIdentifier(medRequest.identifier) || medRequest.id,
-      primary_code_system: primary_coding?.system,
-      primary_code: primary_coding?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: medRequest.authoredOn,
-      text: clean_text(medRequest.medicationCodeableConcept?.text),
+      text: cleanText(medRequest.medicationCodeableConcept?.text),
     };
   }
 
   public buildKeyMedicationStatement(
     medStatement: r4.MedicationStatement,
   ): ResourceAndKey {
-    const primary_coding = pickPrimaryCoding(
+    const primaryCoding = pickPrimaryCoding(
       medStatement.medicationCodeableConcept,
       ["http://www.nlm.nih.gov/research/umls/rxnorm"],
     );
@@ -180,30 +180,30 @@ export class KeyStore {
       resource: medStatement,
       resourceType: medStatement.resourceType,
       identifier: pickIdentifier(medStatement.identifier) || medStatement.id,
-      primary_code_system: primary_coding?.system,
-      primary_code: primary_coding?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date:
         medStatement.effectiveDateTime || medStatement.effectivePeriod?.start,
-      text: clean_text(medStatement.medicationCodeableConcept?.text),
+      text: cleanText(medStatement.medicationCodeableConcept?.text),
     };
   }
 
   public buildKeyMedication(medication: r4.Medication): ResourceAndKey {
-    const primary_coding = pickPrimaryCoding(medication.code, [
+    const primaryCoding = pickPrimaryCoding(medication.code, [
       "http://www.nlm.nih.gov/research/umls/rxnorm",
     ]);
     return {
       resource: medication,
       resourceType: medication.resourceType,
       identifier: pickIdentifier(medication.identifier) || medication.id,
-      primary_code_system: primary_coding?.system,
-      primary_code: primary_coding?.code,
-      text: clean_text(medication.code?.text),
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
+      text: cleanText(medication.code?.text),
     };
   }
 
   public buildKeyProcedure(procedure: r4.Procedure): ResourceAndKey {
-    const primary_coding = pickPrimaryCoding(procedure.code, [
+    const primaryCoding = pickPrimaryCoding(procedure.code, [
       "http://snomed.info/sct",
       "http://www.icd10data.com/icd10pcs",
     ]);
@@ -211,10 +211,10 @@ export class KeyStore {
       resource: procedure,
       resourceType: procedure.resourceType,
       identifier: pickIdentifier(procedure.identifier) || procedure.id,
-      primary_code_system: primary_coding?.system,
-      primary_code: primary_coding?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: procedure.performedDateTime || procedure.performedPeriod?.start,
-      text: clean_text(procedure.code?.text),
+      text: cleanText(procedure.code?.text),
     };
   }
 
@@ -222,7 +222,7 @@ export class KeyStore {
     allergyIntolerance: r4.AllergyIntolerance,
   ): ResourceAndKey {
     const allergyIntoleranceSystems = ["http://snomed.info/sct"];
-    const primary_coding_allergy =
+    const primaryCoding =
       pickPrimaryCoding(allergyIntolerance.code, allergyIntoleranceSystems) ||
       allergyIntolerance.reaction
         ?.map((reaction) =>
@@ -234,15 +234,15 @@ export class KeyStore {
       resourceType: allergyIntolerance.resourceType,
       identifier:
         pickIdentifier(allergyIntolerance.identifier) || allergyIntolerance.id,
-      primary_code_system: primary_coding_allergy?.system,
-      primary_code: primary_coding_allergy?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: allergyIntolerance.onsetDateTime || allergyIntolerance.recordedDate,
-      text: clean_text(allergyIntolerance.code?.text),
+      text: cleanText(allergyIntolerance.code?.text),
     };
   }
 
   public buildKeyObservation(observation: r4.Observation): ResourceAndKey {
-    const primary_coding_observation = pickPrimaryCoding(observation.code, [
+    const primaryCoding = pickPrimaryCoding(observation.code, [
       "http://loinc.org",
       "http://snomed.info/sct",
     ]);
@@ -267,10 +267,10 @@ export class KeyStore {
       resource: observation,
       resourceType: observation.resourceType,
       identifier: pickIdentifier(observation.identifier) || observation.id,
-      primary_code_system: primary_coding_observation?.system,
-      primary_code: primary_coding_observation?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: observation.effectiveDateTime,
-      text: clean_text(observation.code?.text),
+      text: cleanText(observation.code?.text),
       value: value,
     };
   }
@@ -278,20 +278,20 @@ export class KeyStore {
   public buildKeyDiagnosticReport(
     diagnosticReport: r4.DiagnosticReport,
   ): ResourceAndKey {
-    const primary_coding_diagnostic_report = pickPrimaryCoding(
-      diagnosticReport.code,
-      ["http://loinc.org", "http://snomed.info/sct"],
-    );
+    const primaryCoding = pickPrimaryCoding(diagnosticReport.code, [
+      "http://loinc.org",
+      "http://snomed.info/sct",
+    ]);
 
     return {
       resource: diagnosticReport,
       resourceType: diagnosticReport.resourceType,
       identifier:
         pickIdentifier(diagnosticReport.identifier) || diagnosticReport.id,
-      primary_code_system: primary_coding_diagnostic_report?.system,
-      primary_code: primary_coding_diagnostic_report?.code,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
       date: diagnosticReport.effectiveDateTime,
-      text: clean_text(diagnosticReport.code?.text),
+      text: cleanText(diagnosticReport.code?.text),
     };
   }
 

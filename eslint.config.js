@@ -3,10 +3,15 @@ import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default [
+  {
+    rules: {
+      camelcase: "error",
+    },
+  },
+  {
+    ignores: ["dist"],
+  },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  {
-    ignores: ["dist/"],
-  },
 ];
