@@ -1,6 +1,8 @@
 import * as r4 from "fhir/r4";
 import { expect, test, describe } from "vitest";
 import { fhirBundlesMatch } from ".";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 describe("fhirBundlesMatch", () => {
   test("should match things between bundles", () => {
@@ -42,15 +44,69 @@ describe("fhirBundlesMatch", () => {
       type: "batch",
     };
 
-    const ref = fhirBundlesMatch(bundle1, bundle2);
+    const fhirMatch = fhirBundlesMatch(bundle1, bundle2);
 
-    console.log(ref);
+    expect(fhirMatch.bundle1Only.length).toBe(0);
+    expect(fhirMatch.bundle2Only.length).toBe(0);
+    expect(fhirMatch.common.length).toBe(1);
+    expect(fhirMatch.common[0].bundle1.reference).toBe("Patient/123");
+    expect(fhirMatch.common[0].bundle2.reference).toBe("Patient/abcd");
+    expect(fhirMatch.common[0].reason).toBe("identifiers matched");
+  });
 
-    expect(ref.bundle1Only.length).toBe(0);
-    expect(ref.bundle2Only.length).toBe(0);
-    expect(ref.common.length).toBe(1);
-    expect(ref.common[0].bundle1.reference).toBe("Patient/123");
-    expect(ref.common[0].bundle2.reference).toBe("Patient/abcd");
-    expect(ref.common[0].reason).toBe("identifiers matched");
+  describe("should match things between known bundles", () => {
+    test("careevolution and microsoft", () => {
+      const dataPath = "./data/synthetic";
+
+      const bundle1 = JSON.parse(
+        readFileSync(join(dataPath, "careevolution.json"), "utf8"),
+      ) as r4.Bundle;
+      const bundle2 = JSON.parse(
+        readFileSync(join(dataPath, "microsoft.json"), "utf8"),
+      ) as r4.Bundle;
+
+      const match = fhirBundlesMatch(bundle1, bundle2);
+
+      for (const ref of match.bundle1Only) {
+        console.log(`bundle1Only: ${ref.reference}`);
+      }
+
+      for (const ref of match.common) {
+        console.log(
+          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+        );
+      }
+
+      for (const ref of match.bundle2Only) {
+        console.log(`bundle2Only: ${ref.reference}`);
+      }
+    });
+
+    test("careevolution and health_samurai", () => {
+      const dataPath = "./data/synthetic";
+
+      const bundle1 = JSON.parse(
+        readFileSync(join(dataPath, "careevolution.json"), "utf8"),
+      ) as r4.Bundle;
+      const bundle2 = JSON.parse(
+        readFileSync(join(dataPath, "health_samurai_1.json"), "utf8"),
+      ) as r4.Bundle;
+
+      const match = fhirBundlesMatch(bundle1, bundle2);
+
+      for (const ref of match.bundle1Only) {
+        console.log(`bundle1Only: ${ref.reference}`);
+      }
+
+      for (const ref of match.common) {
+        console.log(
+          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+        );
+      }
+
+      for (const ref of match.bundle2Only) {
+        console.log(`bundle2Only: ${ref.reference}`);
+      }
+    });
   });
 });

@@ -10,6 +10,7 @@ import { ValueMatcher } from "./engine/valueMatcher";
 import { PrimaryCodeMatcher } from "./engine/primaryCodeMatcher";
 import { CrossResourceNaturalKeyMatcher } from "./engine/crossResourceNaturalKeyMatcher";
 import { CrossResourceTextMatcher } from "./engine/crossResourceTextMatcher";
+import { buildReference } from "./models/fhirUtil";
 
 function setObservationDate(observationKey: ResourceAndKey, keys: KeyStore) {
   if (observationKey.date) {
@@ -147,17 +148,18 @@ export function fhirBundlesMatch(
   for (const matcher of matchers) {
     const result = matcher(unmatchedBundle1, unmatchedBundle2);
 
-    console.log(result);
-
     overallMatch.common.push(...result.matched);
-
-    if (result.unmatched1.length === 0 && result.unmatched2.length === 0) {
-      break;
-    }
 
     unmatchedBundle1 = result.unmatched1;
     unmatchedBundle2 = result.unmatched2;
+
+    if (result.unmatched1.length === 0 || result.unmatched2.length === 0) {
+      break;
+    }
   }
+
+  overallMatch.bundle1Only = unmatchedBundle1.map(buildReference);
+  overallMatch.bundle2Only = unmatchedBundle2.map(buildReference);
 
   return overallMatch;
 }
