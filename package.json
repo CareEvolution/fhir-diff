@@ -7,7 +7,8 @@
     "build": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -23,9 +24,14 @@
     "@eslint/js": "^9.1.1",
     "eslint": "^8.57.0",
     "globals": "^15.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
     "typescript-eslint": "^7.7.1",
     "vitest": "^1.5.2"
   },
-  "prettier": "@careevolution/eslint-config-ce-frontend/prettier.config.js",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "type": "module"
 }
