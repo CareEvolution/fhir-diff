@@ -46,7 +46,7 @@ describe("fhirBundlesMatch", () => {
     expect(ref.bundle1Only.length).toBe(0);
     expect(ref.bundle2Only.length).toBe(0);
     expect(ref.common.length).toBe(1);
-    expect(ref.common[0].bundle1).toBe("Patient/123");
-    expect(ref.common[0].bundle2).toBe("Patient/abcd");
+    expect(ref.common[0].bundle1.reference).toBe("Patient/123");
+    expect(ref.common[0].bundle2.reference).toBe("Patient/abcd");
   });
 });
