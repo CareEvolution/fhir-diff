@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as r4 from "fhir/r4";
-import { fhir_bundles_match } from ".";
+import { fhirBundlesMatch } from ".";
 
 const dataPath = "./data/synthetic";
 
@@ -12,7 +12,7 @@ const bundle2 = JSON.parse(
   fs.readFileSync(path.join(dataPath, "microsoft.json"), "utf8"),
 ) as r4.Bundle;
 
-const match = fhir_bundles_match(bundle1, bundle2);
+const match = fhirBundlesMatch(bundle1, bundle2);
 
 for (const ref of match.bundle1Only) {
   console.log(`bundle1Only: ${ref.reference}`);

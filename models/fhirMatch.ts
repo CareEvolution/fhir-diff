@@ -1,5 +1,5 @@
 import * as r4 from "fhir/r4";
-import { FhirReferences } from "./fhir_references";
+import { FhirReferences } from "./fhirReferences";
 
 export interface FhirMatch {
   bundle1Only: r4.Reference[];
