@@ -2,16 +2,14 @@ import * as r4 from "fhir/r4";
 import { FhirMatch } from "./models/fhirMatch";
 import { ResourceAndKey } from "./models/resourceAndKey";
 import { KeyStore } from "./models/keyStore";
-import { buildRef, buildReference } from "./models/fhirUtil";
-
-const medicationResourceTypes = [
-  "MedicationRequest",
-  "MedicationStatement",
-  "MedicationAdministration",
-  "Medication",
-];
-
-const labResourceTypes = ["Observation", "DiagnosticReport"];
+import { Matcher } from "./engine/matcher";
+import { IdentifierMatcher } from "./engine/identifierMatcher";
+import { PrimaryCodeAndSystemMatcher } from "./engine/primaryCodeAndSystemMatcher";
+import { TextMatcher } from "./engine/textMatcher";
+import { ValueMatcher } from "./engine/valueMatcher";
+import { PrimaryCodeMatcher } from "./engine/primaryCodeMatcher";
+import { CrossResourceNaturalKeyMatcher } from "./engine/crossResourceNaturalKeyMatcher";
+import { CrossResourceTextMatcher } from "./engine/crossResourceTextMatcher";
 
 function setObservationDate(observationKey: ResourceAndKey, keys: KeyStore) {
   if (observationKey.date) {
@@ -115,200 +113,6 @@ export function buildKeys(bundle: r4.Bundle): KeyStore {
   return keys;
 }
 
-function findMatchIndex(
-  target: ResourceAndKey,
-  candidates: ResourceAndKey[],
-): number {
-  const byIdentifier = candidates.findIndex(
-    (k) =>
-      k.resourceType === target.resourceType &&
-      k.identifier === target.identifier,
-  );
-
-  if (byIdentifier !== -1) {
-    console.log(
-      `Matched ${buildRef(target.resource)} <=> ${buildRef(
-        candidates[byIdentifier].resource,
-      )} by identifier ${target.identifier}`,
-    );
-    return byIdentifier;
-  }
-
-  if (target.date || target.primaryCodeSystem || target.primaryCode) {
-    const byNaturalKey = candidates.findIndex(
-      (k) =>
-        k.resourceType === target.resourceType &&
-        k.primaryCodeSystem === target.primaryCodeSystem &&
-        k.primaryCode === target.primaryCode &&
-        k.date === target.date,
-    );
-
-    if (byNaturalKey !== -1) {
-      console.log(
-        `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byNaturalKey].resource,
-        )} by natural key ${target.primaryCodeSystem} ${
-          target.primaryCode
-        } ${target.date}`,
-      );
-      return byNaturalKey;
-    }
-  }
-
-  return -1;
-}
-
-function findMatchIndexSquishy(
-  target: ResourceAndKey,
-  candidates: ResourceAndKey[],
-): number {
-  if (target.primaryCode && target.primaryCodeSystem) {
-    const byCodeAndSystem = candidates.findIndex(
-      (k) =>
-        k.resourceType === target.resourceType &&
-        k.primaryCodeSystem === target.primaryCodeSystem &&
-        k.primaryCode === target.primaryCode &&
-        k.date == target.date,
-    );
-
-    if (byCodeAndSystem !== -1) {
-      console.log(
-        `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byCodeAndSystem].resource,
-        )} by code ${target.primaryCodeSystem} ${target.primaryCode}`,
-      );
-      return byCodeAndSystem;
-    }
-  }
-
-  if (target.text) {
-    const byText = candidates.findIndex(
-      (k) =>
-        k.resourceType === target.resourceType &&
-        k.text === target.text &&
-        k.date === target.date,
-    );
-
-    if (byText !== -1) {
-      console.log(
-        `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byText].resource,
-        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`,
-      );
-      return byText;
-    }
-  }
-
-  if (target.value) {
-    const byValue = candidates.findIndex(
-      (k) =>
-        k.resourceType === target.resourceType &&
-        k.date === target.date &&
-        k.value === target.value,
-    );
-
-    if (byValue !== -1) {
-      console.log(
-        `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byValue].resource,
-        )} by value ${target.value} and date ${target.date}`,
-      );
-
-      return byValue;
-    }
-  }
-
-  if (target.primaryCode) {
-    const byCodeOnly = candidates.findIndex(
-      (k) =>
-        k.resourceType === target.resourceType &&
-        k.primaryCode === target.primaryCode &&
-        k.date == target.date,
-    );
-
-    if (byCodeOnly !== -1) {
-      console.log(
-        `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byCodeOnly].resource,
-        )} by code only ${target.primaryCode}`,
-      );
-      return byCodeOnly;
-    }
-  }
-
-  return -1;
-}
-
-function findMatchIndexCrossResource(
-  target: ResourceAndKey,
-  candidates: ResourceAndKey[],
-  resourceTypes: string[],
-): number {
-  if (!resourceTypes.includes(target.resourceType)) {
-    return -1;
-  }
-
-  if (target.primaryCode && target.primaryCodeSystem) {
-    const byCode = candidates.findIndex(
-      (k) =>
-        resourceTypes.includes(k.resourceType) &&
-        k.resourceType === target.resourceType &&
-        k.primaryCodeSystem === target.primaryCodeSystem &&
-        k.primaryCode === target.primaryCode,
-    );
-
-    if (byCode !== -1) {
-      console.log(
-        `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byCode].resource,
-        )} by code ${target.primaryCodeSystem} ${target.primaryCode}`,
-      );
-      return byCode;
-    }
-  }
-
-  if (target.text) {
-    const byText = candidates.findIndex(
-      (k) =>
-        resourceTypes.includes(k.resourceType) &&
-        k.text === target.text &&
-        k.date === target.date,
-    );
-
-    if (byText !== -1) {
-      console.log(
-        `Matched ${buildRef(target.resource)} <=> ${buildRef(
-          candidates[byText].resource,
-        )} by text ${target.text?.substring(0, 50)} and date ${target.date}`,
-      );
-      return byText;
-    }
-  }
-
-  if (
-    target.resourceType === "Observation" ||
-    target.resourceType === "DiagnosticReport"
-  ) {
-    console.log(
-      `target: ${buildRef(target.resource)} ${target.identifier} ${
-        target.primaryCodeSystem
-      }/${target.primaryCode} ${target.date} ${target.text?.substring(0, 50)}`,
-    );
-  }
-
-  return -1;
-}
-
-function getResourceTypeGroup(resourceType: string): string[] | undefined {
-  if (medicationResourceTypes.includes(resourceType)) {
-    return medicationResourceTypes;
-  }
-  if (labResourceTypes.includes(resourceType)) {
-    return labResourceTypes;
-  }
-  return undefined;
-}
-
 export function fhirBundlesMatch(
   bundle1: r4.Bundle,
   bundle2: r4.Bundle,
@@ -321,68 +125,39 @@ export function fhirBundlesMatch(
 
   console.log("--- matching ---");
 
-  const bundle1Only: ResourceAndKey[] = [];
-  const bundle2Only: ResourceAndKey[] = [];
-  const common: { bundle1: ResourceAndKey; bundle2: ResourceAndKey }[] = [];
-
-  const unmatchedBundle1: ResourceAndKey[] = [];
-
-  const bundle1Keys = [...bundle1KeyStore.all];
-  const bundle2Keys = [...bundle2KeyStore.all];
-
-  // try strong matches first
-  for (const bundle1Key of bundle1Keys) {
-    const matchIndex = findMatchIndex(bundle1Key, bundle2Keys);
-    if (matchIndex === -1) {
-      unmatchedBundle1.push(bundle1Key);
-    } else {
-      common.push({ bundle1: bundle1Key, bundle2: bundle2Keys[matchIndex] });
-      bundle2Keys.splice(matchIndex, 1);
-    }
-  }
-
-  // now try squishy matches for terrible non-CE data
-  for (const bundle2Key of bundle2Keys) {
-    const matchIndex = findMatchIndexSquishy(bundle2Key, unmatchedBundle1);
-    if (matchIndex === -1) {
-      const resourceTypeGroup = getResourceTypeGroup(bundle2Key.resourceType);
-
-      if (resourceTypeGroup) {
-        const crossResourceIndex = findMatchIndexCrossResource(
-          bundle2Key,
-          unmatchedBundle1,
-          resourceTypeGroup,
-        );
-
-        if (crossResourceIndex === -1) {
-          bundle2Only.push(bundle2Key);
-        } else {
-          common.push({
-            bundle1: unmatchedBundle1[crossResourceIndex],
-            bundle2: bundle2Key,
-          });
-          unmatchedBundle1.splice(crossResourceIndex, 1);
-        }
-      } else {
-        bundle2Only.push(bundle2Key);
-      }
-    } else {
-      common.push({
-        bundle1: unmatchedBundle1[matchIndex],
-        bundle2: bundle2Key,
-      });
-      unmatchedBundle1.splice(matchIndex, 1);
-    }
-  }
-
-  bundle1Only.push(...unmatchedBundle1);
-
-  return {
-    bundle1Only: bundle1Only.map(buildReference),
-    bundle2Only: bundle2Only.map(buildReference),
-    common: common.map((r) => ({
-      bundle1: buildReference(r.bundle1),
-      bundle2: buildReference(r.bundle2),
-    })),
+  const overallMatch: FhirMatch = {
+    bundle1Only: [],
+    bundle2Only: [],
+    common: [],
   };
+
+  const matchers: Matcher[] = [
+    IdentifierMatcher,
+    PrimaryCodeAndSystemMatcher,
+    TextMatcher,
+    ValueMatcher,
+    PrimaryCodeMatcher,
+    CrossResourceNaturalKeyMatcher,
+    CrossResourceTextMatcher,
+  ];
+
+  let unmatchedBundle1 = bundle1KeyStore.all;
+  let unmatchedBundle2 = bundle2KeyStore.all;
+
+  for (const matcher of matchers) {
+    const result = matcher(unmatchedBundle1, unmatchedBundle2);
+
+    console.log(result);
+
+    overallMatch.common.push(...result.matched);
+
+    if (result.unmatched1.length === 0 && result.unmatched2.length === 0) {
+      break;
+    }
+
+    unmatchedBundle1 = result.unmatched1;
+    unmatchedBundle2 = result.unmatched2;
+  }
+
+  return overallMatch;
 }
