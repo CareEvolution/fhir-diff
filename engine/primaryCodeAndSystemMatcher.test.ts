@@ -2,14 +2,14 @@ import { expect, test } from "vitest";
 import { PrimaryCodeAndSystemMatcher } from "./primaryCodeAndSystemMatcher";
 import { ResourceAndKey } from "../models/resourceAndKey";
 
-test("should match based on primary coding and date and resource type", () => {
+test("should match based on primary coding and dateTime and resource type", () => {
   const bundle1: ResourceAndKey[] = [
     {
       resource: { resourceType: "Procedure", id: "procedure_bundle1" },
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -19,7 +19,7 @@ test("should match based on primary coding and date and resource type", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -36,14 +36,14 @@ test("should match based on primary coding and date and resource type", () => {
   );
 });
 
-test("should not match based on different date", () => {
+test("should not match based on different dateTime", () => {
   const bundle1: ResourceAndKey[] = [
     {
       resource: { resourceType: "Procedure", id: "procedure_bundle1" },
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -53,7 +53,7 @@ test("should not match based on different date", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-05",
+      dateTime: "2021-03-05",
     },
   ];
 
@@ -73,7 +73,7 @@ test("should not match based on different code", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -83,7 +83,7 @@ test("should not match based on different code", () => {
       resourceType: "Procedure",
       primaryCode: "22778000",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -103,7 +103,7 @@ test("should not match based on different system", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -113,7 +113,7 @@ test("should not match based on different system", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "something not snomed",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -133,7 +133,7 @@ test("should not match based on different resourceType", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -143,7 +143,7 @@ test("should not match based on different resourceType", () => {
       resourceType: "Observation",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -163,7 +163,7 @@ test("should not match missing dates", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: undefined,
+      dateTime: undefined,
     },
   ];
 
@@ -173,7 +173,7 @@ test("should not match missing dates", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      date: undefined,
+      dateTime: undefined,
     },
   ];
 
@@ -193,7 +193,7 @@ test("should not match missing system", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: undefined,
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -203,7 +203,7 @@ test("should not match missing system", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: undefined,
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -223,7 +223,7 @@ test("should not match missing code", () => {
       resourceType: "Procedure",
       primaryCode: undefined,
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -233,7 +233,7 @@ test("should not match missing code", () => {
       resourceType: "Procedure",
       primaryCode: undefined,
       primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 

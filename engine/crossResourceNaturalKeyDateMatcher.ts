@@ -3,7 +3,7 @@ import { ResourceAndKey } from "../models/resourceAndKey";
 import { getResourceTypeGroup } from "./getResourceTypeGroup";
 import { MatchResult, Matcher } from "./matcher";
 
-const CrossResourceTextMatcher: Matcher = (
+const CrossResourceNaturalKeyDateMatcher: Matcher = (
   bundle1: ResourceAndKey[],
   bundle2: ResourceAndKey[],
 ) => {
@@ -18,7 +18,11 @@ const CrossResourceTextMatcher: Matcher = (
   for (let bundle1Index = 0; bundle1Index < bundle1.length; bundle1Index++) {
     const bundle1Key = bundle1[bundle1Index];
 
-    if (!bundle1Key.dateTime || !bundle1Key.text) {
+    if (
+      !bundle1Key.date ||
+      !bundle1Key.primaryCode ||
+      !bundle1Key.primaryCodeSystem
+    ) {
       result.unmatched1.push(bundle1Key);
       continue;
     }
@@ -30,8 +34,9 @@ const CrossResourceTextMatcher: Matcher = (
     const bundle2Key = bundle2.findIndex(
       (k) =>
         resourceTypeGroup.includes(k.resourceType) &&
-        k.dateTime == bundle1Key.dateTime &&
-        k.text == bundle1Key.text,
+        k.date == bundle1Key.date &&
+        k.primaryCode == bundle1Key.primaryCode &&
+        k.primaryCodeSystem == bundle1Key.primaryCodeSystem,
     );
 
     if (bundle2Key === -1) {
@@ -40,7 +45,7 @@ const CrossResourceTextMatcher: Matcher = (
       result.matched.push({
         bundle1: buildReference(bundle1Key),
         bundle2: buildReference(bundle2[bundle2Key]),
-        reason: "cross-reference text + dateTime matched",
+        reason: "cross-reference primary key + date matched",
       });
       bundle2.splice(bundle2Key, 1);
     }
@@ -51,4 +56,4 @@ const CrossResourceTextMatcher: Matcher = (
   return result;
 };
 
-export { CrossResourceTextMatcher };
+export { CrossResourceNaturalKeyDateMatcher };

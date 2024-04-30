@@ -9,7 +9,7 @@ describe("Labs group", () => {
         resource: { resourceType: "Observation", id: "observation_bundle1" },
         resourceType: "Observation",
         text: "cbc",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -21,7 +21,7 @@ describe("Labs group", () => {
         },
         resourceType: "DiagnosticReport",
         text: "cbc",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -47,7 +47,7 @@ describe("Labs group", () => {
         },
         resourceType: "DiagnosticReport",
         text: "cbc",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -56,7 +56,7 @@ describe("Labs group", () => {
         resource: { resourceType: "Observation", id: "observation_bundle2" },
         resourceType: "Observation",
         text: "cbc",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -79,7 +79,7 @@ describe("Labs group", () => {
         resource: { resourceType: "Observation", id: "observation_bundle1" },
         resourceType: "Observation",
         text: "cbc",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -91,7 +91,7 @@ describe("Labs group", () => {
         },
         resourceType: "DiagnosticReport",
         text: "cbc",
-        date: "2021-03-05",
+        dateTime: "2021-03-05",
       },
     ];
 
@@ -110,7 +110,7 @@ describe("Labs group", () => {
         resource: { resourceType: "Observation", id: "observation_bundle1" },
         resourceType: "Observation",
         text: "cbc",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -122,7 +122,7 @@ describe("Labs group", () => {
         },
         resourceType: "DiagnosticReport",
         text: "cmp",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -141,7 +141,7 @@ describe("Labs group", () => {
         resource: { resourceType: "Observation", id: "observation_bundle1" },
         resourceType: "Observation",
         text: "cbc",
-        date: undefined,
+        dateTime: undefined,
       },
     ];
 
@@ -153,7 +153,7 @@ describe("Labs group", () => {
         },
         resourceType: "DiagnosticReport",
         text: "cbc",
-        date: undefined,
+        dateTime: undefined,
       },
     ];
 
@@ -172,7 +172,7 @@ describe("Labs group", () => {
         resource: { resourceType: "Observation", id: "observation_bundle1" },
         resourceType: "Observation",
         text: undefined,
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -184,7 +184,7 @@ describe("Labs group", () => {
         },
         resourceType: "DiagnosticReport",
         text: undefined,
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -206,7 +206,7 @@ describe("Medications group", () => {
         resource: { resourceType: "Medication", id: "medication_bundle1" },
         resourceType: "Medication",
         text: "albuterol inhaler",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -218,7 +218,7 @@ describe("Medications group", () => {
         },
         resourceType: "MedicationRequest",
         text: "albuterol inhaler",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -241,7 +241,7 @@ describe("Medications group", () => {
         resource: { resourceType: "Medication", id: "medication_bundle1" },
         resourceType: "Medication",
         text: "albuterol inhaler",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -253,7 +253,7 @@ describe("Medications group", () => {
         },
         resourceType: "MedicationStatement",
         text: "albuterol inhaler",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -276,7 +276,7 @@ describe("Medications group", () => {
         resource: { resourceType: "Medication", id: "medication_bundle1" },
         resourceType: "Medication",
         text: "albuterol inhaler",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 
@@ -288,7 +288,7 @@ describe("Medications group", () => {
         },
         resourceType: "MedicationAdministration",
         text: "albuterol inhaler",
-        date: "2021-03-04",
+        dateTime: "2021-03-04",
       },
     ];
 

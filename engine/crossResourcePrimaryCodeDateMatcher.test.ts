@@ -1,5 +1,5 @@
 import { expect, test, describe } from "vitest";
-import { CrossResourceNaturalKeyMatcher } from "./crossResourceNaturalKeyMatcher";
+import { CrossResourcePrimaryCodeDateMatcher } from "./crossResourcePrimaryCodeDateMatcher";
 import { ResourceAndKey } from "../models/resourceAndKey";
 
 describe("Labs group", () => {
@@ -10,7 +10,7 @@ describe("Labs group", () => {
         resourceType: "Observation",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -23,11 +23,11 @@ describe("Labs group", () => {
         resourceType: "DiagnosticReport",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(0);
     expect(actual.unmatched2.length).toBe(0);
@@ -50,7 +50,7 @@ describe("Labs group", () => {
         resourceType: "DiagnosticReport",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -60,11 +60,11 @@ describe("Labs group", () => {
         resourceType: "Observation",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(0);
     expect(actual.unmatched2.length).toBe(0);
@@ -84,7 +84,7 @@ describe("Labs group", () => {
         resourceType: "Observation",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -97,11 +97,11 @@ describe("Labs group", () => {
         resourceType: "DiagnosticReport",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-05",
+        date: "2021-03-05",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(1);
     expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -117,7 +117,7 @@ describe("Labs group", () => {
         resourceType: "Observation",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -130,11 +130,11 @@ describe("Labs group", () => {
         resourceType: "DiagnosticReport",
         primaryCode: "26604007",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(1);
     expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -150,7 +150,7 @@ describe("Labs group", () => {
         resourceType: "Observation",
         primaryCode: "371361000119107",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: undefined,
+        date: undefined,
       },
     ];
 
@@ -163,11 +163,11 @@ describe("Labs group", () => {
         resourceType: "DiagnosticReport",
         primaryCode: "26604007",
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: undefined,
+        date: undefined,
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(1);
     expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -183,7 +183,7 @@ describe("Labs group", () => {
         resourceType: "Observation",
         primaryCode: undefined,
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -196,11 +196,11 @@ describe("Labs group", () => {
         resourceType: "DiagnosticReport",
         primaryCode: undefined,
         primaryCodeSystem: "http://snomed.info/sct",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(1);
     expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -219,7 +219,7 @@ describe("Medications group", () => {
         resourceType: "Medication",
         primaryCode: "102377",
         primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -232,11 +232,11 @@ describe("Medications group", () => {
         resourceType: "MedicationRequest",
         primaryCode: "102377",
         primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(0);
     expect(actual.unmatched2.length).toBe(0);
@@ -256,7 +256,7 @@ describe("Medications group", () => {
         resourceType: "Medication",
         primaryCode: "102377",
         primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -269,11 +269,11 @@ describe("Medications group", () => {
         resourceType: "MedicationStatement",
         primaryCode: "102377",
         primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(0);
     expect(actual.unmatched2.length).toBe(0);
@@ -293,7 +293,7 @@ describe("Medications group", () => {
         resourceType: "Medication",
         primaryCode: "102377",
         primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
@@ -306,11 +306,11 @@ describe("Medications group", () => {
         resourceType: "MedicationAdministration",
         primaryCode: "102377",
         primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        dateTime: "2021-03-04",
+        date: "2021-03-04",
       },
     ];
 
-    const actual = CrossResourceNaturalKeyMatcher(bundle1, bundle2);
+    const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
 
     expect(actual.unmatched1.length).toBe(0);
     expect(actual.unmatched2.length).toBe(0);

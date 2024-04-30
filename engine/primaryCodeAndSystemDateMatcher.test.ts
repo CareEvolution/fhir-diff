@@ -1,15 +1,15 @@
 import { expect, test } from "vitest";
-import { PrimaryCodeMatcher } from "./primaryCodeMatcher";
+import { PrimaryCodeAndSystemDateMatcher } from "./primaryCodeAndSystemDateMatcher";
 import { ResourceAndKey } from "../models/resourceAndKey";
 
-test("should match based on primary code and date and resource type", () => {
+test("should match based on primary coding and date and resource type", () => {
   const bundle1: ResourceAndKey[] = [
     {
       resource: { resourceType: "Procedure", id: "procedure_bundle1" },
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      dateTime: "2021-03-04",
+      date: "2021-03-04",
     },
   ];
 
@@ -18,46 +18,12 @@ test("should match based on primary code and date and resource type", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       primaryCode: "142496001",
-      primaryCodeSystem: "custom-SNOMED",
-      dateTime: "2021-03-04",
-    },
-  ];
-
-  const actual = PrimaryCodeMatcher(bundle1, bundle2);
-
-  expect(actual.unmatched1.length).toBe(0);
-  expect(actual.unmatched2.length).toBe(0);
-  expect(actual.matched.length).toBe(1);
-  expect(actual.matched[0].bundle1.reference).toBe(
-    "Procedure/procedure_bundle1",
-  );
-  expect(actual.matched[0].bundle2.reference).toBe(
-    "Procedure/procedure_bundle2",
-  );
-});
-
-test("should match with missing system and resource type", () => {
-  const bundle1: ResourceAndKey[] = [
-    {
-      resource: { resourceType: "Procedure", id: "procedure_bundle1" },
-      resourceType: "Procedure",
-      primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      dateTime: "2021-03-04",
+      date: "2021-03-04",
     },
   ];
 
-  const bundle2: ResourceAndKey[] = [
-    {
-      resource: { resourceType: "Procedure", id: "procedure_bundle2" },
-      resourceType: "Procedure",
-      primaryCode: "142496001",
-      primaryCodeSystem: undefined,
-      dateTime: "2021-03-04",
-    },
-  ];
-
-  const actual = PrimaryCodeMatcher(bundle1, bundle2);
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
 
   expect(actual.unmatched1.length).toBe(0);
   expect(actual.unmatched2.length).toBe(0);
@@ -77,7 +43,7 @@ test("should not match based on different date", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      dateTime: "2021-03-04",
+      date: "2021-03-04",
     },
   ];
 
@@ -86,12 +52,12 @@ test("should not match based on different date", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       primaryCode: "142496001",
-      primaryCodeSystem: "custom-SNOMED",
-      dateTime: "2021-03-05",
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: "2021-03-05",
     },
   ];
 
-  const actual = PrimaryCodeMatcher(bundle1, bundle2);
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
 
   expect(actual.unmatched1.length).toBe(1);
   expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -107,7 +73,7 @@ test("should not match based on different code", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      dateTime: "2021-03-04",
+      date: "2021-03-04",
     },
   ];
 
@@ -116,12 +82,42 @@ test("should not match based on different code", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       primaryCode: "22778000",
-      primaryCodeSystem: "custom-SNOMED",
-      dateTime: "2021-03-04",
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: "2021-03-04",
     },
   ];
 
-  const actual = PrimaryCodeMatcher(bundle1, bundle2);
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
+
+  expect(actual.unmatched1.length).toBe(1);
+  expect(actual.unmatched1[0]).toBe(bundle1[0]);
+  expect(actual.unmatched2.length).toBe(1);
+  expect(actual.unmatched2[0]).toBe(bundle2[0]);
+  expect(actual.matched.length).toBe(0);
+});
+
+test("should not match based on different system", () => {
+  const bundle1: ResourceAndKey[] = [
+    {
+      resource: { resourceType: "Procedure", id: "procedure_bundle1" },
+      resourceType: "Procedure",
+      primaryCode: "142496001",
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: "2021-03-04",
+    },
+  ];
+
+  const bundle2: ResourceAndKey[] = [
+    {
+      resource: { resourceType: "Procedure", id: "procedure_bundle2" },
+      resourceType: "Procedure",
+      primaryCode: "142496001",
+      primaryCodeSystem: "something not snomed",
+      date: "2021-03-04",
+    },
+  ];
+
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
 
   expect(actual.unmatched1.length).toBe(1);
   expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -137,7 +133,7 @@ test("should not match based on different resourceType", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      dateTime: "2021-03-04",
+      date: "2021-03-04",
     },
   ];
 
@@ -146,12 +142,12 @@ test("should not match based on different resourceType", () => {
       resource: { resourceType: "Observation", id: "observation_bundle2" },
       resourceType: "Observation",
       primaryCode: "142496001",
-      primaryCodeSystem: "custom-SNOMED",
-      dateTime: "2021-03-04",
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: "2021-03-04",
     },
   ];
 
-  const actual = PrimaryCodeMatcher(bundle1, bundle2);
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
 
   expect(actual.unmatched1.length).toBe(1);
   expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -167,7 +163,7 @@ test("should not match missing dates", () => {
       resourceType: "Procedure",
       primaryCode: "142496001",
       primaryCodeSystem: "http://snomed.info/sct",
-      dateTime: undefined,
+      date: undefined,
     },
   ];
 
@@ -176,12 +172,42 @@ test("should not match missing dates", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       primaryCode: "142496001",
-      primaryCodeSystem: "custom-SNOMED",
-      dateTime: undefined,
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: undefined,
     },
   ];
 
-  const actual = PrimaryCodeMatcher(bundle1, bundle2);
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
+
+  expect(actual.unmatched1.length).toBe(1);
+  expect(actual.unmatched1[0]).toBe(bundle1[0]);
+  expect(actual.unmatched2.length).toBe(1);
+  expect(actual.unmatched2[0]).toBe(bundle2[0]);
+  expect(actual.matched.length).toBe(0);
+});
+
+test("should not match missing system", () => {
+  const bundle1: ResourceAndKey[] = [
+    {
+      resource: { resourceType: "Procedure", id: "procedure_bundle1" },
+      resourceType: "Procedure",
+      primaryCode: "142496001",
+      primaryCodeSystem: undefined,
+      dateTime: "2021-03-04",
+    },
+  ];
+
+  const bundle2: ResourceAndKey[] = [
+    {
+      resource: { resourceType: "Procedure", id: "procedure_bundle2" },
+      resourceType: "Procedure",
+      primaryCode: "142496001",
+      primaryCodeSystem: undefined,
+      date: "2021-03-04",
+    },
+  ];
+
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
 
   expect(actual.unmatched1.length).toBe(1);
   expect(actual.unmatched1[0]).toBe(bundle1[0]);
@@ -197,7 +223,7 @@ test("should not match missing code", () => {
       resourceType: "Procedure",
       primaryCode: undefined,
       primaryCodeSystem: "http://snomed.info/sct",
-      dateTime: "2021-03-04",
+      date: "2021-03-04",
     },
   ];
 
@@ -206,12 +232,12 @@ test("should not match missing code", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       primaryCode: undefined,
-      primaryCodeSystem: "custom-SNOMED",
-      dateTime: "2021-03-04",
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: "2021-03-04",
     },
   ];
 
-  const actual = PrimaryCodeMatcher(bundle1, bundle2);
+  const actual = PrimaryCodeAndSystemDateMatcher(bundle1, bundle2);
 
   expect(actual.unmatched1.length).toBe(1);
   expect(actual.unmatched1[0]).toBe(bundle1[0]);

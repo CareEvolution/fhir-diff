@@ -6,6 +6,7 @@ export interface ResourceAndKey {
   identifier?: string;
   primaryCodeSystem?: string;
   primaryCode?: string;
+  dateTime?: string;
   date?: string;
   text?: string;
   value?: string;

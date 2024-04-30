@@ -19,7 +19,7 @@ const CrossResourceNaturalKeyMatcher: Matcher = (
     const bundle1Key = bundle1[bundle1Index];
 
     if (
-      !bundle1Key.date ||
+      !bundle1Key.dateTime ||
       !bundle1Key.primaryCode ||
       !bundle1Key.primaryCodeSystem
     ) {
@@ -34,7 +34,7 @@ const CrossResourceNaturalKeyMatcher: Matcher = (
     const bundle2Key = bundle2.findIndex(
       (k) =>
         resourceTypeGroup.includes(k.resourceType) &&
-        k.date == bundle1Key.date &&
+        k.dateTime == bundle1Key.dateTime &&
         k.primaryCode == bundle1Key.primaryCode &&
         k.primaryCodeSystem == bundle1Key.primaryCodeSystem,
     );
@@ -45,7 +45,7 @@ const CrossResourceNaturalKeyMatcher: Matcher = (
       result.matched.push({
         bundle1: buildReference(bundle1Key),
         bundle2: buildReference(bundle2[bundle2Key]),
-        reason: "cross-reference primary key matched",
+        reason: "cross-reference primary key + dateTime matched",
       });
       bundle2.splice(bundle2Key, 1);
     }

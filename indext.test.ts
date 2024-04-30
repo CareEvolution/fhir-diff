@@ -3,6 +3,16 @@ import { expect, test, describe } from "vitest";
 import { fhirBundlesMatch } from ".";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { FhirMatch } from "./models/fhirMatch";
+
+function expectMatch(match: FhirMatch, bundle1Ref: string, bundle2Ref: string) {
+  expect(
+    match.common.map((m) => ({
+      bundle1Ref: m.bundle1.reference,
+      bundle2Ref: m.bundle2.reference,
+    })),
+  ).toContainEqual({ bundle1Ref, bundle2Ref });
+}
 
 describe("fhirBundlesMatch", () => {
   test("should match things between bundles", () => {
@@ -80,6 +90,12 @@ describe("fhirBundlesMatch", () => {
       for (const ref of match.bundle2Only) {
         console.log(`bundle2Only: ${ref.reference}`);
       }
+
+      expectMatch(
+        match,
+        "MedicationRequest/5565ac16-c63c-4314-adab-7d67437ac617",
+        "MedicationStatement/193bf286-d45c-a0c6-f366-74f91efc3388",
+      );
     });
 
     test("careevolution and health_samurai", () => {

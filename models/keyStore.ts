@@ -8,10 +8,160 @@ function cleanText(text: string | undefined): string | undefined {
   return text.replace(/\s+/g, " ").toLowerCase();
 }
 
+const dateRegex = /^(\d{4}-\d{2}-\d{2})/;
+
 export class KeyStore {
   public all: ResourceAndKey[] = [];
   public byFhirRef: Map<string, ResourceAndKey> = new Map();
   public byFullUrl: Map<string, ResourceAndKey> = new Map();
+
+  constructor(bundle: r4.Bundle) {
+    for (const entry of bundle.entry || []) {
+      this.push(entry);
+    }
+    // back fill dates for resources that have children
+    // back fill codes for resources that have links to other resource
+    for (const key of this.all) {
+      switch (key.resource.resourceType) {
+        case "Observation":
+          if (!key.date) {
+            this.setObservationDate(key);
+          }
+          break;
+        case "DiagnosticReport":
+          if (!key.date) {
+            this.setDiagnosticReportDate(key);
+          }
+          break;
+        case "MedicationStatement":
+          if (!key.primaryCode) {
+            this.setMedicationStatementCode(key);
+          }
+          break;
+      }
+    }
+  }
+
+  private setDateAndDateTime(key: ResourceAndKey, dateField?: string) {
+    if (!dateField) {
+      return;
+    }
+
+    const dateMatch = dateField.match(dateRegex);
+    if (dateMatch) {
+      key.date = dateMatch[1];
+
+      if (key.date !== dateField) {
+        key.dateTime = dateField;
+      }
+    }
+  }
+
+  private setObservationDate(observationKey: ResourceAndKey) {
+    if (observationKey.dateTime) {
+      return;
+    }
+
+    const observation = observationKey.resource as r4.Observation;
+
+    if (observation.encounter?.reference) {
+      const encounterKey = this.byFhirRef.get(observation.encounter.reference);
+      if (encounterKey && encounterKey.dateTime) {
+        this.setDateAndDateTime(observationKey, encounterKey.dateTime);
+        return;
+      }
+    }
+
+    if (observation.hasMember && observation.hasMember.length > 0) {
+      const memberDates: string[] = [];
+
+      for (const member of observation.hasMember) {
+        if (member.reference) {
+          const memberKey = this.byFhirRef.get(member.reference);
+          if (memberKey && memberKey.dateTime) {
+            memberDates.push(memberKey.dateTime);
+          }
+        }
+      }
+
+      const disitinctDates = new Set(memberDates);
+      if (disitinctDates.size === 1) {
+        this.setDateAndDateTime(
+          observationKey,
+          disitinctDates.values().next().value,
+        );
+        return;
+      }
+    }
+  }
+
+  private setDiagnosticReportDate(diagnosticReportKey: ResourceAndKey) {
+    if (diagnosticReportKey.dateTime) {
+      return;
+    }
+
+    const diagnosticReport =
+      diagnosticReportKey.resource as r4.DiagnosticReport;
+    if (diagnosticReport.encounter?.reference) {
+      const encounterKey = this.byFhirRef.get(
+        diagnosticReport.encounter.reference,
+      );
+      if (encounterKey && encounterKey.dateTime) {
+        this.setDateAndDateTime(diagnosticReportKey, encounterKey.dateTime);
+        return;
+      }
+    }
+
+    if (
+      !diagnosticReportKey.dateTime &&
+      diagnosticReport.result &&
+      diagnosticReport.result.length > 0
+    ) {
+      const resultDates: string[] = [];
+
+      for (const result of diagnosticReport.result) {
+        if (result.reference) {
+          const resultKey =
+            this.byFhirRef.get(result.reference) ||
+            this.byFullUrl.get(result.reference);
+          if (resultKey && resultKey.dateTime) {
+            resultDates.push(resultKey.dateTime);
+          }
+        }
+      }
+
+      const disitinctDates = new Set(resultDates);
+      if (disitinctDates.size === 1) {
+        this.setDateAndDateTime(
+          diagnosticReportKey,
+          disitinctDates.values().next().value,
+        );
+        return;
+      }
+    }
+  }
+
+  private setMedicationStatementCode(medicationStatementKey: ResourceAndKey) {
+    if (medicationStatementKey.primaryCode) {
+      return;
+    }
+
+    const medicationStatement =
+      medicationStatementKey.resource as r4.MedicationStatement;
+    if (medicationStatement.medicationReference?.reference) {
+      console.log(
+        `fetching medication code for ${medicationStatement.id} from ${medicationStatement.medicationReference.reference}`,
+      );
+      const medicationKey = this.byFhirRef.get(
+        medicationStatement.medicationReference.reference,
+      );
+      if (medicationKey && medicationKey.primaryCode) {
+        medicationStatementKey.primaryCode = medicationKey.primaryCode;
+        medicationStatementKey.primaryCodeSystem =
+          medicationKey.primaryCodeSystem;
+      }
+    }
+  }
 
   public push(entry: r4.BundleEntry) {
     let key: ResourceAndKey | undefined;
@@ -107,14 +257,15 @@ export class KeyStore {
 
   public buildKeyEncounter(encounter: r4.Encounter): ResourceAndKey {
     const primaryCoding = encounter.class;
-    return {
+    const key = {
       resource: encounter,
       resourceType: encounter.resourceType,
       identifier: pickIdentifier(encounter.identifier) || encounter.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: encounter.period?.start,
     };
+    this.setDateAndDateTime(key, encounter.period?.start);
+    return key;
   }
 
   public buildKeyCondition(condition: r4.Condition): ResourceAndKey {
@@ -122,15 +273,16 @@ export class KeyStore {
       "http://snomed.info/sct",
       "http://www.icd10data.com/icd10pcs",
     ]);
-    return {
+    const key = {
       resource: condition,
       resourceType: condition.resourceType,
       identifier: pickIdentifier(condition.identifier) || condition.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: condition.onsetDateTime,
       text: cleanText(condition.code?.text),
     };
+    this.setDateAndDateTime(key, condition.onsetDateTime);
+    return key;
   }
 
   public buildKeyMedicationAdministration(
@@ -140,15 +292,16 @@ export class KeyStore {
       medadmin.medicationCodeableConcept,
       ["http://www.nlm.nih.gov/research/umls/rxnorm"],
     );
-    return {
+    const key = {
       resource: medadmin,
       resourceType: medadmin.resourceType,
       identifier: pickIdentifier(medadmin.identifier) || medadmin.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: medadmin.effectiveDateTime,
       text: cleanText(medadmin.medicationCodeableConcept?.text),
     };
+    this.setDateAndDateTime(key, medadmin.effectiveDateTime);
+    return key;
   }
 
   public buildKeyMedicationRequest(
@@ -158,15 +311,16 @@ export class KeyStore {
       medRequest.medicationCodeableConcept,
       ["http://www.nlm.nih.gov/research/umls/rxnorm"],
     );
-    return {
+    const key = {
       resource: medRequest,
       resourceType: medRequest.resourceType,
       identifier: pickIdentifier(medRequest.identifier) || medRequest.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: medRequest.authoredOn,
       text: cleanText(medRequest.medicationCodeableConcept?.text),
     };
+    this.setDateAndDateTime(key, medRequest.authoredOn);
+    return key;
   }
 
   public buildKeyMedicationStatement(
@@ -176,16 +330,19 @@ export class KeyStore {
       medStatement.medicationCodeableConcept,
       ["http://www.nlm.nih.gov/research/umls/rxnorm"],
     );
-    return {
+    const key = {
       resource: medStatement,
       resourceType: medStatement.resourceType,
       identifier: pickIdentifier(medStatement.identifier) || medStatement.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date:
-        medStatement.effectiveDateTime || medStatement.effectivePeriod?.start,
       text: cleanText(medStatement.medicationCodeableConcept?.text),
     };
+    this.setDateAndDateTime(
+      key,
+      medStatement.effectiveDateTime || medStatement.effectivePeriod?.start,
+    );
+    return key;
   }
 
   public buildKeyMedication(medication: r4.Medication): ResourceAndKey {
@@ -207,15 +364,19 @@ export class KeyStore {
       "http://snomed.info/sct",
       "http://www.icd10data.com/icd10pcs",
     ]);
-    return {
+    const key = {
       resource: procedure,
       resourceType: procedure.resourceType,
       identifier: pickIdentifier(procedure.identifier) || procedure.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: procedure.performedDateTime || procedure.performedPeriod?.start,
       text: cleanText(procedure.code?.text),
     };
+    this.setDateAndDateTime(
+      key,
+      procedure.performedDateTime || procedure.performedPeriod?.start,
+    );
+    return key;
   }
 
   public buildKeyAllergyInterolerance(
@@ -229,16 +390,20 @@ export class KeyStore {
           pickPrimaryCoding(reaction.substance, allergyIntoleranceSystems),
         )
         ?.find((s) => !!s);
-    return {
+    const key = {
       resource: allergyIntolerance,
       resourceType: allergyIntolerance.resourceType,
       identifier:
         pickIdentifier(allergyIntolerance.identifier) || allergyIntolerance.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: allergyIntolerance.onsetDateTime || allergyIntolerance.recordedDate,
       text: cleanText(allergyIntolerance.code?.text),
     };
+    this.setDateAndDateTime(
+      key,
+      allergyIntolerance.onsetDateTime || allergyIntolerance.recordedDate,
+    );
+    return key;
   }
 
   public buildKeyObservation(observation: r4.Observation): ResourceAndKey {
@@ -263,16 +428,17 @@ export class KeyStore {
       value = observation.valueCodeableConcept.text;
     }
 
-    return {
+    const key = {
       resource: observation,
       resourceType: observation.resourceType,
       identifier: pickIdentifier(observation.identifier) || observation.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: observation.effectiveDateTime,
       text: cleanText(observation.code?.text),
       value: value,
     };
+    this.setDateAndDateTime(key, observation.effectiveDateTime);
+    return key;
   }
 
   public buildKeyDiagnosticReport(
@@ -283,16 +449,21 @@ export class KeyStore {
       "http://snomed.info/sct",
     ]);
 
-    return {
+    const key = {
       resource: diagnosticReport,
       resourceType: diagnosticReport.resourceType,
       identifier:
         pickIdentifier(diagnosticReport.identifier) || diagnosticReport.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
-      date: diagnosticReport.effectiveDateTime,
       text: cleanText(diagnosticReport.code?.text),
     };
+    this.setDateAndDateTime(
+      key,
+      diagnosticReport.effectiveDateTime ||
+        diagnosticReport.effectivePeriod?.start,
+    );
+    return key;
   }
 
   public buildKeyPractitioner(practitioner: r4.Practitioner): ResourceAndKey {

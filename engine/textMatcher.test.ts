@@ -8,7 +8,7 @@ test("should match based on text and date and resource type", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle1" },
       resourceType: "Procedure",
       text: "Colonoscopy went well",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -17,7 +17,7 @@ test("should match based on text and date and resource type", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       text: "Colonoscopy went well",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -40,7 +40,7 @@ test("should not match based on different date", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle1" },
       resourceType: "Procedure",
       text: "Colonoscopy went well",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -49,7 +49,7 @@ test("should not match based on different date", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       text: "Colonoscopy went well",
-      date: "2021-03-05",
+      dateTime: "2021-03-05",
     },
   ];
 
@@ -68,7 +68,7 @@ test("should not match based on different resourceType", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle1" },
       resourceType: "Procedure",
       text: "Colonoscopy went well",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -77,7 +77,7 @@ test("should not match based on different resourceType", () => {
       resource: { resourceType: "Observation", id: "procedure_bundle2" },
       resourceType: "Observation",
       text: "Colonoscopy went well",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -96,7 +96,7 @@ test("should not match based on different text", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle1" },
       resourceType: "Procedure",
       text: "Colonoscopy went well",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 
@@ -105,7 +105,7 @@ test("should not match based on different text", () => {
       resource: { resourceType: "Procedure", id: "procedure_bundle2" },
       resourceType: "Procedure",
       text: "Venipuncture",
-      date: "2021-03-04",
+      dateTime: "2021-03-04",
     },
   ];
 

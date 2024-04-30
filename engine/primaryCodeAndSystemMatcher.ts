@@ -18,7 +18,7 @@ const PrimaryCodeAndSystemMatcher: Matcher = (
     const bundle1Key = bundle1[bundle1Index];
 
     if (
-      !bundle1Key.date ||
+      !bundle1Key.dateTime ||
       !bundle1Key.primaryCode ||
       !bundle1Key.primaryCodeSystem
     ) {
@@ -31,7 +31,7 @@ const PrimaryCodeAndSystemMatcher: Matcher = (
         k.resourceType === bundle1Key.resourceType &&
         k.primaryCode === bundle1Key.primaryCode &&
         k.primaryCodeSystem === bundle1Key.primaryCodeSystem &&
-        k.date === bundle1Key.date,
+        k.dateTime === bundle1Key.dateTime,
     );
 
     if (bundle2Key === -1) {
@@ -40,7 +40,7 @@ const PrimaryCodeAndSystemMatcher: Matcher = (
       result.matched.push({
         bundle1: buildReference(bundle1Key),
         bundle2: buildReference(bundle2[bundle2Key]),
-        reason: "primary coding and dates matched",
+        reason: "primary coding and dateTime matched",
       });
       bundle2.splice(bundle2Key, 1);
     }
