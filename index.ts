@@ -69,6 +69,20 @@ export function fhirBundlesMatch(
     unmatchedBundle1 = result.unmatched1;
     unmatchedBundle2 = result.unmatched2;
 
+    if (
+      overallMatch.common.length + unmatchedBundle1.length !=
+      bundle1KeyStore.all.length
+    ) {
+      console.log(`Error: lost resource from bundle1 in ${matcher.name}`);
+    }
+
+    if (
+      overallMatch.common.length + unmatchedBundle2.length !=
+      bundle2KeyStore.all.length
+    ) {
+      console.log(`Error: lost resource from bundle2 in ${matcher.name}`);
+    }
+
     if (result.unmatched1.length === 0 || result.unmatched2.length === 0) {
       break;
     }

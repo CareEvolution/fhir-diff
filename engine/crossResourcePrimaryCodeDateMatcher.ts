@@ -25,7 +25,10 @@ const CrossResourcePrimaryCodeDateMatcher: Matcher = (
 
     const resourceTypeGroup = getResourceTypeGroup(bundle1Key.resourceType);
 
-    if (!resourceTypeGroup) continue;
+    if (!resourceTypeGroup) {
+      result.unmatched1.push(bundle1Key);
+      continue;
+    }
 
     const bundle2Key = bundle2.findIndex(
       (k) =>

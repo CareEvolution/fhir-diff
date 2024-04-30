@@ -323,3 +323,30 @@ describe("Medications group", () => {
     );
   });
 });
+
+test("should pass on resources that are cannot be matched cross-resource in unmatched", () => {
+  const bundle1: ResourceAndKey[] = [
+    {
+      resource: { resourceType: "AllergyIntolerance", id: "allergy_bundle1" },
+      resourceType: "AllergyIntolerance",
+      primaryCode: "371361000119107",
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: "2021-03-04",
+    },
+  ];
+
+  const bundle2: ResourceAndKey[] = [
+    {
+      resource: { resourceType: "AllergyIntolerance", id: "allergy_bundle2" },
+      resourceType: "AllergyIntolerance",
+      primaryCode: "371361000119107",
+      primaryCodeSystem: "http://snomed.info/sct",
+      date: "2021-03-04",
+    },
+  ];
+
+  const actual = CrossResourcePrimaryCodeDateMatcher(bundle1, bundle2);
+
+  expect(actual.unmatched1).toEqual(bundle1);
+  expect(actual.unmatched2).toEqual(bundle2);
+});
