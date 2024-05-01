@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "@jest/globals";
 import { TextMatcher } from "./textMatcher";
 import { ResourceAndKey } from "../models/resourceAndKey";
 

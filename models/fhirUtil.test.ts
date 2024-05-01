@@ -1,5 +1,5 @@
 import * as r4 from "fhir/r4";
-import { expect, test, describe } from "vitest";
+import { expect, test, describe } from "@jest/globals";
 import { buildRef } from "./fhirUtil";
 
 describe("buildRef", () => {

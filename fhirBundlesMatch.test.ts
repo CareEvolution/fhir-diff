@@ -1,5 +1,5 @@
 import * as r4 from "fhir/r4";
-import { expect, test, describe } from "vitest";
+import { expect, test, describe } from "@jest/globals";
 import { fhirBundlesMatch } from ".";
 import { readFileSync } from "fs";
 import { join } from "path";

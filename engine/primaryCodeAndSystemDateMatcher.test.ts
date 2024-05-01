@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test } from "@jest/globals";
 import { PrimaryCodeAndSystemDateMatcher } from "./primaryCodeAndSystemDateMatcher";
 import { ResourceAndKey } from "../models/resourceAndKey";
 

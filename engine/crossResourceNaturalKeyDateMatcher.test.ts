@@ -1,4 +1,4 @@
-import { expect, test, describe } from "vitest";
+import { expect, test, describe } from "@jest/globals";
 import { CrossResourceNaturalKeyDateMatcher } from "./crossResourceNaturalKeyDateMatcher";
 import { ResourceAndKey } from "../models/resourceAndKey";
 
