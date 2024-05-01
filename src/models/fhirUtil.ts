@@ -1,4 +1,4 @@
-import wellKnownUrls from "../data/wellKnownUrls";
+import wellKnownUrls from "../../data/wellKnownUrls";
 import { ResourceAndKey } from "./resourceAndKey";
 import * as r4 from "fhir/r4";
 

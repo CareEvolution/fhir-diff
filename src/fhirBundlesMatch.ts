@@ -1,4 +1,4 @@
-import * as r4 from "fhir/r4";
+import { Bundle } from "fhir/r4";
 import { FhirMatch } from "./models/fhirMatch";
 import { KeyStore } from "./models/keyStore";
 import { Matcher } from "./engine/matcher";
@@ -15,11 +15,11 @@ import { PrimaryCodeAndSystemDateMatcher } from "./engine/primaryCodeAndSystemDa
 import { PrimaryCodeDateMatcher } from "./engine/primaryCodeDateMatcher";
 import { CrossResourcePrimaryCodeDateMatcher } from "./engine/crossResourcePrimaryCodeDateMatcher";
 
-export function fhirBundlesMatch(
-  bundle1: r4.Bundle,
-  bundle2: r4.Bundle,
+export const fhirBundlesMatch = (
+  bundle1: Bundle,
+  bundle2: Bundle,
   debug: boolean = false,
-): FhirMatch {
+): FhirMatch => {
   console.log("--- bundle1 ---");
   const bundle1KeyStore = new KeyStore(bundle1);
 
