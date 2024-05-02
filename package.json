@@ -1,6 +1,6 @@
 {
   "name": "@careevolution/fhir-diff",
-  "version": "0.0.0-hackathon023",
+  "version": "1.0.0",
   "type": "commonjs",
   "types": "./src/index.d.ts",
   "main": "./src/index.js",

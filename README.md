@@ -12,3 +12,12 @@ The code is written in TypeScript, with some JavaScript config files. We are wri
 - Linting framework: eslint
 - Builder: tsc
 - Builds to: CommonJS module
+
+## Publish
+
+To publish a new version of the module:
+
+- Update the version in the package.json file
+- Commit and push all changes `git commit` and `git push`
+- Tag the repo: `git tag x.y.z`
+- Push the tag: `git push --tags`
