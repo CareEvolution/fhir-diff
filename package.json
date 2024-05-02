@@ -23,6 +23,7 @@
     "@types/fhir": "^0.0.41"
   },
   "devDependencies": {
+    "@careevolution/eslint-config-ce-frontend": "^1.1.0",
     "@eslint/js": "^9.1.1",
     "@jest/globals": "^29.7.0",
     "@types/node": "^20.12.7",
@@ -38,5 +39,6 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
-  }
+  },
+  "prettier": "@careevolution/eslint-config-ce-frontend/prettier.config.js"
 }
