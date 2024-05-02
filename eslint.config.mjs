@@ -4,14 +4,20 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
+    ignores: ["dist", "jest.config.js"],
+  },
+  {
     rules: {
       camelcase: "error",
     },
   },
   {
-    ignores: ["dist"],
+    files: ["**/*.js"],
+    languageOptions: { sourceType: "commonjs" },
   },
-  { languageOptions: { globals: globals.browser } },
+  {
+    languageOptions: { globals: globals.browser },
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
 ];
