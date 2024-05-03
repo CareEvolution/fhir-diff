@@ -1,6 +1,6 @@
-import { buildReference } from "../models/fhirUtil";
-import { ResourceAndKey } from "../models/resourceAndKey";
-import { MatchResult, Matcher } from "./matcher";
+import { buildReference } from '../models/fhirUtil';
+import { ResourceAndKey } from '../models/resourceAndKey';
+import { MatchResult, Matcher } from './matcher';
 
 const PrimaryCodeMatcher: Matcher = (
   bundle1: ResourceAndKey[],
@@ -35,7 +35,7 @@ const PrimaryCodeMatcher: Matcher = (
       result.matched.push({
         bundle1: buildReference(bundle1Key),
         bundle2: buildReference(bundle2[bundle2Key]),
-        reason: "primary code + dateTime matched",
+        reason: 'primary code + dateTime matched',
       });
       bundle2.splice(bundle2Key, 1);
     }

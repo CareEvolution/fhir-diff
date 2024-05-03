@@ -1,29 +1,29 @@
-import { expect, test, describe } from "@jest/globals";
-import { CrossResourcePrimaryCodeDateMatcher } from "./crossResourcePrimaryCodeDateMatcher";
-import { ResourceAndKey } from "../models/resourceAndKey";
+import { expect, test, describe } from '@jest/globals';
+import { CrossResourcePrimaryCodeDateMatcher } from './crossResourcePrimaryCodeDateMatcher';
+import { ResourceAndKey } from '../models/resourceAndKey';
 
-describe("Labs group", () => {
-  test("should match Observation to DiagnosticReport based on primary coding and date", () => {
+describe('Labs group', () => {
+  test('should match Observation to DiagnosticReport based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Observation", id: "observation_bundle1" },
-        resourceType: "Observation",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        resource: { resourceType: 'Observation', id: 'observation_bundle1' },
+        resourceType: 'Observation',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "DiagnosticReport",
-          id: "diagnosticreport_bundle2",
+          resourceType: 'DiagnosticReport',
+          id: 'diagnosticreport_bundle2',
         },
-        resourceType: "DiagnosticReport",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        resourceType: 'DiagnosticReport',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
@@ -33,34 +33,34 @@ describe("Labs group", () => {
     expect(actual.unmatched2.length).toBe(0);
     expect(actual.matched.length).toBe(1);
     expect(actual.matched[0].bundle1.reference).toBe(
-      "Observation/observation_bundle1",
+      'Observation/observation_bundle1',
     );
     expect(actual.matched[0].bundle2.reference).toBe(
-      "DiagnosticReport/diagnosticreport_bundle2",
+      'DiagnosticReport/diagnosticreport_bundle2',
     );
   });
 
-  test("should match DiagnosticReport to Observation based on primary coding and date", () => {
+  test('should match DiagnosticReport to Observation based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "DiagnosticReport",
-          id: "diagnosticreport_bundle1",
+          resourceType: 'DiagnosticReport',
+          id: 'diagnosticreport_bundle1',
         },
-        resourceType: "DiagnosticReport",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        resourceType: 'DiagnosticReport',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Observation", id: "observation_bundle2" },
-        resourceType: "Observation",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        resource: { resourceType: 'Observation', id: 'observation_bundle2' },
+        resourceType: 'Observation',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
@@ -70,34 +70,34 @@ describe("Labs group", () => {
     expect(actual.unmatched2.length).toBe(0);
     expect(actual.matched.length).toBe(1);
     expect(actual.matched[0].bundle1.reference).toBe(
-      "DiagnosticReport/diagnosticreport_bundle1",
+      'DiagnosticReport/diagnosticreport_bundle1',
     );
     expect(actual.matched[0].bundle2.reference).toBe(
-      "Observation/observation_bundle2",
+      'Observation/observation_bundle2',
     );
   });
 
-  test("should not match based on different date", () => {
+  test('should not match based on different date', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Observation", id: "observation_bundle1" },
-        resourceType: "Observation",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        resource: { resourceType: 'Observation', id: 'observation_bundle1' },
+        resourceType: 'Observation',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "DiagnosticReport",
-          id: "diagnosticreport_bundle2",
+          resourceType: 'DiagnosticReport',
+          id: 'diagnosticreport_bundle2',
         },
-        resourceType: "DiagnosticReport",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-05",
+        resourceType: 'DiagnosticReport',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-05',
       },
     ];
 
@@ -110,27 +110,27 @@ describe("Labs group", () => {
     expect(actual.matched.length).toBe(0);
   });
 
-  test("should not match based on different code", () => {
+  test('should not match based on different code', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Observation", id: "observation_bundle1" },
-        resourceType: "Observation",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        resource: { resourceType: 'Observation', id: 'observation_bundle1' },
+        resourceType: 'Observation',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "DiagnosticReport",
-          id: "diagnosticreport_bundle2",
+          resourceType: 'DiagnosticReport',
+          id: 'diagnosticreport_bundle2',
         },
-        resourceType: "DiagnosticReport",
-        primaryCode: "26604007",
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        resourceType: 'DiagnosticReport',
+        primaryCode: '26604007',
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
@@ -143,13 +143,13 @@ describe("Labs group", () => {
     expect(actual.matched.length).toBe(0);
   });
 
-  test("should not match missing dates", () => {
+  test('should not match missing dates', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Observation", id: "observation_bundle1" },
-        resourceType: "Observation",
-        primaryCode: "371361000119107",
-        primaryCodeSystem: "http://snomed.info/sct",
+        resource: { resourceType: 'Observation', id: 'observation_bundle1' },
+        resourceType: 'Observation',
+        primaryCode: '371361000119107',
+        primaryCodeSystem: 'http://snomed.info/sct',
         date: undefined,
       },
     ];
@@ -157,12 +157,12 @@ describe("Labs group", () => {
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "DiagnosticReport",
-          id: "diagnosticreport_bundle2",
+          resourceType: 'DiagnosticReport',
+          id: 'diagnosticreport_bundle2',
         },
-        resourceType: "DiagnosticReport",
-        primaryCode: "26604007",
-        primaryCodeSystem: "http://snomed.info/sct",
+        resourceType: 'DiagnosticReport',
+        primaryCode: '26604007',
+        primaryCodeSystem: 'http://snomed.info/sct',
         date: undefined,
       },
     ];
@@ -176,27 +176,27 @@ describe("Labs group", () => {
     expect(actual.matched.length).toBe(0);
   });
 
-  test("should not match missing code", () => {
+  test('should not match missing code', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Observation", id: "observation_bundle1" },
-        resourceType: "Observation",
+        resource: { resourceType: 'Observation', id: 'observation_bundle1' },
+        resourceType: 'Observation',
         primaryCode: undefined,
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "DiagnosticReport",
-          id: "diagnosticreport_bundle2",
+          resourceType: 'DiagnosticReport',
+          id: 'diagnosticreport_bundle2',
         },
-        resourceType: "DiagnosticReport",
+        resourceType: 'DiagnosticReport',
         primaryCode: undefined,
-        primaryCodeSystem: "http://snomed.info/sct",
-        date: "2021-03-04",
+        primaryCodeSystem: 'http://snomed.info/sct',
+        date: '2021-03-04',
       },
     ];
 
@@ -211,28 +211,28 @@ describe("Labs group", () => {
 });
 
 // not going to exhaustively test all of the different medication combinations in all of the different ways it will not match
-describe("Medications group", () => {
-  test("should match Medication to MedicationRequest based on primary coding and date", () => {
+describe('Medications group', () => {
+  test('should match Medication to MedicationRequest based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Medication", id: "medication_bundle1" },
-        resourceType: "Medication",
-        primaryCode: "102377",
-        primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        date: "2021-03-04",
+        resource: { resourceType: 'Medication', id: 'medication_bundle1' },
+        resourceType: 'Medication',
+        primaryCode: '102377',
+        primaryCodeSystem: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "MedicationRequest",
-          id: "medicationrequest_bundle2",
+          resourceType: 'MedicationRequest',
+          id: 'medicationrequest_bundle2',
         },
-        resourceType: "MedicationRequest",
-        primaryCode: "102377",
-        primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        date: "2021-03-04",
+        resourceType: 'MedicationRequest',
+        primaryCode: '102377',
+        primaryCodeSystem: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+        date: '2021-03-04',
       },
     ];
 
@@ -242,34 +242,34 @@ describe("Medications group", () => {
     expect(actual.unmatched2.length).toBe(0);
     expect(actual.matched.length).toBe(1);
     expect(actual.matched[0].bundle1.reference).toBe(
-      "Medication/medication_bundle1",
+      'Medication/medication_bundle1',
     );
     expect(actual.matched[0].bundle2.reference).toBe(
-      "MedicationRequest/medicationrequest_bundle2",
+      'MedicationRequest/medicationrequest_bundle2',
     );
   });
 
-  test("should match Medication to MedicationStatement based on primary coding and date", () => {
+  test('should match Medication to MedicationStatement based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Medication", id: "medication_bundle1" },
-        resourceType: "Medication",
-        primaryCode: "102377",
-        primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        date: "2021-03-04",
+        resource: { resourceType: 'Medication', id: 'medication_bundle1' },
+        resourceType: 'Medication',
+        primaryCode: '102377',
+        primaryCodeSystem: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "MedicationStatement",
-          id: "medicationstatement_bundle2",
+          resourceType: 'MedicationStatement',
+          id: 'medicationstatement_bundle2',
         },
-        resourceType: "MedicationStatement",
-        primaryCode: "102377",
-        primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        date: "2021-03-04",
+        resourceType: 'MedicationStatement',
+        primaryCode: '102377',
+        primaryCodeSystem: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+        date: '2021-03-04',
       },
     ];
 
@@ -279,34 +279,34 @@ describe("Medications group", () => {
     expect(actual.unmatched2.length).toBe(0);
     expect(actual.matched.length).toBe(1);
     expect(actual.matched[0].bundle1.reference).toBe(
-      "Medication/medication_bundle1",
+      'Medication/medication_bundle1',
     );
     expect(actual.matched[0].bundle2.reference).toBe(
-      "MedicationStatement/medicationstatement_bundle2",
+      'MedicationStatement/medicationstatement_bundle2',
     );
   });
 
-  test("should match Medication to MedicationAdministration based on primary coding and date", () => {
+  test('should match Medication to MedicationAdministration based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
-        resource: { resourceType: "Medication", id: "medication_bundle1" },
-        resourceType: "Medication",
-        primaryCode: "102377",
-        primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        date: "2021-03-04",
+        resource: { resourceType: 'Medication', id: 'medication_bundle1' },
+        resourceType: 'Medication',
+        primaryCode: '102377',
+        primaryCodeSystem: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+        date: '2021-03-04',
       },
     ];
 
     const bundle2: ResourceAndKey[] = [
       {
         resource: {
-          resourceType: "MedicationAdministration",
-          id: "medicationadministration_bundle2",
+          resourceType: 'MedicationAdministration',
+          id: 'medicationadministration_bundle2',
         },
-        resourceType: "MedicationAdministration",
-        primaryCode: "102377",
-        primaryCodeSystem: "http://www.nlm.nih.gov/research/umls/rxnorm",
-        date: "2021-03-04",
+        resourceType: 'MedicationAdministration',
+        primaryCode: '102377',
+        primaryCodeSystem: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+        date: '2021-03-04',
       },
     ];
 
@@ -316,32 +316,32 @@ describe("Medications group", () => {
     expect(actual.unmatched2.length).toBe(0);
     expect(actual.matched.length).toBe(1);
     expect(actual.matched[0].bundle1.reference).toBe(
-      "Medication/medication_bundle1",
+      'Medication/medication_bundle1',
     );
     expect(actual.matched[0].bundle2.reference).toBe(
-      "MedicationAdministration/medicationadministration_bundle2",
+      'MedicationAdministration/medicationadministration_bundle2',
     );
   });
 });
 
-test("should pass on resources that are cannot be matched cross-resource in unmatched", () => {
+test('should pass on resources that are cannot be matched cross-resource in unmatched', () => {
   const bundle1: ResourceAndKey[] = [
     {
-      resource: { resourceType: "AllergyIntolerance", id: "allergy_bundle1" },
-      resourceType: "AllergyIntolerance",
-      primaryCode: "371361000119107",
-      primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      resource: { resourceType: 'AllergyIntolerance', id: 'allergy_bundle1' },
+      resourceType: 'AllergyIntolerance',
+      primaryCode: '371361000119107',
+      primaryCodeSystem: 'http://snomed.info/sct',
+      date: '2021-03-04',
     },
   ];
 
   const bundle2: ResourceAndKey[] = [
     {
-      resource: { resourceType: "AllergyIntolerance", id: "allergy_bundle2" },
-      resourceType: "AllergyIntolerance",
-      primaryCode: "371361000119107",
-      primaryCodeSystem: "http://snomed.info/sct",
-      date: "2021-03-04",
+      resource: { resourceType: 'AllergyIntolerance', id: 'allergy_bundle2' },
+      resourceType: 'AllergyIntolerance',
+      primaryCode: '371361000119107',
+      primaryCodeSystem: 'http://snomed.info/sct',
+      date: '2021-03-04',
     },
   ];
 

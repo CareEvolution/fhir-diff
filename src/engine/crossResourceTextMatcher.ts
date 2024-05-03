@@ -1,7 +1,7 @@
-import { buildReference } from "../models/fhirUtil";
-import { ResourceAndKey } from "../models/resourceAndKey";
-import { getResourceTypeGroup } from "./getResourceTypeGroup";
-import { MatchResult, Matcher } from "./matcher";
+import { buildReference } from '../models/fhirUtil';
+import { ResourceAndKey } from '../models/resourceAndKey';
+import { getResourceTypeGroup } from './getResourceTypeGroup';
+import { MatchResult, Matcher } from './matcher';
 
 const CrossResourceTextMatcher: Matcher = (
   bundle1: ResourceAndKey[],
@@ -43,7 +43,7 @@ const CrossResourceTextMatcher: Matcher = (
       result.matched.push({
         bundle1: buildReference(bundle1Key),
         bundle2: buildReference(bundle2[bundle2Key]),
-        reason: "cross-reference text + dateTime matched",
+        reason: 'cross-reference text + dateTime matched',
       });
       bundle2.splice(bundle2Key, 1);
     }

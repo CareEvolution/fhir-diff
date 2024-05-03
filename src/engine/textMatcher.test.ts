@@ -1,23 +1,23 @@
-import { expect, test } from "@jest/globals";
-import { TextMatcher } from "./textMatcher";
-import { ResourceAndKey } from "../models/resourceAndKey";
+import { expect, test } from '@jest/globals';
+import { TextMatcher } from './textMatcher';
+import { ResourceAndKey } from '../models/resourceAndKey';
 
-test("should match based on text and date and resource type", () => {
+test('should match based on text and date and resource type', () => {
   const bundle1: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Procedure", id: "procedure_bundle1" },
-      resourceType: "Procedure",
-      text: "Colonoscopy went well",
-      dateTime: "2021-03-04",
+      resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
+      resourceType: 'Procedure',
+      text: 'Colonoscopy went well',
+      dateTime: '2021-03-04',
     },
   ];
 
   const bundle2: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Procedure", id: "procedure_bundle2" },
-      resourceType: "Procedure",
-      text: "Colonoscopy went well",
-      dateTime: "2021-03-04",
+      resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
+      resourceType: 'Procedure',
+      text: 'Colonoscopy went well',
+      dateTime: '2021-03-04',
     },
   ];
 
@@ -27,29 +27,29 @@ test("should match based on text and date and resource type", () => {
   expect(actual.unmatched2.length).toBe(0);
   expect(actual.matched.length).toBe(1);
   expect(actual.matched[0].bundle1.reference).toBe(
-    "Procedure/procedure_bundle1",
+    'Procedure/procedure_bundle1',
   );
   expect(actual.matched[0].bundle2.reference).toBe(
-    "Procedure/procedure_bundle2",
+    'Procedure/procedure_bundle2',
   );
 });
 
-test("should not match based on different date", () => {
+test('should not match based on different date', () => {
   const bundle1: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Procedure", id: "procedure_bundle1" },
-      resourceType: "Procedure",
-      text: "Colonoscopy went well",
-      dateTime: "2021-03-04",
+      resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
+      resourceType: 'Procedure',
+      text: 'Colonoscopy went well',
+      dateTime: '2021-03-04',
     },
   ];
 
   const bundle2: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Procedure", id: "procedure_bundle2" },
-      resourceType: "Procedure",
-      text: "Colonoscopy went well",
-      dateTime: "2021-03-05",
+      resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
+      resourceType: 'Procedure',
+      text: 'Colonoscopy went well',
+      dateTime: '2021-03-05',
     },
   ];
 
@@ -62,22 +62,22 @@ test("should not match based on different date", () => {
   expect(actual.matched.length).toBe(0);
 });
 
-test("should not match based on different resourceType", () => {
+test('should not match based on different resourceType', () => {
   const bundle1: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Procedure", id: "procedure_bundle1" },
-      resourceType: "Procedure",
-      text: "Colonoscopy went well",
-      dateTime: "2021-03-04",
+      resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
+      resourceType: 'Procedure',
+      text: 'Colonoscopy went well',
+      dateTime: '2021-03-04',
     },
   ];
 
   const bundle2: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Observation", id: "procedure_bundle2" },
-      resourceType: "Observation",
-      text: "Colonoscopy went well",
-      dateTime: "2021-03-04",
+      resource: { resourceType: 'Observation', id: 'procedure_bundle2' },
+      resourceType: 'Observation',
+      text: 'Colonoscopy went well',
+      dateTime: '2021-03-04',
     },
   ];
 
@@ -90,22 +90,22 @@ test("should not match based on different resourceType", () => {
   expect(actual.matched.length).toBe(0);
 });
 
-test("should not match based on different text", () => {
+test('should not match based on different text', () => {
   const bundle1: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Procedure", id: "procedure_bundle1" },
-      resourceType: "Procedure",
-      text: "Colonoscopy went well",
-      dateTime: "2021-03-04",
+      resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
+      resourceType: 'Procedure',
+      text: 'Colonoscopy went well',
+      dateTime: '2021-03-04',
     },
   ];
 
   const bundle2: ResourceAndKey[] = [
     {
-      resource: { resourceType: "Procedure", id: "procedure_bundle2" },
-      resourceType: "Procedure",
-      text: "Venipuncture",
-      dateTime: "2021-03-04",
+      resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
+      resourceType: 'Procedure',
+      text: 'Venipuncture',
+      dateTime: '2021-03-04',
     },
   ];
 

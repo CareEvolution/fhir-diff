@@ -1,4 +1,4 @@
-import { Reference } from "fhir/r4";
+import { Reference } from 'fhir/r4';
 
 export interface FhirReferences {
   bundle1: Reference;

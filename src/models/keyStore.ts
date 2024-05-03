@@ -1,11 +1,11 @@
-import * as r4 from "fhir/r4";
-import { ResourceAndKey } from "./resourceAndKey";
-import { buildRef, pickIdentifier, pickPrimaryCoding } from "./fhirUtil";
+import * as r4 from 'fhir/r4';
+import { ResourceAndKey } from './resourceAndKey';
+import { buildRef, pickIdentifier, pickPrimaryCoding } from './fhirUtil';
 
 function cleanText(text: string | undefined): string | undefined {
   if (!text) return text;
 
-  return text.replace(/\s+/g, " ").toLowerCase();
+  return text.replace(/\s+/g, ' ').toLowerCase();
 }
 
 const dateRegex = /^(\d{4}-\d{2}-\d{2})/;
@@ -23,17 +23,17 @@ export class KeyStore {
     // back fill codes for resources that have links to other resource
     for (const key of this.all) {
       switch (key.resource.resourceType) {
-        case "Observation":
+        case 'Observation':
           if (!key.date) {
             this.setObservationDate(key);
           }
           break;
-        case "DiagnosticReport":
+        case 'DiagnosticReport':
           if (!key.date) {
             this.setDiagnosticReportDate(key);
           }
           break;
-        case "MedicationStatement":
+        case 'MedicationStatement':
           if (!key.primaryCode) {
             this.setMedicationStatementCode(key);
           }
@@ -171,68 +171,68 @@ export class KeyStore {
     }
 
     switch (entry.resource.resourceType) {
-      case "Patient":
+      case 'Patient':
         key = this.buildKeyPatient(entry.resource);
         break;
 
-      case "Encounter":
+      case 'Encounter':
         key = this.buildKeyEncounter(entry.resource);
         break;
 
-      case "Condition":
+      case 'Condition':
         key = this.buildKeyCondition(entry.resource);
         break;
 
-      case "MedicationAdministration":
+      case 'MedicationAdministration':
         key = this.buildKeyMedicationAdministration(entry.resource);
         break;
 
-      case "MedicationRequest":
+      case 'MedicationRequest':
         key = this.buildKeyMedicationRequest(entry.resource);
         break;
 
-      case "MedicationStatement":
+      case 'MedicationStatement':
         key = this.buildKeyMedicationStatement(entry.resource);
         break;
 
-      case "Medication":
+      case 'Medication':
         key = this.buildKeyMedication(entry.resource);
         break;
 
-      case "Procedure":
+      case 'Procedure':
         key = this.buildKeyProcedure(entry.resource);
         break;
 
-      case "AllergyIntolerance":
+      case 'AllergyIntolerance':
         key = this.buildKeyAllergyInterolerance(entry.resource);
         break;
 
-      case "Observation":
+      case 'Observation':
         key = this.buildKeyObservation(entry.resource);
         break;
 
-      case "DiagnosticReport":
+      case 'DiagnosticReport':
         key = this.buildKeyDiagnosticReport(entry.resource);
         break;
 
-      case "Practitioner":
+      case 'Practitioner':
         key = this.buildKeyPractitioner(entry.resource);
         break;
 
-      case "PractitionerRole":
+      case 'PractitionerRole':
         key = this.buildKeyPractitionerRole(entry.resource);
         break;
 
-      case "Organization":
+      case 'Organization':
         key = this.buildKeyOrganization(entry.resource);
         break;
 
-      case "OperationOutcome":
-      case "Composition":
+      case 'OperationOutcome':
+      case 'Composition':
         break;
 
       default:
-        console.log("Unhandled resource type: " + entry.resource.resourceType);
+        console.log('Unhandled resource type: ' + entry.resource.resourceType);
         break;
     }
 
@@ -250,7 +250,7 @@ export class KeyStore {
   public buildKeyPatient(patient: r4.Patient): ResourceAndKey {
     return {
       resource: patient,
-      resourceType: "Patient",
+      resourceType: 'Patient',
       identifier: pickIdentifier(patient.identifier) || patient.id,
     };
   }
@@ -270,8 +270,8 @@ export class KeyStore {
 
   public buildKeyCondition(condition: r4.Condition): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(condition.code, [
-      "http://snomed.info/sct",
-      "http://www.icd10data.com/icd10pcs",
+      'http://snomed.info/sct',
+      'http://www.icd10data.com/icd10pcs',
     ]);
     const key = {
       resource: condition,
@@ -290,7 +290,7 @@ export class KeyStore {
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(
       medadmin.medicationCodeableConcept,
-      ["http://www.nlm.nih.gov/research/umls/rxnorm"],
+      ['http://www.nlm.nih.gov/research/umls/rxnorm'],
     );
     const key = {
       resource: medadmin,
@@ -309,7 +309,7 @@ export class KeyStore {
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(
       medRequest.medicationCodeableConcept,
-      ["http://www.nlm.nih.gov/research/umls/rxnorm"],
+      ['http://www.nlm.nih.gov/research/umls/rxnorm'],
     );
     const key = {
       resource: medRequest,
@@ -328,7 +328,7 @@ export class KeyStore {
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(
       medStatement.medicationCodeableConcept,
-      ["http://www.nlm.nih.gov/research/umls/rxnorm"],
+      ['http://www.nlm.nih.gov/research/umls/rxnorm'],
     );
     const key = {
       resource: medStatement,
@@ -347,7 +347,7 @@ export class KeyStore {
 
   public buildKeyMedication(medication: r4.Medication): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(medication.code, [
-      "http://www.nlm.nih.gov/research/umls/rxnorm",
+      'http://www.nlm.nih.gov/research/umls/rxnorm',
     ]);
     return {
       resource: medication,
@@ -361,8 +361,8 @@ export class KeyStore {
 
   public buildKeyProcedure(procedure: r4.Procedure): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(procedure.code, [
-      "http://snomed.info/sct",
-      "http://www.icd10data.com/icd10pcs",
+      'http://snomed.info/sct',
+      'http://www.icd10data.com/icd10pcs',
     ]);
     const key = {
       resource: procedure,
@@ -382,7 +382,7 @@ export class KeyStore {
   public buildKeyAllergyInterolerance(
     allergyIntolerance: r4.AllergyIntolerance,
   ): ResourceAndKey {
-    const allergyIntoleranceSystems = ["http://snomed.info/sct"];
+    const allergyIntoleranceSystems = ['http://snomed.info/sct'];
     const primaryCoding =
       pickPrimaryCoding(allergyIntolerance.code, allergyIntoleranceSystems) ||
       allergyIntolerance.reaction
@@ -408,8 +408,8 @@ export class KeyStore {
 
   public buildKeyObservation(observation: r4.Observation): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(observation.code, [
-      "http://loinc.org",
-      "http://snomed.info/sct",
+      'http://loinc.org',
+      'http://snomed.info/sct',
     ]);
 
     let value: string | undefined;
@@ -445,8 +445,8 @@ export class KeyStore {
     diagnosticReport: r4.DiagnosticReport,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(diagnosticReport.code, [
-      "http://loinc.org",
-      "http://snomed.info/sct",
+      'http://loinc.org',
+      'http://snomed.info/sct',
     ]);
 
     const key = {

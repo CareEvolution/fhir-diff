@@ -1,6 +1,6 @@
-import wellKnownUrls from "../../data/wellKnownUrls";
-import { ResourceAndKey } from "./resourceAndKey";
-import * as r4 from "fhir/r4";
+import wellKnownUrls from '../../data/wellKnownUrls';
+import { ResourceAndKey } from './resourceAndKey';
+import * as r4 from 'fhir/r4';
 
 export function buildRef(resource: r4.Resource): string {
   return `${resource.resourceType}/${resource.id}`;
@@ -20,8 +20,8 @@ export function pickIdentifier(
   }
 
   return (
-    identifier.find((i) => i.use === "usual")?.value ||
-    identifier.find((i) => i.use === "official")?.value ||
+    identifier.find((i) => i.use === 'usual')?.value ||
+    identifier.find((i) => i.use === 'official')?.value ||
     identifier[0].value
   );
 }

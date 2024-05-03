@@ -1,11 +1,11 @@
 const medicationResourceTypes = [
-  "MedicationRequest",
-  "MedicationStatement",
-  "MedicationAdministration",
-  "Medication",
+  'MedicationRequest',
+  'MedicationStatement',
+  'MedicationAdministration',
+  'Medication',
 ];
 
-const labResourceTypes = ["Observation", "DiagnosticReport"];
+const labResourceTypes = ['Observation', 'DiagnosticReport'];
 
 export function getResourceTypeGroup(
   resourceType: string,

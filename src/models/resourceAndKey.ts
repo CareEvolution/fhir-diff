@@ -1,4 +1,4 @@
-import * as r4 from "fhir/r4";
+import * as r4 from 'fhir/r4';
 
 export interface ResourceAndKey {
   resource: r4.Resource;

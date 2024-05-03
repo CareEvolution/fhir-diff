@@ -1,7 +1,7 @@
-import { buildReference } from "../models/fhirUtil";
-import { ResourceAndKey } from "../models/resourceAndKey";
-import { getResourceTypeGroup } from "./getResourceTypeGroup";
-import { MatchResult, Matcher } from "./matcher";
+import { buildReference } from '../models/fhirUtil';
+import { ResourceAndKey } from '../models/resourceAndKey';
+import { getResourceTypeGroup } from './getResourceTypeGroup';
+import { MatchResult, Matcher } from './matcher';
 
 const CrossResourcePrimaryCodeDateMatcher: Matcher = (
   bundle1: ResourceAndKey[],
@@ -43,7 +43,7 @@ const CrossResourcePrimaryCodeDateMatcher: Matcher = (
       result.matched.push({
         bundle1: buildReference(bundle1Key),
         bundle2: buildReference(bundle2[bundle2Key]),
-        reason: "cross-reference primary code + date matched",
+        reason: 'cross-reference primary code + date matched',
       });
       bundle2.splice(bundle2Key, 1);
     }

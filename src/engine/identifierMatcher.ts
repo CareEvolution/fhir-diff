@@ -1,6 +1,6 @@
-import { buildReference } from "../models/fhirUtil";
-import { ResourceAndKey } from "../models/resourceAndKey";
-import { MatchResult, Matcher } from "./matcher";
+import { buildReference } from '../models/fhirUtil';
+import { ResourceAndKey } from '../models/resourceAndKey';
+import { MatchResult, Matcher } from './matcher';
 
 const IdentifierMatcher: Matcher = (
   bundle1: ResourceAndKey[],
@@ -28,7 +28,7 @@ const IdentifierMatcher: Matcher = (
       result.matched.push({
         bundle1: buildReference(bundle1Key),
         bundle2: buildReference(bundle2[bundle2Key]),
-        reason: "identifiers matched",
+        reason: 'identifiers matched',
       });
       bundle2.splice(bundle2Key, 1);
     }

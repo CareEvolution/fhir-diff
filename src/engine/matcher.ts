@@ -1,5 +1,5 @@
-import { ResourceAndKey } from "../models/resourceAndKey";
-import { FhirReferences } from "../models/fhirReferences";
+import { ResourceAndKey } from '../models/resourceAndKey';
+import { FhirReferences } from '../models/fhirReferences';
 
 export interface MatchResult {
   unmatched1: ResourceAndKey[];
