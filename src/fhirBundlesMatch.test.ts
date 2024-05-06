@@ -1,8 +1,8 @@
 import * as r4 from 'fhir/r4';
 import { expect, test, describe } from '@jest/globals';
-import { fhirBundlesMatch } from '.';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { fhirBundlesMatch } from '.';
 import { FhirMatch } from './models/fhirMatch';
 
 function expectMatch(match: FhirMatch, bundle1Ref: string, bundle2Ref: string) {
@@ -77,19 +77,13 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      for (const ref of match.bundle1Only) {
-        console.log(`bundle1Only: ${ref.reference}`);
-      }
+      match.bundle1Only.forEach(ref => console.log(`bundle1Only: ${ref.reference}`));
 
-      for (const ref of match.common) {
-        console.log(
-          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-        );
-      }
+      match.common.forEach(ref => console.log(
+        `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+      ));
 
-      for (const ref of match.bundle2Only) {
-        console.log(`bundle2Only: ${ref.reference}`);
-      }
+      match.bundle2Only.forEach(ref => console.log(`bundle2Only: ${ref.reference}`));
 
       // expectMatch(
       //   match,
@@ -240,19 +234,13 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      for (const ref of match.bundle1Only) {
-        console.log(`bundle1Only: ${ref.reference}`);
-      }
+      match.bundle1Only.forEach(ref => console.log(`bundle1Only: ${ref.reference}`));
 
-      for (const ref of match.common) {
-        console.log(
-          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-        );
-      }
+      match.common.forEach(ref => console.log(
+        `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+      ));
 
-      for (const ref of match.bundle2Only) {
-        console.log(`bundle2Only: ${ref.reference}`);
-      }
+      match.bundle2Only.forEach(ref => console.log(`bundle2Only: ${ref.reference}`));
 
       expectMatch(
         match,

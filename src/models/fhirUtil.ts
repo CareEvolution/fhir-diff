@@ -1,6 +1,6 @@
+import * as r4 from 'fhir/r4';
 import wellKnownUrls from '../../data/wellKnownUrls';
 import { ResourceAndKey } from './resourceAndKey';
-import * as r4 from 'fhir/r4';
 
 export function buildRef(resource: r4.Resource): string {
   return `${resource.resourceType}/${resource.id}`;
@@ -45,32 +45,33 @@ export function cleanCodeSystem(
     return coding;
   }
 
+  const cleanedCoding = { ...coding };
   const rosettaMatch = coding.system.match(rosettaInputCodeSystemRE);
   if (rosettaMatch) {
-    coding.system = rosettaMatch[1];
+    cleanedCoding.system = rosettaMatch[1];
   } else {
     const rosetta2Match = coding.system.match(rosettaInputCodeSystem2RE);
     if (rosetta2Match) {
-      coding.system = rosetta2Match[1];
+      cleanedCoding.system = rosetta2Match[1];
     } else {
       const fhirMatch = coding.system.match(fhirCodesystemRE);
       if (fhirMatch) {
-        coding.system = fhirMatch[1];
+        cleanedCoding.system = fhirMatch[1];
       } else {
         const oidMAtch = coding.system.match(oidRE);
         if (oidMAtch) {
-          coding.system = oidMAtch[1];
+          cleanedCoding.system = oidMAtch[1];
         } else {
           const fakeFhirUrlMatch = coding.system.match(fakeFhirUrlRE);
           if (fakeFhirUrlMatch) {
-            coding.system = fakeFhirUrlMatch[1];
+            cleanedCoding.system = fakeFhirUrlMatch[1];
           }
         }
       }
     }
   }
 
-  return coding;
+  return cleanedCoding;
 }
 
 export function pickPrimaryCoding(

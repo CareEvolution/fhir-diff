@@ -24,16 +24,12 @@ export const fhirBundlesMatch = (
   const bundle1KeyStore = new KeyStore(bundle1);
 
   if (debug) {
-    for (const key of bundle1KeyStore.all) {
-      console.log(key);
-    }
+    bundle1KeyStore.all.forEach(key => console.log(key));
   }
   console.log('--- bundle2 ---');
   const bundle2KeyStore = new KeyStore(bundle2);
   if (debug) {
-    for (const key of bundle2KeyStore.all) {
-      console.log(key);
-    }
+    bundle2KeyStore.all.forEach(key => console.log(key));
   }
 
   console.log('--- matching ---');
@@ -61,6 +57,7 @@ export const fhirBundlesMatch = (
   let unmatchedBundle1 = bundle1KeyStore.all;
   let unmatchedBundle2 = bundle2KeyStore.all;
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const matcher of matchers) {
     const result = matcher(unmatchedBundle1, unmatchedBundle2);
 
@@ -70,14 +67,14 @@ export const fhirBundlesMatch = (
     unmatchedBundle2 = result.unmatched2;
 
     if (
-      overallMatch.common.length + unmatchedBundle1.length !=
+      overallMatch.common.length + unmatchedBundle1.length !==
       bundle1KeyStore.all.length
     ) {
       throw new Error(`lost resource from bundle1 in ${matcher.name}`);
     }
 
     if (
-      overallMatch.common.length + unmatchedBundle2.length !=
+      overallMatch.common.length + unmatchedBundle2.length !==
       bundle2KeyStore.all.length
     ) {
       throw new Error(`lost resource from bundle2 in ${matcher.name}`);

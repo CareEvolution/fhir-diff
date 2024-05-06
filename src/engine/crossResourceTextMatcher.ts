@@ -13,7 +13,7 @@ const CrossResourceTextMatcher: Matcher = (
     matched: [],
   };
 
-  bundle2 = [...bundle2];
+  const bundle2Copy = [...bundle2];
 
   for (let bundle1Index = 0; bundle1Index < bundle1.length; bundle1Index++) {
     const bundle1Key = bundle1[bundle1Index];
@@ -30,11 +30,11 @@ const CrossResourceTextMatcher: Matcher = (
       continue;
     }
 
-    const bundle2Key = bundle2.findIndex(
+    const bundle2Key = bundle2Copy.findIndex(
       (k) =>
         resourceTypeGroup.includes(k.resourceType) &&
-        k.dateTime == bundle1Key.dateTime &&
-        k.text == bundle1Key.text,
+        k.dateTime === bundle1Key.dateTime &&
+        k.text === bundle1Key.text,
     );
 
     if (bundle2Key === -1) {
@@ -42,14 +42,14 @@ const CrossResourceTextMatcher: Matcher = (
     } else {
       result.matched.push({
         bundle1: buildReference(bundle1Key),
-        bundle2: buildReference(bundle2[bundle2Key]),
+        bundle2: buildReference(bundle2Copy[bundle2Key]),
         reason: 'cross-reference text + dateTime matched',
       });
-      bundle2.splice(bundle2Key, 1);
+      bundle2Copy.splice(bundle2Key, 1);
     }
   }
 
-  result.unmatched2 = bundle2;
+  result.unmatched2 = bundle2Copy;
 
   return result;
 };

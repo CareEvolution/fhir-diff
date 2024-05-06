@@ -12,7 +12,7 @@ const ValueMatcher: Matcher = (
     matched: [],
   };
 
-  bundle2 = [...bundle2];
+  const bundle2Copy = [...bundle2];
 
   for (let bundle1Index = 0; bundle1Index < bundle1.length; bundle1Index++) {
     const bundle1Key = bundle1[bundle1Index];
@@ -22,7 +22,7 @@ const ValueMatcher: Matcher = (
       continue;
     }
 
-    const bundle2Key = bundle2.findIndex(
+    const bundle2Key = bundle2Copy.findIndex(
       (k) =>
         k.resourceType === bundle1Key.resourceType &&
         k.text === bundle1Key.text &&
@@ -34,14 +34,14 @@ const ValueMatcher: Matcher = (
     } else {
       result.matched.push({
         bundle1: buildReference(bundle1Key),
-        bundle2: buildReference(bundle2[bundle2Key]),
+        bundle2: buildReference(bundle2Copy[bundle2Key]),
         reason: 'value + dateTime matched',
       });
-      bundle2.splice(bundle2Key, 1);
+      bundle2Copy.splice(bundle2Key, 1);
     }
   }
 
-  result.unmatched2 = bundle2;
+  result.unmatched2 = bundle2Copy;
 
   return result;
 };

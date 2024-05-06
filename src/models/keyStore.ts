@@ -16,12 +16,13 @@ export class KeyStore {
   public byFullUrl: Map<string, ResourceAndKey> = new Map();
 
   constructor(bundle: r4.Bundle) {
-    for (const entry of bundle.entry || []) {
-      this.push(entry);
-    }
+
+    const entries = bundle.entry || [];
+    entries.forEach(entry => this.push(entry));
+
     // back fill dates for resources that have children
     // back fill codes for resources that have links to other resource
-    for (const key of this.all) {
+    this.all.forEach( key => {
       switch (key.resource.resourceType) {
         case 'Observation':
           if (!key.date) {
@@ -38,8 +39,10 @@ export class KeyStore {
             this.setMedicationStatementCode(key);
           }
           break;
+        default:
+          break;
       }
-    }
+    });
   }
 
   private setDateAndDateTime(key: ResourceAndKey, dateField?: string) {
@@ -49,9 +52,11 @@ export class KeyStore {
 
     const dateMatch = dateField.match(dateRegex);
     if (dateMatch) {
-      key.date = dateMatch[1];
+      // eslint-disable-next-line no-param-reassign
+      [,key.date] = dateMatch;
 
       if (key.date !== dateField) {
+        // eslint-disable-next-line no-param-reassign
         key.dateTime = dateField;
       }
     }
@@ -75,22 +80,21 @@ export class KeyStore {
     if (observation.hasMember && observation.hasMember.length > 0) {
       const memberDates: string[] = [];
 
-      for (const member of observation.hasMember) {
+      observation.hasMember.forEach(member => {
         if (member.reference) {
           const memberKey = this.byFhirRef.get(member.reference);
           if (memberKey && memberKey.dateTime) {
             memberDates.push(memberKey.dateTime);
           }
         }
-      }
+      });
 
       const disitinctDates = new Set(memberDates);
       if (disitinctDates.size === 1) {
         this.setDateAndDateTime(
           observationKey,
-          disitinctDates.values().next().value,
+          Array.from(disitinctDates)[0],
         );
-        return;
       }
     }
   }
@@ -119,7 +123,7 @@ export class KeyStore {
     ) {
       const resultDates: string[] = [];
 
-      for (const result of diagnosticReport.result) {
+      diagnosticReport.result.forEach(result => {
         if (result.reference) {
           const resultKey =
             this.byFhirRef.get(result.reference) ||
@@ -128,15 +132,14 @@ export class KeyStore {
             resultDates.push(resultKey.dateTime);
           }
         }
-      }
+      });
 
       const disitinctDates = new Set(resultDates);
       if (disitinctDates.size === 1) {
         this.setDateAndDateTime(
           diagnosticReportKey,
-          disitinctDates.values().next().value,
+          Array.from(disitinctDates)[0],
         );
-        return;
       }
     }
   }
@@ -156,9 +159,11 @@ export class KeyStore {
         medicationStatement.medicationReference.reference,
       );
       if (medicationKey && medicationKey.primaryCode) {
+        // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCode = medicationKey.primaryCode;
+        // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCodeSystem =
-          medicationKey.primaryCodeSystem;
+        medicationKey.primaryCodeSystem;
       }
     }
   }
@@ -232,7 +237,7 @@ export class KeyStore {
         break;
 
       default:
-        console.log('Unhandled resource type: ' + entry.resource.resourceType);
+        console.log(`Unhandled resource type: ${entry.resource.resourceType}`);
         break;
     }
 
@@ -435,7 +440,7 @@ export class KeyStore {
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
       text: cleanText(observation.code?.text),
-      value: value,
+      value,
     };
     this.setDateAndDateTime(key, observation.effectiveDateTime);
     return key;
