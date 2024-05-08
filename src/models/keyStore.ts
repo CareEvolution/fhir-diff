@@ -1,5 +1,6 @@
 import type {
   AllergyIntolerance,
+  Binary,
   Bundle,
   BundleEntry,
   CarePlan,
@@ -44,6 +45,16 @@ function cleanText(text: string | undefined): string | undefined {
   if (!text) return text;
 
   return text.replace(/\s+/g, ' ').toLowerCase();
+}
+
+function getPrimaryCode(
+  code: string | undefined,
+  system: string,
+): { code: string; system: string } | undefined {
+  if (code) {
+    return { code, system };
+  }
+  return undefined;
 }
 
 const dateRegex = /^(\d{4}-\d{2}-\d{2})/;
@@ -271,6 +282,10 @@ export class KeyStore {
 
       case 'DocumentReference':
         key = this.buildKeyDocumentReference(entry.resource);
+        break;
+
+      case 'Binary':
+        key = this.buildBinary(entry.resource);
         break;
 
       case 'Practitioner':
@@ -617,14 +632,10 @@ export class KeyStore {
     questionnaireResponse: QuestionnaireResponse,
   ): ResourceAndKey {
     // QuestionnaireResponse doesn't have a code, so we use the canonical URL for the  questionnaire as the primary code
-    /* eslint-disable @typescript-eslint/indent */
-    const primaryCoding = questionnaireResponse.questionnaire
-      ? {
-          system: 'https://hl7.org/fhir/r4/datatypes.html#canonical',
-          code: questionnaireResponse.questionnaire,
-        }
-      : undefined;
-    /* eslint-enable @typescript-eslint/indent */
+    const primaryCoding = getPrimaryCode(
+      questionnaireResponse.questionnaire,
+      'https://hl7.org/fhir/r4/datatypes.html#canonical',
+    );
 
     const key = {
       resource: questionnaireResponse,
@@ -682,6 +693,18 @@ export class KeyStore {
     };
     this.setDateAndDateTime(key, documentReference.date);
     return key;
+  }
+
+  public buildBinary(binary: Binary): ResourceAndKey {
+    const primaryCoding = getPrimaryCode(binary.contentType, 'urn:ietf:bcp:13');
+    return {
+      resource: binary,
+      resourceType: binary.resourceType,
+      identifier: binary.id,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
+      text: binary.data,
+    };
   }
 
   public buildKeyPractitioner(practitioner: Practitioner): ResourceAndKey {
