@@ -100,3 +100,14 @@ export function pickPrimaryCoding(
 
   return cleanCodeSystem(codeableConcept.coding?.[0]);
 }
+
+export function pickPrimaryCodingFromMultiple(
+  codeableConcepts: r4.CodeableConcept[] | undefined,
+  preferredSystems: string[],
+): r4.Coding | undefined {
+  if (!codeableConcepts || codeableConcepts.length === 0) {
+    return undefined;
+  }
+
+  return codeableConcepts.find((cc) => pickPrimaryCoding(cc, preferredSystems));
+}
