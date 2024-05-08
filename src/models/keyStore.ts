@@ -16,13 +16,12 @@ export class KeyStore {
   public byFullUrl: Map<string, ResourceAndKey> = new Map();
 
   constructor(bundle: r4.Bundle) {
-
     const entries = bundle.entry || [];
-    entries.forEach(entry => this.push(entry));
+    entries.forEach((entry) => this.push(entry));
 
     // back fill dates for resources that have children
     // back fill codes for resources that have links to other resource
-    this.all.forEach( key => {
+    this.all.forEach((key) => {
       switch (key.resource.resourceType) {
         case 'Observation':
           if (!key.date) {
@@ -53,7 +52,7 @@ export class KeyStore {
     const dateMatch = dateField.match(dateRegex);
     if (dateMatch) {
       // eslint-disable-next-line no-param-reassign
-      [,key.date] = dateMatch;
+      [, key.date] = dateMatch;
 
       if (key.date !== dateField) {
         // eslint-disable-next-line no-param-reassign
@@ -80,7 +79,7 @@ export class KeyStore {
     if (observation.hasMember && observation.hasMember.length > 0) {
       const memberDates: string[] = [];
 
-      observation.hasMember.forEach(member => {
+      observation.hasMember.forEach((member) => {
         if (member.reference) {
           const memberKey = this.byFhirRef.get(member.reference);
           if (memberKey && memberKey.dateTime) {
@@ -91,10 +90,7 @@ export class KeyStore {
 
       const disitinctDates = new Set(memberDates);
       if (disitinctDates.size === 1) {
-        this.setDateAndDateTime(
-          observationKey,
-          Array.from(disitinctDates)[0],
-        );
+        this.setDateAndDateTime(observationKey, Array.from(disitinctDates)[0]);
       }
     }
   }
@@ -123,7 +119,7 @@ export class KeyStore {
     ) {
       const resultDates: string[] = [];
 
-      diagnosticReport.result.forEach(result => {
+      diagnosticReport.result.forEach((result) => {
         if (result.reference) {
           const resultKey =
             this.byFhirRef.get(result.reference) ||
@@ -163,7 +159,7 @@ export class KeyStore {
         medicationStatementKey.primaryCode = medicationKey.primaryCode;
         // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCodeSystem =
-        medicationKey.primaryCodeSystem;
+          medicationKey.primaryCodeSystem;
       }
     }
   }
@@ -204,6 +200,10 @@ export class KeyStore {
         key = this.buildKeyMedication(entry.resource);
         break;
 
+      case 'Immunization':
+        key = this.buildKeyImmunization(entry.resource);
+        break;
+
       case 'Procedure':
         key = this.buildKeyProcedure(entry.resource);
         break;
@@ -230,6 +230,10 @@ export class KeyStore {
 
       case 'Organization':
         key = this.buildKeyOrganization(entry.resource);
+        break;
+
+      case 'Specimen':
+        key = this.buildKeySpecimen(entry.resource);
         break;
 
       case 'OperationOutcome':
@@ -364,6 +368,29 @@ export class KeyStore {
     };
   }
 
+  public buildKeyImmunization(immunization: r4.Immunization): ResourceAndKey {
+    const primaryCoding = pickPrimaryCoding(immunization.vaccineCode, [
+      'http://hl7.org/fhir/sid/cvx',
+      'http://www.nlm.nih.gov/research/umls/rxnorm',
+      'https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets',
+    ]);
+    const key = {
+      resource: immunization,
+      resourceType: immunization.resourceType,
+      identifier: pickIdentifier(immunization.identifier) || immunization.id,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
+      text: cleanText(immunization.vaccineCode?.text),
+    };
+    this.setDateAndDateTime(
+      key,
+      immunization.occurrenceDateTime ||
+        immunization.occurrenceString ||
+        immunization.recorded,
+    );
+    return key;
+  }
+
   public buildKeyProcedure(procedure: r4.Procedure): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(procedure.code, [
       'http://snomed.info/sct',
@@ -495,6 +522,14 @@ export class KeyStore {
       resource: organization,
       resourceType: organization.resourceType,
       identifier: pickIdentifier(organization.identifier) || organization.id,
+    };
+  }
+
+  public buildKeySpecimen(specimen: r4.Specimen): ResourceAndKey {
+    return {
+      resource: specimen,
+      resourceType: specimen.resourceType,
+      identifier: pickIdentifier(specimen.identifier) || specimen.id,
     };
   }
 }
