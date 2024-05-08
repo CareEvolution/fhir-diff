@@ -526,10 +526,23 @@ export class KeyStore {
   }
 
   public buildKeySpecimen(specimen: r4.Specimen): ResourceAndKey {
-    return {
+    const primaryCoding = pickPrimaryCoding(specimen.type, [
+      'http://snomed.info/sct',
+    ]);
+    const key = {
       resource: specimen,
       resourceType: specimen.resourceType,
       identifier: pickIdentifier(specimen.identifier) || specimen.id,
+      primaryCodeSystem: primaryCoding?.system,
+      primaryCode: primaryCoding?.code,
+      text: cleanText(specimen.type?.text),
     };
+    this.setDateAndDateTime(
+      key,
+      specimen.collection?.collectedDateTime ||
+        specimen.collection?.collectedPeriod?.start ||
+        specimen.receivedTime,
+    );
+    return key;
   }
 }
