@@ -617,12 +617,14 @@ export class KeyStore {
     questionnaireResponse: QuestionnaireResponse,
   ): ResourceAndKey {
     // QuestionnaireResponse doesn't have a code, so we use the canonical URL for the  questionnaire as the primary code
+    /* eslint-disable @typescript-eslint/indent */
     const primaryCoding = questionnaireResponse.questionnaire
       ? {
           system: 'https://hl7.org/fhir/r4/datatypes.html#canonical',
           code: questionnaireResponse.questionnaire,
         }
       : undefined;
+    /* eslint-enable @typescript-eslint/indent */
 
     const key = {
       resource: questionnaireResponse,
