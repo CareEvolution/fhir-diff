@@ -75,35 +75,35 @@ describe('constructor', () => {
     expect(medicationStatementKey!.primaryCodeSystem).toBe(
       'http://example.com',
     );
+  });
 
-    test('should use canonical url for QuestionnaireResponse code', () => {
-      const questionnaireResponse: r4.QuestionnaireResponse = {
-        id: '123',
-        resourceType: 'QuestionnaireResponse',
-        questionnaire: 'http://example.com/Questionnaire/123',
-        status: 'completed',
-      };
+  test('should use canonical url for QuestionnaireResponse code', () => {
+    const questionnaireResponse: r4.QuestionnaireResponse = {
+      id: '123',
+      resourceType: 'QuestionnaireResponse',
+      questionnaire: 'http://example.com/Questionnaire/123',
+      status: 'completed',
+    };
 
-      const keyStore = new KeyStore({
-        resourceType: 'Bundle',
-        entry: [
-          {
-            resource: questionnaireResponse,
-          },
-        ],
-        type: 'batch',
-      });
-
-      const questionnaireResponseKey = keyStore.byFhirRef.get(
-        'QuestionnaireResponse/123',
-      );
-      expect(questionnaireResponseKey).toBeDefined();
-      expect(questionnaireResponseKey!.primaryCode).toBe(
-        'http://example.com/Questionnaire/123',
-      );
-      expect(questionnaireResponseKey!.primaryCodeSystem).toBe(
-        'https://hl7.org/fhir/r4/datatypes.html#canonical',
-      );
+    const keyStore = new KeyStore({
+      resourceType: 'Bundle',
+      entry: [
+        {
+          resource: questionnaireResponse,
+        },
+      ],
+      type: 'batch',
     });
+
+    const questionnaireResponseKey = keyStore.byFhirRef.get(
+      'QuestionnaireResponse/123',
+    );
+    expect(questionnaireResponseKey).toBeDefined();
+    expect(questionnaireResponseKey!.primaryCode).toBe(
+      'http://example.com/Questionnaire/123',
+    );
+    expect(questionnaireResponseKey!.primaryCodeSystem).toBe(
+      'https://hl7.org/fhir/r4/datatypes.html#canonical',
+    );
   });
 });

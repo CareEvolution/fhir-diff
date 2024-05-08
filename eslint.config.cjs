@@ -9,7 +9,7 @@ const compat = new FlatCompat({
 
 module.exports = [
   pluginJs.configs.recommended,
-  ...compat.extends('airbnb-base'), 
+  ...compat.extends('airbnb-base'),
   ...compat.extends('eslint-config-prettier'),
   ...compat.extends('airbnb-typescript/base'),
   ...tseslint.configs.recommendedTypeChecked,
@@ -23,7 +23,7 @@ module.exports = [
     },
   },
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     rules: {
       'import/prefer-default-export': 'off',
       '@typescript-eslint/lines-between-class-members': 'off',
@@ -31,8 +31,8 @@ module.exports = [
       'class-methods-use-this': 'off',
       'prefer-destructuring': 'off',
       'no-plusplus': 'off',
-      'no-continue': 'off'
-    }
+      'no-continue': 'off',
+    },
   },
   {
     files: ['**/*.js', '**/*.cjs'],

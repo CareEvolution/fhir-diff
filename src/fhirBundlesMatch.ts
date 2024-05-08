@@ -24,12 +24,12 @@ export const fhirBundlesMatch = (
   const bundle1KeyStore = new KeyStore(bundle1);
 
   if (debug) {
-    bundle1KeyStore.all.forEach(key => console.log(key));
+    bundle1KeyStore.all.forEach((key) => console.log(key));
   }
   console.log('--- bundle2 ---');
   const bundle2KeyStore = new KeyStore(bundle2);
   if (debug) {
-    bundle2KeyStore.all.forEach(key => console.log(key));
+    bundle2KeyStore.all.forEach((key) => console.log(key));
   }
 
   console.log('--- matching ---');
