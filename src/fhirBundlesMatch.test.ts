@@ -77,19 +77,25 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      match.bundle1Only.forEach(ref => console.log(`bundle1Only: ${ref.reference}`));
+      match.bundle1Only.forEach((ref) =>
+        console.log(`bundle1Only: ${ref.reference}`),
+      );
 
-      match.common.forEach(ref => console.log(
-        `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-      ));
+      match.common.forEach((ref) =>
+        console.log(
+          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+        ),
+      );
 
-      match.bundle2Only.forEach(ref => console.log(`bundle2Only: ${ref.reference}`));
+      match.bundle2Only.forEach((ref) =>
+        console.log(`bundle2Only: ${ref.reference}`),
+      );
 
-      // expectMatch(
-      //   match,
-      //   "MedicationRequest/5565ac16-c63c-4314-adab-7d67437ac617",
-      //   "MedicationStatement/193bf286-d45c-a0c6-f366-74f91efc3388",
-      // );
+      expectMatch(
+        match,
+        'MedicationRequest/5565ac16-c63c-4314-adab-7d67437ac617',
+        'MedicationStatement/193bf286-d45c-a0c6-f366-74f91efc3388',
+      );
 
       expectMatch(
         match,
@@ -210,6 +216,7 @@ describe('fhirBundlesMatch', () => {
 
       expect(match.bundle2Only.map((m) => m.reference)).toEqual([
         'Organization/1ead1c85-34c9-57ba-285f-2a9dea43acf8',
+        'Device/ddc4cf86-442b-f14f-6083-5a8953135d7b',
         'Organization/c338e857-85ae-7414-3417-084ad5156dcb',
         'Medication/dd7f8269-2d27-3ff6-012b-87a9e1d15fd1',
         'Medication/ca2da949-0d6f-fa4e-2ec7-d260c112988b',
@@ -219,6 +226,7 @@ describe('fhirBundlesMatch', () => {
         'Observation/4c990874-9bd2-6625-260e-f01c2f38f7c9',
         'Procedure/9c9a4cb4-5f0e-6677-9162-9c2119bb7d12',
         'Procedure/0cab07d6-91f8-9632-ae4b-d3263cbe2248',
+        'DocumentReference/153e098e-83d6-65ff-da2e-b5eac2e4c607',
       ]);
     });
 
@@ -234,13 +242,19 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      match.bundle1Only.forEach(ref => console.log(`bundle1Only: ${ref.reference}`));
+      match.bundle1Only.forEach((ref) =>
+        console.log(`bundle1Only: ${ref.reference}`),
+      );
 
-      match.common.forEach(ref => console.log(
-        `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-      ));
+      match.common.forEach((ref) =>
+        console.log(
+          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+        ),
+      );
 
-      match.bundle2Only.forEach(ref => console.log(`bundle2Only: ${ref.reference}`));
+      match.bundle2Only.forEach((ref) =>
+        console.log(`bundle2Only: ${ref.reference}`),
+      );
 
       expectMatch(
         match,
