@@ -322,7 +322,7 @@ export class KeyStore {
         break;
 
       case 'Binary':
-        key = this.buildBinary(entry.resource);
+        key = this.buildKeyBinary(entry.resource);
         break;
 
       case 'Practitioner':
@@ -747,7 +747,7 @@ export class KeyStore {
     return key;
   }
 
-  public buildBinary(binary: Binary): ResourceAndKey {
+  public buildKeyBinary(binary: Binary): ResourceAndKey {
     const primaryCoding = getPrimaryCode(binary.contentType, 'urn:ietf:bcp:13');
     return {
       resource: binary,
@@ -953,7 +953,11 @@ export class KeyStore {
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: primaryCoding?.code,
       text: cleanText(
-        device.serialNumber || device.modelNumber || device.partNumber,
+        device.serialNumber ||
+          device.modelNumber ||
+          device.partNumber ||
+          device.type?.text ||
+          device.type?.coding?.[0].display,
       ),
     };
     return key;
