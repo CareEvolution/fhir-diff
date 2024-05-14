@@ -398,7 +398,10 @@ export class KeyStore {
       primaryCode: primaryCoding?.code,
       text: cleanText(condition.code?.text),
     };
-    this.setDateAndDateTime(key, condition.onsetDateTime);
+    this.setDateAndDateTime(
+      key,
+      condition.onsetDateTime || condition.onsetPeriod?.start,
+    );
     return key;
   }
 
@@ -417,7 +420,10 @@ export class KeyStore {
       primaryCode: primaryCoding?.code,
       text: cleanText(medadmin.medicationCodeableConcept?.text),
     };
-    this.setDateAndDateTime(key, medadmin.effectiveDateTime);
+    this.setDateAndDateTime(
+      key,
+      medadmin.effectiveDateTime || medadmin.effectivePeriod?.start,
+    );
     return key;
   }
 
@@ -561,7 +567,9 @@ export class KeyStore {
     };
     this.setDateAndDateTime(
       key,
-      serviceRequest.authoredOn || serviceRequest.occurrenceDateTime,
+      serviceRequest.authoredOn ||
+        serviceRequest.occurrenceDateTime ||
+        serviceRequest.occurrencePeriod?.start,
     );
     return key;
   }
@@ -588,7 +596,9 @@ export class KeyStore {
     };
     this.setDateAndDateTime(
       key,
-      allergyIntolerance.onsetDateTime || allergyIntolerance.recordedDate,
+      allergyIntolerance.onsetDateTime ||
+        allergyIntolerance.onsetPeriod?.start ||
+        allergyIntolerance.recordedDate,
     );
     return key;
   }
@@ -624,7 +634,12 @@ export class KeyStore {
       text: cleanText(observation.code?.text),
       value,
     };
-    this.setDateAndDateTime(key, observation.effectiveDateTime);
+    this.setDateAndDateTime(
+      key,
+      observation.effectiveDateTime ||
+        observation.effectivePeriod?.start ||
+        observation.effectiveInstant,
+    );
     return key;
   }
 
