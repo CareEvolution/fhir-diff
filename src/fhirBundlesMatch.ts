@@ -20,19 +20,20 @@ export const fhirBundlesMatch = (
   bundle2: Bundle,
   debug: boolean = false,
 ): FhirMatch => {
-  console.log('--- bundle1 ---');
+  if (debug) {
+    console.log('--- bundle1 ---');
+  }
   const bundle1KeyStore = new KeyStore(bundle1);
 
   if (debug) {
     bundle1KeyStore.all.forEach((key) => console.log(key));
+    console.log('--- bundle2 ---');
   }
-  console.log('--- bundle2 ---');
   const bundle2KeyStore = new KeyStore(bundle2);
   if (debug) {
     bundle2KeyStore.all.forEach((key) => console.log(key));
+    console.log('--- matching ---');
   }
-
-  console.log('--- matching ---');
 
   const overallMatch: FhirMatch = {
     bundle1Only: [],

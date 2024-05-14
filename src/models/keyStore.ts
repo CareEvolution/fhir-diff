@@ -70,23 +70,28 @@ export class KeyStore {
 
     // back fill dates for resources that have children
     // back fill codes for resources that have links to other resource
+    // back fill dates for resources linked to an encounter
     this.all.forEach((key) => {
       switch (key.resource.resourceType) {
         case 'Observation':
-          if (!key.date) {
-            this.setObservationDate(key);
-          }
+          this.setObservationDate(key);
           break;
+
         case 'DiagnosticReport':
-          if (!key.date) {
-            this.setDiagnosticReportDate(key);
-          }
+          this.setDiagnosticReportDate(key);
           break;
+
         case 'MedicationStatement':
-          if (!key.primaryCode) {
-            this.setMedicationStatementCode(key);
-          }
+          this.setMedicationStatementCode(key);
           break;
+
+        case 'Procedure':
+          this.setProcedureDate(key);
+          break;
+
+        case 'Condition':
+          this.setConditionDate(key);
+
         default:
           break;
       }
@@ -208,6 +213,38 @@ export class KeyStore {
         // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCodeSystem =
           medicationKey.primaryCodeSystem;
+      }
+    }
+  }
+
+  private setProcedureDate(procedureKey: ResourceAndKey) {
+    if (procedureKey.dateTime) {
+      return;
+    }
+
+    const procedure = procedureKey.resource as Procedure;
+
+    if (procedure.encounter?.reference) {
+      const encounterKey = this.byFhirRef.get(procedure.encounter.reference);
+      if (encounterKey && encounterKey.dateTime) {
+        this.setDateAndDateTime(procedureKey, encounterKey.dateTime);
+        return;
+      }
+    }
+  }
+
+  private setConditionDate(conditionKey: ResourceAndKey) {
+    if (conditionKey.dateTime) {
+      return;
+    }
+
+    const condition = conditionKey.resource as Condition;
+
+    if (condition.encounter?.reference) {
+      const encounterKey = this.byFhirRef.get(condition.encounter.reference);
+      if (encounterKey && encounterKey.dateTime) {
+        this.setDateAndDateTime(conditionKey, encounterKey.dateTime);
+        return;
       }
     }
   }

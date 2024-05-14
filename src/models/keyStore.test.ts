@@ -1,10 +1,17 @@
-import * as r4 from 'fhir/r4';
+import type {
+  Patient,
+  MedicationStatement,
+  Medication,
+  Procedure,
+  Encounter,
+  QuestionnaireResponse,
+} from 'fhir/r4';
 import { expect, test, describe } from '@jest/globals';
 import { KeyStore } from './keyStore';
 
 describe('constructor', () => {
   test('should find an identifier', () => {
-    const patient: r4.Patient = {
+    const patient: Patient = {
       id: '123',
       resourceType: 'Patient',
       identifier: [
@@ -30,7 +37,7 @@ describe('constructor', () => {
   });
 
   test('should find coding for MedicationStatement on linked Medication resource', () => {
-    const medicationStatement: r4.MedicationStatement = {
+    const medicationStatement: MedicationStatement = {
       id: '123',
       resourceType: 'MedicationStatement',
       medicationReference: {
@@ -41,7 +48,7 @@ describe('constructor', () => {
       },
       status: 'active',
     };
-    const medication: r4.Medication = {
+    const medication: Medication = {
       id: 'abc',
       resourceType: 'Medication',
       code: {
@@ -78,7 +85,7 @@ describe('constructor', () => {
   });
 
   test('should use canonical url for QuestionnaireResponse code', () => {
-    const questionnaireResponse: r4.QuestionnaireResponse = {
+    const questionnaireResponse: QuestionnaireResponse = {
       id: '123',
       resourceType: 'QuestionnaireResponse',
       questionnaire: 'http://example.com/Questionnaire/123',
@@ -105,5 +112,54 @@ describe('constructor', () => {
     expect(questionnaireResponseKey!.primaryCodeSystem).toBe(
       'https://hl7.org/fhir/r4/datatypes.html#canonical',
     );
+  });
+
+  test.only('should backfill dates to procedures when there is a linked encounter', () => {
+    const encounter: Encounter = {
+      id: '123',
+      resourceType: 'Encounter',
+      class: { code: 'AMB' },
+      period: {
+        start: '2021-01-01T00:00:00Z',
+        end: '2021-01-02T00:00:00Z',
+      },
+      status: 'finished',
+      subject: {
+        reference: 'Patient/123',
+      },
+    };
+    const procedure: Procedure = {
+      id: 'abc',
+      resourceType: 'Procedure',
+      code: {
+        coding: [
+          {
+            system: 'http://example.com',
+            code: '123456',
+          },
+        ],
+      },
+      encounter: { reference: 'Encounter/123' },
+      status: 'completed',
+      subject: { reference: 'Patient/123' },
+    };
+
+    const keyStore = new KeyStore({
+      resourceType: 'Bundle',
+      entry: [
+        {
+          resource: encounter,
+        },
+        {
+          resource: procedure,
+        },
+      ],
+      type: 'batch',
+    });
+
+    const procedureKey = keyStore.byFhirRef.get('Procedure/abc');
+    expect(procedureKey).toBeDefined();
+    expect(procedureKey!.dateTime).toBe('2021-01-01T00:00:00Z');
+    expect(procedureKey!.date).toBe('2021-01-01');
   });
 });
