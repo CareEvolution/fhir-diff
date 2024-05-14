@@ -1,6 +1,6 @@
 {
   "name": "@careevolution/fhir-diff",
-  "version": "1.0.4-dev001",
+  "version": "1.0.4-dev002",
   "type": "commonjs",
   "types": "./src/index.d.ts",
   "main": "./src/index.js",
