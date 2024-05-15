@@ -211,6 +211,8 @@ export class KeyStore {
         // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCodeSystem =
           medicationKey.primaryCodeSystem;
+        // eslint-disable-next-line no-param-reassign
+        medicationStatementKey.primaryCoding = medicationKey.primaryCoding;
       }
     }
   }
