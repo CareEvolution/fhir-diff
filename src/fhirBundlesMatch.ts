@@ -40,6 +40,8 @@ export const fhirBundlesMatch = (
     bundle1Only: [],
     bundle2Only: [],
     common: [],
+    bundle1Store: bundle1KeyStore,
+    bundle2Store: bundle2KeyStore,
   };
 
   const matchers: Matcher[] = [

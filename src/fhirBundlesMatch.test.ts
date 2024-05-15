@@ -6,12 +6,20 @@ import { fhirBundlesMatch } from '.';
 import { FhirMatch } from './models/fhirMatch';
 
 function expectMatch(match: FhirMatch, bundle1Ref: string, bundle2Ref: string) {
-  expect(
-    match.common.map((m) => ({
-      bundle1Ref: m.bundle1.reference,
-      bundle2Ref: m.bundle2.reference,
-    })),
-  ).toContainEqual({ bundle1Ref, bundle2Ref });
+  const theMatch = match.common.find(
+    (m) =>
+      m.bundle1.reference === bundle1Ref && m.bundle2.reference === bundle2Ref,
+  );
+
+  if (!theMatch) {
+    const bundle1 = match.bundle1Store.byFhirRef.get(bundle1Ref);
+    const bundle2 = match.bundle2Store.byFhirRef.get(bundle2Ref);
+
+    console.log(bundle1);
+    console.log(bundle2);
+
+    throw new Error(`Expected match between ${bundle1Ref} and ${bundle2Ref}`);
+  }
 }
 
 describe('fhirBundlesMatch', () => {
@@ -77,19 +85,19 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      match.bundle1Only.forEach((ref) =>
-        console.log(`bundle1Only: ${ref.reference}`),
-      );
+      // match.bundle1Only.forEach((ref) =>
+      //   console.log(`bundle1Only: ${ref.reference}`),
+      // );
 
-      match.common.forEach((ref) =>
-        console.log(
-          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-        ),
-      );
+      // match.common.forEach((ref) =>
+      //   console.log(
+      //     `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+      //   ),
+      // );
 
-      match.bundle2Only.forEach((ref) =>
-        console.log(`bundle2Only: ${ref.reference}`),
-      );
+      // match.bundle2Only.forEach((ref) =>
+      //   console.log(`bundle2Only: ${ref.reference}`),
+      // );
 
       expectMatch(
         match,
@@ -242,19 +250,19 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      match.bundle1Only.forEach((ref) =>
-        console.log(`bundle1Only: ${ref.reference}`),
-      );
+      // match.bundle1Only.forEach((ref) =>
+      //   console.log(`bundle1Only: ${ref.reference}`),
+      // );
 
-      match.common.forEach((ref) =>
-        console.log(
-          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-        ),
-      );
+      // match.common.forEach((ref) =>
+      //   console.log(
+      //     `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+      //   ),
+      // );
 
-      match.bundle2Only.forEach((ref) =>
-        console.log(`bundle2Only: ${ref.reference}`),
-      );
+      // match.bundle2Only.forEach((ref) =>
+      //   console.log(`bundle2Only: ${ref.reference}`),
+      // );
 
       expect(match.common.length).toBe(16);
 

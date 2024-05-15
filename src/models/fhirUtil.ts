@@ -1,20 +1,24 @@
-import * as r4 from 'fhir/r4';
+import type {
+  Coding,
+  Reference,
+  CodeableConcept,
+  Identifier,
+  Resource,
+} from 'fhir/r4';
 import wellKnownUrls from '../../data/wellKnownUrls';
 import { ResourceAndKey } from './resourceAndKey';
 
-export function buildRef(resource: r4.Resource): string {
+export function buildRef(resource: Resource): string {
   return `${resource.resourceType}/${resource.id}`;
 }
 
-export function buildReference(resource: ResourceAndKey): r4.Reference {
+export function buildReference(resource: ResourceAndKey): Reference {
   return {
     reference: buildRef(resource.resource),
   };
 }
 
-export function pickIdentifier(
-  identifier?: r4.Identifier[],
-): string | undefined {
+export function pickIdentifier(identifier?: Identifier[]): string | undefined {
   if (!identifier || identifier.length === 0) {
     return undefined;
   }
@@ -35,8 +39,8 @@ const oidRE = /urn:oid:(.*)/; // not all things in CDAs that should be OIDs are 
 const fakeFhirUrlRE = /http:\/\/terminology\.hl7\.org\/CodeSystem\/(.*)/; // MS makes up terminology.hl7.org urls for custom stuff in CDAs
 
 export function cleanCodeSystem(
-  coding: r4.Coding | undefined,
-): r4.Coding | undefined {
+  coding: Coding | undefined,
+): Coding | undefined {
   if (!coding?.system) {
     return coding;
   }
@@ -74,20 +78,21 @@ export function cleanCodeSystem(
   return cleanedCoding;
 }
 
-export function pickPrimaryCoding(
-  codeableConcept: r4.CodeableConcept | undefined,
-  preferredSystems: string[],
-): r4.Coding | undefined {
-  if (!codeableConcept?.coding) {
+// we want to be able to match things like ICD9/10 and NDC codes that may or may not have consistent formatting
+export function cleanCode(coding: Coding | undefined): string | undefined {
+  if (!coding?.code) {
     return undefined;
   }
 
-  const preferredSystem = codeableConcept.coding?.find((c) =>
-    preferredSystems.includes(c.system!),
-  );
+  return coding.code.replace(/\s\.-]/g, '');
+}
 
-  if (preferredSystem) {
-    return cleanCodeSystem(preferredSystem);
+export function pickPrimaryCoding(
+  codeableConcept: CodeableConcept | undefined,
+  preferredSystems: string[],
+): Coding | undefined {
+  if (!codeableConcept?.coding) {
+    return undefined;
   }
 
   const userSelected = codeableConcept.coding?.find(
@@ -98,13 +103,21 @@ export function pickPrimaryCoding(
     return cleanCodeSystem(userSelected);
   }
 
+  const preferredSystem = codeableConcept.coding?.find((c) =>
+    preferredSystems.includes(c.system!),
+  );
+
+  if (preferredSystem) {
+    return cleanCodeSystem(preferredSystem);
+  }
+
   return cleanCodeSystem(codeableConcept.coding?.[0]);
 }
 
 export function pickPrimaryCodingFromMultiple(
-  codeableConcepts: r4.CodeableConcept[] | undefined,
+  codeableConcepts: CodeableConcept[] | undefined,
   preferredSystems: string[],
-): r4.Coding | undefined {
+): Coding | undefined {
   if (!codeableConcepts || codeableConcepts.length === 0) {
     return undefined;
   }
