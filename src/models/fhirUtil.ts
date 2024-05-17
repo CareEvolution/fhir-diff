@@ -95,23 +95,23 @@ export function pickPrimaryCoding(
     return undefined;
   }
 
-  const userSelected = codeableConcept.coding?.find(
-    (c) => c.userSelected === undefined || c.userSelected === true,
+  const userSelected = codeableConcept.coding.find(
+    (c) => c.userSelected === true,
   );
 
   if (userSelected) {
     return cleanCodeSystem(userSelected);
   }
 
-  const preferredSystem = codeableConcept.coding?.find((c) =>
-    preferredSystems.includes(c.system!),
+  const preferredSystem = codeableConcept.coding.find(
+    (c) => c.system && preferredSystems.includes(c.system),
   );
 
   if (preferredSystem) {
     return cleanCodeSystem(preferredSystem);
   }
 
-  return cleanCodeSystem(codeableConcept.coding?.[0]);
+  return cleanCodeSystem(codeableConcept.coding[0]);
 }
 
 export function pickPrimaryCodingFromMultiple(

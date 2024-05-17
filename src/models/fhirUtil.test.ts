@@ -15,7 +15,7 @@ describe('buildRef', () => {
 });
 
 describe('pickPrimaryCoding', () => {
-  test('should return the first coding with a preferred system', () => {
+  test('should return the first coding with userSelected: true', () => {
     const codeableConcept: CodeableConcept = {
       coding: [
         { system: 'thinger', code: 'foobar', userSelected: true },
@@ -33,15 +33,16 @@ describe('pickPrimaryCoding', () => {
     const actual = pickPrimaryCoding(codeableConcept, ['http://loinc.org']);
 
     expect(actual).toEqual({
-      system: 'http://loinc.org',
-      code: '1234-5',
+      system: 'thinger',
+      code: 'foobar',
+      userSelected: true,
     });
   });
 
-  test('should return the first coding with userSelected if there are none in a preferred system', () => {
+  test('should return the first coding with a preferred system if there are none with userSelected: true', () => {
     const codeableConcept: CodeableConcept = {
       coding: [
-        { system: 'thinger', code: 'foobar', userSelected: true },
+        { system: 'thinger', code: 'foobar' },
         {
           system: 'http://loinc.org',
           code: '1234-5',
@@ -53,12 +54,11 @@ describe('pickPrimaryCoding', () => {
       ],
     };
 
-    const actual = pickPrimaryCoding(codeableConcept, ['http://foo.com']);
+    const actual = pickPrimaryCoding(codeableConcept, ['http://loinc.org']);
 
     expect(actual).toEqual({
-      system: 'thinger',
-      code: 'foobar',
-      userSelected: true,
+      system: 'http://loinc.org',
+      code: '1234-5',
     });
   });
 

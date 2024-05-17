@@ -114,7 +114,7 @@ describe('constructor', () => {
     );
   });
 
-  test.only('should backfill dates to procedures when there is a linked encounter', () => {
+  test('should backfill dates to procedures when there is a linked encounter', () => {
     const encounter: Encounter = {
       id: '123',
       resourceType: 'Encounter',
