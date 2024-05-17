@@ -1,4 +1,4 @@
-import { expect, test, describe } from '@jest/globals';
+import { expect, test } from '@jest/globals';
 import { BinaryMatcher } from './binaryMatcher';
 import { ResourceAndKey } from '../models/resourceAndKey';
 

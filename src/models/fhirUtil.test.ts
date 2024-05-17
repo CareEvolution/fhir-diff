@@ -1,4 +1,4 @@
-import type { Patient, Coding, CodeableConcept } from 'fhir/r4';
+import type { Patient, CodeableConcept } from 'fhir/r4';
 import { expect, test, describe } from '@jest/globals';
 import { buildRef, pickPrimaryCoding } from './fhirUtil';
 
