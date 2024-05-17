@@ -92,6 +92,7 @@ export class KeyStore {
 
         case 'Condition':
           this.setConditionDate(key);
+          break;
 
         default:
           break;
@@ -228,7 +229,6 @@ export class KeyStore {
       const encounterKey = this.byFhirRef.get(procedure.encounter.reference);
       if (encounterKey && encounterKey.dateTime) {
         this.setDateAndDateTime(procedureKey, encounterKey.dateTime);
-        return;
       }
     }
   }
@@ -244,7 +244,6 @@ export class KeyStore {
       const encounterKey = this.byFhirRef.get(condition.encounter.reference);
       if (encounterKey && encounterKey.dateTime) {
         this.setDateAndDateTime(conditionKey, encounterKey.dateTime);
-        return;
       }
     }
   }
