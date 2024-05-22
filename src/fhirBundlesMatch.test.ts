@@ -6,12 +6,20 @@ import { fhirBundlesMatch } from '.';
 import { FhirMatch } from './models/fhirMatch';
 
 function expectMatch(match: FhirMatch, bundle1Ref: string, bundle2Ref: string) {
-  expect(
-    match.common.map((m) => ({
-      bundle1Ref: m.bundle1.reference,
-      bundle2Ref: m.bundle2.reference,
-    })),
-  ).toContainEqual({ bundle1Ref, bundle2Ref });
+  const theMatch = match.common.find(
+    (m) =>
+      m.bundle1.reference === bundle1Ref && m.bundle2.reference === bundle2Ref,
+  );
+
+  if (!theMatch) {
+    const bundle1 = match.bundle1Store.byFhirRef.get(bundle1Ref);
+    const bundle2 = match.bundle2Store.byFhirRef.get(bundle2Ref);
+
+    console.log(bundle1);
+    console.log(bundle2);
+
+    throw new Error(`Expected match between ${bundle1Ref} and ${bundle2Ref}`);
+  }
 }
 
 describe('fhirBundlesMatch', () => {
@@ -77,19 +85,19 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      match.bundle1Only.forEach((ref) =>
-        console.log(`bundle1Only: ${ref.reference}`),
-      );
+      // match.bundle1Only.forEach((ref) =>
+      //   console.log(`bundle1Only: ${ref.reference}`),
+      // );
 
-      match.common.forEach((ref) =>
-        console.log(
-          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-        ),
-      );
+      // match.common.forEach((ref) =>
+      //   console.log(
+      //     `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+      //   ),
+      // );
 
-      match.bundle2Only.forEach((ref) =>
-        console.log(`bundle2Only: ${ref.reference}`),
-      );
+      // match.bundle2Only.forEach((ref) =>
+      //   console.log(`bundle2Only: ${ref.reference}`),
+      // );
 
       expectMatch(
         match,
@@ -179,12 +187,12 @@ describe('fhirBundlesMatch', () => {
       );
       expectMatch(
         match,
-        'MedicationRequest/a5251097-9640-4312-9845-027b85dab4f7',
+        'MedicationAdministration/ce10a4bb-d859-472e-85e9-fa78e383b744',
         'MedicationStatement/35ce7e24-8cff-c1fe-e908-74fa5bd88c7a',
       );
       expectMatch(
         match,
-        'MedicationRequest/2214b125-6a7b-47bc-a503-c9b74a44f5eb',
+        'MedicationAdministration/a686db74-827d-4936-b398-27ed47148aa4',
         'MedicationStatement/3c21318a-c6cf-22e2-55ee-82305acd1868',
       );
       expectMatch(
@@ -199,7 +207,7 @@ describe('fhirBundlesMatch', () => {
       );
       expectMatch(
         match,
-        'MedicationRequest/a71de59e-98db-4b0d-a408-046716f0168c',
+        'MedicationAdministration/3885ff9b-eed5-40b1-9ccd-add3c0211c8e',
         'MedicationStatement/6b488c8b-9d78-83dc-dd1c-5f921b5292d1',
       );
 
@@ -207,9 +215,9 @@ describe('fhirBundlesMatch', () => {
         'Encounter/4f9bfd32-f5bd-45a1-96e6-679017033b89',
         'Encounter/69e5503a-b450-4519-a9dc-4a63cd486ac6',
         'Practitioner/ca87692a-59f2-434c-a51e-618a9a86119c',
-        'MedicationAdministration/ce10a4bb-d859-472e-85e9-fa78e383b744',
-        'MedicationAdministration/3885ff9b-eed5-40b1-9ccd-add3c0211c8e',
-        'MedicationAdministration/a686db74-827d-4936-b398-27ed47148aa4',
+        'MedicationRequest/2214b125-6a7b-47bc-a503-c9b74a44f5eb',
+        'MedicationRequest/a71de59e-98db-4b0d-a408-046716f0168c',
+        'MedicationRequest/a5251097-9640-4312-9845-027b85dab4f7',
         'Procedure/7.3d4f2997d00047eab85769e40dc6d10b',
         'Procedure/7.32d71738f7204881b94a3e6bd9b1d45b',
       ]);
@@ -242,19 +250,21 @@ describe('fhirBundlesMatch', () => {
 
       const match = fhirBundlesMatch(bundle1, bundle2);
 
-      match.bundle1Only.forEach((ref) =>
-        console.log(`bundle1Only: ${ref.reference}`),
-      );
+      // match.bundle1Only.forEach((ref) =>
+      //   console.log(`bundle1Only: ${ref.reference}`),
+      // );
 
-      match.common.forEach((ref) =>
-        console.log(
-          `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
-        ),
-      );
+      // match.common.forEach((ref) =>
+      //   console.log(
+      //     `common: ${ref.bundle1.reference} <=> ${ref.bundle2.reference} [${ref.reason}]`,
+      //   ),
+      // );
 
-      match.bundle2Only.forEach((ref) =>
-        console.log(`bundle2Only: ${ref.reference}`),
-      );
+      // match.bundle2Only.forEach((ref) =>
+      //   console.log(`bundle2Only: ${ref.reference}`),
+      // );
+
+      expect(match.common.length).toBe(16);
 
       expectMatch(
         match,
@@ -326,6 +336,11 @@ describe('fhirBundlesMatch', () => {
         'MedicationRequest/8d0e40be-78d1-4711-a84b-4fcae18d361b',
         'MedicationStatement/d6bc332c-a2e8-68cb-3542-a3a985a92c85',
       );
+      expectMatch(
+        match,
+        'MedicationAdministration/a686db74-827d-4936-b398-27ed47148aa4',
+        'MedicationAdministration/09f57d90-7b6c-0a0c-0973-a23239408e3a',
+      );
 
       expect(match.bundle1Only.map((m) => m.reference)).toEqual([
         'AllergyIntolerance/37d1bf60-2d8f-472d-adfd-8bf280283126',
@@ -336,8 +351,6 @@ describe('fhirBundlesMatch', () => {
         'DiagnosticReport/4.f754af09568d4a5ba8cb8adfdbb17fca',
         'Practitioner/ca87692a-59f2-434c-a51e-618a9a86119c',
         'MedicationAdministration/ce10a4bb-d859-472e-85e9-fa78e383b744',
-        'MedicationAdministration/3885ff9b-eed5-40b1-9ccd-add3c0211c8e',
-        'MedicationAdministration/a686db74-827d-4936-b398-27ed47148aa4',
         'MedicationRequest/2214b125-6a7b-47bc-a503-c9b74a44f5eb',
         'MedicationRequest/a71de59e-98db-4b0d-a408-046716f0168c',
         'MedicationRequest/a5251097-9640-4312-9845-027b85dab4f7',
@@ -351,8 +364,6 @@ describe('fhirBundlesMatch', () => {
         'Organization/1.3.6.1.4.1.37608',
         'Encounter/66fbf518-f24b-7819-c7d6-072df459eb10',
         'MedicationAdministration/8e60b004-7209-b158-79a2-4308206b1f79',
-        'MedicationAdministration/09f57d90-7b6c-0a0c-0973-a23239408e3a',
-        'MedicationAdministration/bf54814a-426a-7625-6777-475cb994c54b',
         'AllergyIntolerance/58ba1d37-5874-cd3a-c446-e57e429fb271',
         'PractitionerRole/a56d19b4-71cb-84e5-ba18-197715dedefa',
         'PractitionerRole/WVHIN',

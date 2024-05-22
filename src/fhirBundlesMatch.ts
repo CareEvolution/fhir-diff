@@ -3,6 +3,7 @@ import { FhirMatch } from './models/fhirMatch';
 import { KeyStore } from './models/keyStore';
 import { Matcher } from './engine/matcher';
 import { IdentifierMatcher } from './engine/identifierMatcher';
+import { BinaryMatcher } from './engine/binaryMatcher';
 import { PrimaryCodeAndSystemMatcher } from './engine/primaryCodeAndSystemMatcher';
 import { TextMatcher } from './engine/textMatcher';
 import { ValueMatcher } from './engine/valueMatcher';
@@ -20,28 +21,32 @@ export const fhirBundlesMatch = (
   bundle2: Bundle,
   debug: boolean = false,
 ): FhirMatch => {
-  console.log('--- bundle1 ---');
+  if (debug) {
+    console.log('--- bundle1 ---');
+  }
   const bundle1KeyStore = new KeyStore(bundle1);
 
   if (debug) {
     bundle1KeyStore.all.forEach((key) => console.log(key));
+    console.log('--- bundle2 ---');
   }
-  console.log('--- bundle2 ---');
   const bundle2KeyStore = new KeyStore(bundle2);
   if (debug) {
     bundle2KeyStore.all.forEach((key) => console.log(key));
+    console.log('--- matching ---');
   }
-
-  console.log('--- matching ---');
 
   const overallMatch: FhirMatch = {
     bundle1Only: [],
     bundle2Only: [],
     common: [],
+    bundle1Store: bundle1KeyStore,
+    bundle2Store: bundle2KeyStore,
   };
 
   const matchers: Matcher[] = [
     IdentifierMatcher,
+    BinaryMatcher,
     PrimaryCodeAndSystemMatcher,
     TextMatcher,
     ValueMatcher,
