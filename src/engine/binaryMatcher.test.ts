@@ -35,7 +35,7 @@ test('should not match based on different contentType', () => {
     {
       resource: { resourceType: 'Binary', id: 'binary_bundle1' },
       resourceType: 'Binary',
-      primaryCode: 'text/html',
+      primaryCode: 'text/html', // from the contentType property
       text: 'SGVsbG8=',
     },
   ];
@@ -44,7 +44,7 @@ test('should not match based on different contentType', () => {
     {
       resource: { resourceType: 'Binary', id: 'binary_bundle2' },
       resourceType: 'Binary',
-      primaryCode: 'text/plain',
+      primaryCode: 'text/plain', // from the contentType property
       text: 'SGVsbG8=',
     },
   ];

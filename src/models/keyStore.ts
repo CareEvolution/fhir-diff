@@ -998,6 +998,7 @@ export class KeyStore {
       identifier: pickIdentifier(location.identifier) || location.id,
       primaryCodeSystem: primaryCoding?.system,
       primaryCode: cleanCode(primaryCoding),
+      primaryCoding,
       text: cleanText(location.name),
     };
     return key;
