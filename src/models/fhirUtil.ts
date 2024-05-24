@@ -7,6 +7,23 @@ import type {
 } from 'fhir/r4';
 import wellKnownUrls from '../../data/wellKnownUrls';
 
+function findIdentifier(identifier?: Identifier[]): Identifier | undefined {
+  if (!identifier || identifier.length === 0) {
+    return undefined;
+  }
+
+  return (
+    identifier.find((i) => i.use === 'usual') ||
+    identifier.find((i) => i.use === 'official') ||
+    identifier[0]
+  );
+}
+
+export function pickIdentifier(identifier?: Identifier[]): string | undefined {
+  const bestIdentifier = findIdentifier(identifier);
+  return bestIdentifier?.value;
+}
+
 export function buildFhirReference(entry: BundleEntry): Reference | undefined {
   if (!entry.resource) {
     return undefined;
@@ -59,42 +76,25 @@ export function buildFhirReference(entry: BundleEntry): Reference | undefined {
         const identifier = findIdentifier(entry.resource.identifier);
         if (identifier) {
           return {
-            identifier: identifier,
+            identifier,
             type: entry.resource.resourceType,
           };
         }
       }
       break;
     case 'QuestionnaireResponse':
-      {
-        if (entry.resource.identifier) {
-          return {
-            identifier: entry.resource.identifier,
-            type: entry.resource.resourceType,
-          };
-        }
+      if (entry.resource.identifier) {
+        return {
+          identifier: entry.resource.identifier,
+          type: entry.resource.resourceType,
+        };
       }
+      break;
+    default:
       break;
   }
 
   return undefined;
-}
-
-function findIdentifier(identifier?: Identifier[]): Identifier | undefined {
-  if (!identifier || identifier.length === 0) {
-    return undefined;
-  }
-
-  return (
-    identifier.find((i) => i.use === 'usual') ||
-    identifier.find((i) => i.use === 'official') ||
-    identifier[0]
-  );
-}
-
-export function pickIdentifier(identifier?: Identifier[]): string | undefined {
-  const bestIdentifier = findIdentifier(identifier);
-  return bestIdentifier?.value;
 }
 
 const rosettaInputCodeSystemRE =

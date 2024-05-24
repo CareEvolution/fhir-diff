@@ -1,8 +1,8 @@
 import type { CodeableConcept, BundleEntry } from 'fhir/r4';
 import { expect, test, describe } from '@jest/globals';
-import { buildReferenceForEntry, pickPrimaryCoding } from './fhirUtil';
+import { buildFhirReference, pickPrimaryCoding } from './fhirUtil';
 
-describe('buildReferenceForEntry', () => {
+describe('buildFhirReference', () => {
   test('should return local reference if the resource has an id', () => {
     const entry: BundleEntry = {
       fullUrl: 'http://example.com/patient/123',
@@ -18,7 +18,7 @@ describe('buildReferenceForEntry', () => {
       },
     };
 
-    const actual = buildReferenceForEntry(entry);
+    const actual = buildFhirReference(entry);
     expect(actual).toEqual({ reference: 'Patient/123' });
   });
 
@@ -36,7 +36,7 @@ describe('buildReferenceForEntry', () => {
       },
     };
 
-    const actual = buildReferenceForEntry(entry);
+    const actual = buildFhirReference(entry);
     expect(actual).toEqual({
       reference: 'http://example.com/patient/123',
       type: 'Patient',
@@ -56,7 +56,7 @@ describe('buildReferenceForEntry', () => {
       },
     };
 
-    const actual = buildReferenceForEntry(entry);
+    const actual = buildFhirReference(entry);
     expect(actual).toEqual({
       identifier: { system: 'http://example.com/mrns', value: '123456' },
       type: 'Patient',
@@ -70,7 +70,7 @@ describe('buildReferenceForEntry', () => {
       },
     };
 
-    const actual = buildReferenceForEntry(entry);
+    const actual = buildFhirReference(entry);
     expect(actual).toBeUndefined();
   });
 });
