@@ -3,31 +3,99 @@ import type {
   Reference,
   CodeableConcept,
   Identifier,
-  Resource,
+  BundleEntry,
 } from 'fhir/r4';
 import wellKnownUrls from '../../data/wellKnownUrls';
-import { ResourceAndKey } from './resourceAndKey';
 
-export function buildRef(resource: Resource): string {
-  return `${resource.resourceType}/${resource.id}`;
-}
-
-export function buildReference(resource: ResourceAndKey): Reference {
-  return {
-    reference: buildRef(resource.resource),
-  };
-}
-
-export function pickIdentifier(identifier?: Identifier[]): string | undefined {
+function findIdentifier(identifier?: Identifier[]): Identifier | undefined {
   if (!identifier || identifier.length === 0) {
     return undefined;
   }
 
   return (
-    identifier.find((i) => i.use === 'usual')?.value ||
-    identifier.find((i) => i.use === 'official')?.value ||
-    identifier[0].value
+    identifier.find((i) => i.use === 'usual') ||
+    identifier.find((i) => i.use === 'official') ||
+    identifier[0]
   );
+}
+
+export function pickIdentifier(identifier?: Identifier[]): string | undefined {
+  const bestIdentifier = findIdentifier(identifier);
+  return bestIdentifier?.value;
+}
+
+export function buildFhirReference(entry: BundleEntry): Reference | undefined {
+  if (!entry.resource) {
+    return undefined;
+  }
+
+  if (entry.resource.id) {
+    return {
+      reference: `${entry.resource.resourceType}/${entry.resource.id}`,
+      type: entry.resource.resourceType,
+    };
+  }
+
+  if (entry.fullUrl) {
+    return {
+      reference: entry.fullUrl,
+      type: entry.resource.resourceType,
+    };
+  }
+
+  switch (entry.resource.resourceType) {
+    case 'Patient':
+    case 'Encounter':
+    case 'Condition':
+    case 'MedicationAdministration':
+    case 'MedicationRequest':
+    case 'MedicationDispense':
+    case 'MedicationStatement':
+    case 'Medication':
+    case 'Immunization':
+    case 'Procedure':
+    case 'ServiceRequest':
+    case 'AllergyIntolerance':
+    case 'Observation':
+    case 'DiagnosticReport':
+    case 'DocumentReference':
+    case 'Practitioner':
+    case 'PractitionerRole':
+    case 'Organization':
+    case 'RelatedPerson':
+    case 'Specimen':
+    case 'CarePlan':
+    case 'Goal':
+    case 'Task':
+    case 'FamilyMemberHistory':
+    case 'Claim':
+    case 'ExplanationOfBenefit':
+    case 'Coverage':
+    case 'Device':
+    case 'Location':
+      {
+        const identifier = findIdentifier(entry.resource.identifier);
+        if (identifier) {
+          return {
+            identifier,
+            type: entry.resource.resourceType,
+          };
+        }
+      }
+      break;
+    case 'QuestionnaireResponse':
+      if (entry.resource.identifier) {
+        return {
+          identifier: entry.resource.identifier,
+          type: entry.resource.resourceType,
+        };
+      }
+      break;
+    default:
+      break;
+  }
+
+  return undefined;
 }
 
 const rosettaInputCodeSystemRE =

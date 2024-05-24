@@ -6,6 +6,7 @@ describe('Labs group', () => {
   test('should match Observation to DiagnosticReport based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Observation/observation_bundle1' },
         resource: { resourceType: 'Observation', id: 'observation_bundle1' },
         resourceType: 'Observation',
         primaryCode: '371361000119107',
@@ -16,6 +17,7 @@ describe('Labs group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: { reference: 'DiagnosticReport/diagnosticreport_bundle2' },
         resource: {
           resourceType: 'DiagnosticReport',
           id: 'diagnosticreport_bundle2',
@@ -43,6 +45,7 @@ describe('Labs group', () => {
   test('should match DiagnosticReport to Observation based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'DiagnosticReport/diagnosticreport_bundle1' },
         resource: {
           resourceType: 'DiagnosticReport',
           id: 'diagnosticreport_bundle1',
@@ -56,6 +59,7 @@ describe('Labs group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: { reference: 'Observation/observation_bundle2' },
         resource: { resourceType: 'Observation', id: 'observation_bundle2' },
         resourceType: 'Observation',
         primaryCode: '371361000119107',
@@ -80,6 +84,7 @@ describe('Labs group', () => {
   test('should not match based on different date', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Observation/observation_bundle1' },
         resource: { resourceType: 'Observation', id: 'observation_bundle1' },
         resourceType: 'Observation',
         primaryCode: '371361000119107',
@@ -90,6 +95,7 @@ describe('Labs group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: { reference: 'DiagnosticReport/diagnosticreport_bundle2' },
         resource: {
           resourceType: 'DiagnosticReport',
           id: 'diagnosticreport_bundle2',
@@ -113,6 +119,7 @@ describe('Labs group', () => {
   test('should not match based on different code', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Observation/observation_bundle1' },
         resource: { resourceType: 'Observation', id: 'observation_bundle1' },
         resourceType: 'Observation',
         primaryCode: '371361000119107',
@@ -123,6 +130,7 @@ describe('Labs group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: { reference: 'DiagnosticReport/diagnosticreport_bundle2' },
         resource: {
           resourceType: 'DiagnosticReport',
           id: 'diagnosticreport_bundle2',
@@ -146,6 +154,7 @@ describe('Labs group', () => {
   test('should not match missing dates', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Observation/observation_bundle1' },
         resource: { resourceType: 'Observation', id: 'observation_bundle1' },
         resourceType: 'Observation',
         primaryCode: '371361000119107',
@@ -156,6 +165,7 @@ describe('Labs group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: { reference: 'DiagnosticReport/diagnosticreport_bundle2' },
         resource: {
           resourceType: 'DiagnosticReport',
           id: 'diagnosticreport_bundle2',
@@ -179,6 +189,7 @@ describe('Labs group', () => {
   test('should not match missing code', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Observation/observation_bundle1' },
         resource: { resourceType: 'Observation', id: 'observation_bundle1' },
         resourceType: 'Observation',
         primaryCode: undefined,
@@ -189,6 +200,7 @@ describe('Labs group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: { reference: 'DiagnosticReport/diagnosticreport_bundle2' },
         resource: {
           resourceType: 'DiagnosticReport',
           id: 'diagnosticreport_bundle2',
@@ -215,6 +227,7 @@ describe('Medications group', () => {
   test('should match Medication to MedicationRequest based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Medication/medication_bundle1' },
         resource: { resourceType: 'Medication', id: 'medication_bundle1' },
         resourceType: 'Medication',
         primaryCode: '102377',
@@ -225,6 +238,7 @@ describe('Medications group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: { reference: 'MedicationRequest/medicationrequest_bundle2' },
         resource: {
           resourceType: 'MedicationRequest',
           id: 'medicationrequest_bundle2',
@@ -252,6 +266,7 @@ describe('Medications group', () => {
   test('should match Medication to MedicationStatement based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Medication/medication_bundle1' },
         resource: { resourceType: 'Medication', id: 'medication_bundle1' },
         resourceType: 'Medication',
         primaryCode: '102377',
@@ -262,6 +277,9 @@ describe('Medications group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: {
+          reference: 'MedicationStatement/medicationstatement_bundle2',
+        },
         resource: {
           resourceType: 'MedicationStatement',
           id: 'medicationstatement_bundle2',
@@ -289,6 +307,7 @@ describe('Medications group', () => {
   test('should match Medication to MedicationAdministration based on primary coding and date', () => {
     const bundle1: ResourceAndKey[] = [
       {
+        reference: { reference: 'Medication/medication_bundle1' },
         resource: { resourceType: 'Medication', id: 'medication_bundle1' },
         resourceType: 'Medication',
         primaryCode: '102377',
@@ -299,6 +318,10 @@ describe('Medications group', () => {
 
     const bundle2: ResourceAndKey[] = [
       {
+        reference: {
+          reference:
+            'MedicationAdministration/medicationadministration_bundle2',
+        },
         resource: {
           resourceType: 'MedicationAdministration',
           id: 'medicationadministration_bundle2',
@@ -327,6 +350,7 @@ describe('Medications group', () => {
 test('should pass on resources that are cannot be matched cross-resource in unmatched', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'AllergyIntolerance/allergy_bundle1' },
       resource: { resourceType: 'AllergyIntolerance', id: 'allergy_bundle1' },
       resourceType: 'AllergyIntolerance',
       primaryCode: '371361000119107',
@@ -337,6 +361,7 @@ test('should pass on resources that are cannot be matched cross-resource in unma
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'AllergyIntolerance/allergy_bundle2' },
       resource: { resourceType: 'AllergyIntolerance', id: 'allergy_bundle2' },
       resourceType: 'AllergyIntolerance',
       primaryCode: '371361000119107',

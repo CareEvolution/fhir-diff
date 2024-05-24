@@ -1,6 +1,7 @@
-import type { Resource, Coding } from 'fhir/r4';
+import type { Resource, Coding, Reference } from 'fhir/r4';
 
 export interface ResourceAndKey {
+  reference: Reference;
   resource: Resource;
   resourceType: string;
   identifier?: string;
