@@ -19,7 +19,7 @@ describe('buildFhirReference', () => {
     };
 
     const actual = buildFhirReference(entry);
-    expect(actual).toEqual({ reference: 'Patient/123' });
+    expect(actual).toEqual({ reference: 'Patient/123', type: 'Patient' });
   });
 
   test('should return full url and type if the resource has no id', () => {

@@ -32,6 +32,7 @@ export function buildFhirReference(entry: BundleEntry): Reference | undefined {
   if (entry.resource.id) {
     return {
       reference: `${entry.resource.resourceType}/${entry.resource.id}`,
+      type: entry.resource.resourceType,
     };
   }
 
