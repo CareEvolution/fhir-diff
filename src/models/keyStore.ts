@@ -36,7 +36,7 @@ import type {
 } from 'fhir/r4';
 import { ResourceAndKey } from './resourceAndKey';
 import {
-  buildReferenceForEntry,
+  buildFhirReference,
   cleanCode,
   pickIdentifier,
   pickPrimaryCoding,
@@ -256,7 +256,7 @@ export class KeyStore {
       return;
     }
 
-    const reference = buildReferenceForEntry(entry);
+    const reference = buildFhirReference(entry);
 
     if (!reference) {
       return;

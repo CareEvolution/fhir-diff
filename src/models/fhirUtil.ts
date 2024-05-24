@@ -7,9 +7,7 @@ import type {
 } from 'fhir/r4';
 import wellKnownUrls from '../../data/wellKnownUrls';
 
-export function buildReferenceForEntry(
-  entry: BundleEntry,
-): Reference | undefined {
+export function buildFhirReference(entry: BundleEntry): Reference | undefined {
   if (!entry.resource) {
     return undefined;
   }
