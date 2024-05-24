@@ -13,7 +13,7 @@ function expectMatch(match: FhirMatch, bundle1Ref: string, bundle2Ref: string) {
 
   if (!theMatch) {
     const badMatchForBundle1 = match.common.find(
-      (m) => m.bundle1.reference == bundle1Ref,
+      (m) => m.bundle1.reference === bundle1Ref,
     );
 
     if (badMatchForBundle1) {
@@ -23,7 +23,7 @@ function expectMatch(match: FhirMatch, bundle1Ref: string, bundle2Ref: string) {
     }
 
     const badMatchForBundle2 = match.common.find(
-      (m) => m.bundle2.reference == bundle2Ref,
+      (m) => m.bundle2.reference === bundle2Ref,
     );
 
     if (badMatchForBundle2) {

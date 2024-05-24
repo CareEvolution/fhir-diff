@@ -33,7 +33,7 @@ const IdentifierMatcher: Matcher = (
       result.matched.push({
         bundle1: bundle1Key.reference,
         bundle2: bundle2Copy[bundle2Index].reference,
-        reason: `identifiers matched`,
+        reason: 'identifiers matched',
       });
       bundle2Copy.splice(bundle2Index, 1);
     }
