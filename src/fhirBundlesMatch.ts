@@ -11,7 +11,6 @@ import { PrimaryCodeMatcher } from './engine/primaryCodeMatcher';
 import { CrossResourceNaturalKeyMatcher } from './engine/crossResourceNaturalKeyMatcher';
 import { CrossResourceNaturalKeyDateMatcher } from './engine/crossResourceNaturalKeyDateMatcher';
 import { CrossResourceTextMatcher } from './engine/crossResourceTextMatcher';
-import { buildReference } from './models/fhirUtil';
 import { PrimaryCodeAndSystemDateMatcher } from './engine/primaryCodeAndSystemDateMatcher';
 import { PrimaryCodeDateMatcher } from './engine/primaryCodeDateMatcher';
 import { CrossResourcePrimaryCodeDateMatcher } from './engine/crossResourcePrimaryCodeDateMatcher';
@@ -90,8 +89,8 @@ export const fhirBundlesMatch = (
     }
   }
 
-  overallMatch.bundle1Only = unmatchedBundle1.map(buildReference);
-  overallMatch.bundle2Only = unmatchedBundle2.map(buildReference);
+  overallMatch.bundle1Only = unmatchedBundle1.map((x) => x.reference);
+  overallMatch.bundle2Only = unmatchedBundle2.map((x) => x.reference);
 
   return overallMatch;
 };

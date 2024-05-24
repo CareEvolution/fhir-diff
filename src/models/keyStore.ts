@@ -28,6 +28,7 @@ import type {
   PractitionerRole,
   Procedure,
   QuestionnaireResponse,
+  Reference,
   RelatedPerson,
   ServiceRequest,
   Specimen,
@@ -35,7 +36,7 @@ import type {
 } from 'fhir/r4';
 import { ResourceAndKey } from './resourceAndKey';
 import {
-  buildRef,
+  buildReferenceForEntry,
   cleanCode,
   pickIdentifier,
   pickPrimaryCoding,
@@ -255,129 +256,135 @@ export class KeyStore {
       return;
     }
 
+    const reference = buildReferenceForEntry(entry);
+
+    if (!reference) {
+      return;
+    }
+
     switch (entry.resource.resourceType) {
       case 'Patient':
-        key = this.buildKeyPatient(entry.resource);
+        key = this.buildKeyPatient(reference, entry.resource);
         break;
 
       case 'Encounter':
-        key = this.buildKeyEncounter(entry.resource);
+        key = this.buildKeyEncounter(reference, entry.resource);
         break;
 
       case 'Condition':
-        key = this.buildKeyCondition(entry.resource);
+        key = this.buildKeyCondition(reference, entry.resource);
         break;
 
       case 'MedicationAdministration':
-        key = this.buildKeyMedicationAdministration(entry.resource);
+        key = this.buildKeyMedicationAdministration(reference, entry.resource);
         break;
 
       case 'MedicationRequest':
-        key = this.buildKeyMedicationRequest(entry.resource);
+        key = this.buildKeyMedicationRequest(reference, entry.resource);
         break;
 
       case 'MedicationDispense':
-        key = this.buildKeyMedicationDispense(entry.resource);
+        key = this.buildKeyMedicationDispense(reference, entry.resource);
         break;
 
       case 'MedicationStatement':
-        key = this.buildKeyMedicationStatement(entry.resource);
+        key = this.buildKeyMedicationStatement(reference, entry.resource);
         break;
 
       case 'Medication':
-        key = this.buildKeyMedication(entry.resource);
+        key = this.buildKeyMedication(reference, entry.resource);
         break;
 
       case 'Immunization':
-        key = this.buildKeyImmunization(entry.resource);
+        key = this.buildKeyImmunization(reference, entry.resource);
         break;
 
       case 'Procedure':
-        key = this.buildKeyProcedure(entry.resource);
+        key = this.buildKeyProcedure(reference, entry.resource);
         break;
 
       case 'ServiceRequest':
-        key = this.buildKeyServiceRequest(entry.resource);
+        key = this.buildKeyServiceRequest(reference, entry.resource);
         break;
 
       case 'AllergyIntolerance':
-        key = this.buildKeyAllergyInterolerance(entry.resource);
+        key = this.buildKeyAllergyInterolerance(reference, entry.resource);
         break;
 
       case 'Observation':
-        key = this.buildKeyObservation(entry.resource);
+        key = this.buildKeyObservation(reference, entry.resource);
         break;
 
       case 'QuestionnaireResponse':
-        key = this.buildKeyQuestionnaireResponse(entry.resource);
+        key = this.buildKeyQuestionnaireResponse(reference, entry.resource);
         break;
 
       case 'DiagnosticReport':
-        key = this.buildKeyDiagnosticReport(entry.resource);
+        key = this.buildKeyDiagnosticReport(reference, entry.resource);
         break;
 
       case 'DocumentReference':
-        key = this.buildKeyDocumentReference(entry.resource);
+        key = this.buildKeyDocumentReference(reference, entry.resource);
         break;
 
       case 'Binary':
-        key = this.buildKeyBinary(entry.resource);
+        key = this.buildKeyBinary(reference, entry.resource);
         break;
 
       case 'Practitioner':
-        key = this.buildKeyPractitioner(entry.resource);
+        key = this.buildKeyPractitioner(reference, entry.resource);
         break;
 
       case 'PractitionerRole':
-        key = this.buildKeyPractitionerRole(entry.resource);
+        key = this.buildKeyPractitionerRole(reference, entry.resource);
         break;
 
       case 'Organization':
-        key = this.buildKeyOrganization(entry.resource);
+        key = this.buildKeyOrganization(reference, entry.resource);
         break;
 
       case 'RelatedPerson':
-        key = this.buildKeyRelatedPerson(entry.resource);
+        key = this.buildKeyRelatedPerson(reference, entry.resource);
         break;
 
       case 'Specimen':
-        key = this.buildKeySpecimen(entry.resource);
+        key = this.buildKeySpecimen(reference, entry.resource);
         break;
 
       case 'CarePlan':
-        key = this.buildKeyCarePlan(entry.resource);
+        key = this.buildKeyCarePlan(reference, entry.resource);
         break;
 
       case 'Goal':
-        key = this.buildKeyGoal(entry.resource);
+        key = this.buildKeyGoal(reference, entry.resource);
         break;
 
       case 'Task':
-        key = this.buildKeyTask(entry.resource);
+        key = this.buildKeyTask(reference, entry.resource);
         break;
 
       case 'FamilyMemberHistory':
-        key = this.buildKeyFamilyMemberHistory(entry.resource);
+        key = this.buildKeyFamilyMemberHistory(reference, entry.resource);
         break;
 
       case 'Claim':
-        key = this.buildKeyClaim(entry.resource);
+        key = this.buildKeyClaim(reference, entry.resource);
         break;
 
       case 'ExplanationOfBenefit':
-        key = this.buildKeyExplanationOfBenefit(entry.resource);
+        key = this.buildKeyExplanationOfBenefit(reference, entry.resource);
         break;
 
       case 'Coverage':
-        key = this.buildKeyCoverage(entry.resource);
+        key = this.buildKeyCoverage(reference, entry.resource);
         break;
 
       case 'Device':
-        key = this.buildKeyDevice(entry.resource);
+        key = this.buildKeyDevice(reference, entry.resource);
         break;
 
       case 'Location':
-        key = this.buildKeyLocation(entry.resource);
+        key = this.buildKeyLocation(reference, entry.resource);
         break;
 
       case 'OperationOutcome':
@@ -394,23 +401,33 @@ export class KeyStore {
     }
 
     this.all.push(key);
-    this.byFhirRef.set(buildRef(key.resource), key);
+    if (key.reference?.reference) {
+      this.byFhirRef.set(key.reference?.reference, key);
+    }
     if (entry.fullUrl) {
       this.byFullUrl.set(entry.fullUrl, key);
     }
   }
 
-  public buildKeyPatient(patient: Patient): ResourceAndKey {
+  public buildKeyPatient(
+    reference: Reference,
+    patient: Patient,
+  ): ResourceAndKey {
     return {
+      reference,
       resource: patient,
       resourceType: 'Patient',
       identifier: pickIdentifier(patient.identifier) || patient.id,
     };
   }
 
-  public buildKeyEncounter(encounter: Encounter): ResourceAndKey {
+  public buildKeyEncounter(
+    reference: Reference,
+    encounter: Encounter,
+  ): ResourceAndKey {
     const primaryCoding = encounter.class;
     const key: ResourceAndKey = {
+      reference,
       resource: encounter,
       resourceType: encounter.resourceType,
       identifier: pickIdentifier(encounter.identifier) || encounter.id,
@@ -422,12 +439,16 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyCondition(condition: Condition): ResourceAndKey {
+  public buildKeyCondition(
+    reference: Reference,
+    condition: Condition,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(condition.code, [
       'http://snomed.info/sct',
       'http://www.icd10data.com/icd10pcs',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: condition,
       resourceType: condition.resourceType,
       identifier: pickIdentifier(condition.identifier) || condition.id,
@@ -444,6 +465,7 @@ export class KeyStore {
   }
 
   public buildKeyMedicationAdministration(
+    reference: Reference,
     medadmin: MedicationAdministration,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(
@@ -451,6 +473,7 @@ export class KeyStore {
       ['http://www.nlm.nih.gov/research/umls/rxnorm'],
     );
     const key: ResourceAndKey = {
+      reference,
       resource: medadmin,
       resourceType: medadmin.resourceType,
       identifier: pickIdentifier(medadmin.identifier) || medadmin.id,
@@ -467,6 +490,7 @@ export class KeyStore {
   }
 
   public buildKeyMedicationRequest(
+    reference: Reference,
     medRequest: MedicationRequest,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(
@@ -474,6 +498,7 @@ export class KeyStore {
       ['http://www.nlm.nih.gov/research/umls/rxnorm'],
     );
     const key: ResourceAndKey = {
+      reference,
       resource: medRequest,
       resourceType: medRequest.resourceType,
       identifier: pickIdentifier(medRequest.identifier) || medRequest.id,
@@ -487,6 +512,7 @@ export class KeyStore {
   }
 
   public buildKeyMedicationDispense(
+    reference: Reference,
     medDispense: MedicationDispense,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(
@@ -494,6 +520,7 @@ export class KeyStore {
       ['http://www.nlm.nih.gov/research/umls/rxnorm'],
     );
     const key: ResourceAndKey = {
+      reference,
       resource: medDispense,
       resourceType: medDispense.resourceType,
       identifier: pickIdentifier(medDispense.identifier) || medDispense.id,
@@ -510,6 +537,7 @@ export class KeyStore {
   }
 
   public buildKeyMedicationStatement(
+    reference: Reference,
     medStatement: MedicationStatement,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(
@@ -517,6 +545,7 @@ export class KeyStore {
       ['http://www.nlm.nih.gov/research/umls/rxnorm'],
     );
     const key: ResourceAndKey = {
+      reference,
       resource: medStatement,
       resourceType: medStatement.resourceType,
       identifier: pickIdentifier(medStatement.identifier) || medStatement.id,
@@ -532,11 +561,15 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyMedication(medication: Medication): ResourceAndKey {
+  public buildKeyMedication(
+    reference: Reference,
+    medication: Medication,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(medication.code, [
       'http://www.nlm.nih.gov/research/umls/rxnorm',
     ]);
     return {
+      reference,
       resource: medication,
       resourceType: medication.resourceType,
       identifier: pickIdentifier(medication.identifier) || medication.id,
@@ -547,13 +580,17 @@ export class KeyStore {
     };
   }
 
-  public buildKeyImmunization(immunization: Immunization): ResourceAndKey {
+  public buildKeyImmunization(
+    reference: Reference,
+    immunization: Immunization,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(immunization.vaccineCode, [
       'http://hl7.org/fhir/sid/cvx',
       'http://www.nlm.nih.gov/research/umls/rxnorm',
       'https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: immunization,
       resourceType: immunization.resourceType,
       identifier: pickIdentifier(immunization.identifier) || immunization.id,
@@ -571,13 +608,17 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyProcedure(procedure: Procedure): ResourceAndKey {
+  public buildKeyProcedure(
+    reference: Reference,
+    procedure: Procedure,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(procedure.code, [
       'http://snomed.info/sct',
       'https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets',
       'http://www.icd10data.com/icd10pcs',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: procedure,
       resourceType: procedure.resourceType,
       identifier: pickIdentifier(procedure.identifier) || procedure.id,
@@ -594,6 +635,7 @@ export class KeyStore {
   }
 
   public buildKeyServiceRequest(
+    reference: Reference,
     serviceRequest: ServiceRequest,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(serviceRequest.code, [
@@ -602,6 +644,7 @@ export class KeyStore {
       'http://www.icd10data.com/icd10pcs',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: serviceRequest,
       resourceType: serviceRequest.resourceType,
       identifier:
@@ -621,6 +664,7 @@ export class KeyStore {
   }
 
   public buildKeyAllergyInterolerance(
+    reference: Reference,
     allergyIntolerance: AllergyIntolerance,
   ): ResourceAndKey {
     const allergyIntoleranceSystems = ['http://snomed.info/sct'];
@@ -632,6 +676,7 @@ export class KeyStore {
         )
         ?.find((s) => !!s);
     const key: ResourceAndKey = {
+      reference,
       resource: allergyIntolerance,
       resourceType: allergyIntolerance.resourceType,
       identifier:
@@ -650,7 +695,10 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyObservation(observation: Observation): ResourceAndKey {
+  public buildKeyObservation(
+    reference: Reference,
+    observation: Observation,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(observation.code, [
       'http://loinc.org',
       'http://snomed.info/sct',
@@ -673,6 +721,7 @@ export class KeyStore {
     }
 
     const key: ResourceAndKey = {
+      reference,
       resource: observation,
       resourceType: observation.resourceType,
       identifier: pickIdentifier(observation.identifier) || observation.id,
@@ -692,6 +741,7 @@ export class KeyStore {
   }
 
   public buildKeyQuestionnaireResponse(
+    reference: Reference,
     questionnaireResponse: QuestionnaireResponse,
   ): ResourceAndKey {
     // QuestionnaireResponse doesn't have a code, so we use the canonical URL for the  questionnaire as the primary code
@@ -701,6 +751,7 @@ export class KeyStore {
     );
 
     const key: ResourceAndKey = {
+      reference,
       resource: questionnaireResponse,
       resourceType: questionnaireResponse.resourceType,
       identifier:
@@ -714,6 +765,7 @@ export class KeyStore {
   }
 
   public buildKeyDiagnosticReport(
+    reference: Reference,
     diagnosticReport: DiagnosticReport,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(diagnosticReport.code, [
@@ -722,6 +774,7 @@ export class KeyStore {
     ]);
 
     const key: ResourceAndKey = {
+      reference,
       resource: diagnosticReport,
       resourceType: diagnosticReport.resourceType,
       identifier:
@@ -740,6 +793,7 @@ export class KeyStore {
   }
 
   public buildKeyDocumentReference(
+    reference: Reference,
     documentReference: DocumentReference,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(documentReference.type, [
@@ -748,6 +802,7 @@ export class KeyStore {
     ]);
 
     const key: ResourceAndKey = {
+      reference,
       resource: documentReference,
       resourceType: documentReference.resourceType,
       identifier:
@@ -761,9 +816,10 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyBinary(binary: Binary): ResourceAndKey {
+  public buildKeyBinary(reference: Reference, binary: Binary): ResourceAndKey {
     const primaryCoding = getPrimaryCode(binary.contentType, 'urn:ietf:bcp:13');
     return {
+      reference,
       resource: binary,
       resourceType: binary.resourceType,
       identifier: binary.id,
@@ -774,9 +830,13 @@ export class KeyStore {
     };
   }
 
-  public buildKeyPractitioner(practitioner: Practitioner): ResourceAndKey {
+  public buildKeyPractitioner(
+    reference: Reference,
+    practitioner: Practitioner,
+  ): ResourceAndKey {
     // should probably do something with name for text
     return {
+      reference,
       resource: practitioner,
       resourceType: practitioner.resourceType,
       identifier: pickIdentifier(practitioner.identifier) || practitioner.id,
@@ -784,9 +844,11 @@ export class KeyStore {
   }
 
   public buildKeyPractitionerRole(
+    reference: Reference,
     practitionerRole: PractitionerRole,
   ): ResourceAndKey {
     return {
+      reference,
       resource: practitionerRole,
       resourceType: practitionerRole.resourceType,
       identifier:
@@ -794,21 +856,29 @@ export class KeyStore {
     };
   }
 
-  public buildKeyOrganization(organization: Organization): ResourceAndKey {
+  public buildKeyOrganization(
+    reference: Reference,
+    organization: Organization,
+  ): ResourceAndKey {
     return {
+      reference,
       resource: organization,
       resourceType: organization.resourceType,
       identifier: pickIdentifier(organization.identifier) || organization.id,
     };
   }
 
-  public buildKeyRelatedPerson(relatedPerson: RelatedPerson): ResourceAndKey {
+  public buildKeyRelatedPerson(
+    reference: Reference,
+    relatedPerson: RelatedPerson,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCodingFromMultiple(
       relatedPerson.relationship,
       ['http://terminology.hl7.org/CodeSystem/v3-RoleCode'],
     );
     // should probably do something with name for text
     return {
+      reference,
       resource: relatedPerson,
       resourceType: relatedPerson.resourceType,
       identifier: pickIdentifier(relatedPerson.identifier) || relatedPerson.id,
@@ -818,11 +888,15 @@ export class KeyStore {
     };
   }
 
-  public buildKeySpecimen(specimen: Specimen): ResourceAndKey {
+  public buildKeySpecimen(
+    reference: Reference,
+    specimen: Specimen,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(specimen.type, [
       'http://snomed.info/sct',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: specimen,
       resourceType: specimen.resourceType,
       identifier: pickIdentifier(specimen.identifier) || specimen.id,
@@ -840,12 +914,16 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyCarePlan(carePlan: CarePlan): ResourceAndKey {
+  public buildKeyCarePlan(
+    reference: Reference,
+    carePlan: CarePlan,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCodingFromMultiple(carePlan.category, [
       'http://snomed.info/sct',
       'http://loinc.org',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: carePlan,
       resourceType: carePlan.resourceType,
       identifier: pickIdentifier(carePlan.identifier) || carePlan.id,
@@ -858,12 +936,13 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyGoal(goal: Goal): ResourceAndKey {
+  public buildKeyGoal(reference: Reference, goal: Goal): ResourceAndKey {
     const primaryCoding = pickPrimaryCodingFromMultiple(goal.category, [
       'http://snomed.info/sct',
       'http://loinc.org',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: goal,
       resourceType: goal.resourceType,
       identifier: pickIdentifier(goal.identifier) || goal.id,
@@ -876,12 +955,13 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyTask(task: Task): ResourceAndKey {
+  public buildKeyTask(reference: Reference, task: Task): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(task.code, [
       'http://snomed.info/sct',
       'http://loinc.org',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: task,
       resourceType: task.resourceType,
       identifier: pickIdentifier(task.identifier) || task.id,
@@ -898,12 +978,14 @@ export class KeyStore {
   }
 
   public buildKeyFamilyMemberHistory(
+    reference: Reference,
     familyMemberHistory: FamilyMemberHistory,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(familyMemberHistory.relationship, [
       'http://terminology.hl7.org/CodeSystem/v3-RoleCode',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: familyMemberHistory,
       resourceType: familyMemberHistory.resourceType,
       identifier:
@@ -918,11 +1000,12 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyClaim(claim: Claim): ResourceAndKey {
+  public buildKeyClaim(reference: Reference, claim: Claim): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(claim.type, [
       'http://hl7.org/fhir/claim-type',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: claim,
       resourceType: claim.resourceType,
       identifier: pickIdentifier(claim.identifier) || claim.id,
@@ -935,12 +1018,14 @@ export class KeyStore {
   }
 
   public buildKeyExplanationOfBenefit(
+    reference: Reference,
     eob: ExplanationOfBenefit,
   ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(eob.type, [
       'http://hl7.org/fhir/claim-type',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: eob,
       resourceType: eob.resourceType,
       identifier: pickIdentifier(eob.identifier) || eob.id,
@@ -952,9 +1037,13 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyCoverage(coverage: Coverage): ResourceAndKey {
+  public buildKeyCoverage(
+    reference: Reference,
+    coverage: Coverage,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(coverage.type, []);
     const key: ResourceAndKey = {
+      reference,
       resource: coverage,
       resourceType: coverage.resourceType,
       identifier: pickIdentifier(coverage.identifier) || coverage.id,
@@ -966,11 +1055,12 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyDevice(device: Device): ResourceAndKey {
+  public buildKeyDevice(reference: Reference, device: Device): ResourceAndKey {
     const primaryCoding = pickPrimaryCoding(device.type, [
       'http://snomed.info/sct',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: device,
       resourceType: device.resourceType,
       identifier: pickIdentifier(device.identifier) || device.id,
@@ -988,11 +1078,15 @@ export class KeyStore {
     return key;
   }
 
-  public buildKeyLocation(location: Location): ResourceAndKey {
+  public buildKeyLocation(
+    reference: Reference,
+    location: Location,
+  ): ResourceAndKey {
     const primaryCoding = pickPrimaryCodingFromMultiple(location.type, [
       'http://terminology.hl7.org/CodeSystem/v3-RoleCode',
     ]);
     const key: ResourceAndKey = {
+      reference,
       resource: location,
       resourceType: location.resourceType,
       identifier: pickIdentifier(location.identifier) || location.id,

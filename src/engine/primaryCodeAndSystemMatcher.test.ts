@@ -5,6 +5,7 @@ import { ResourceAndKey } from '../models/resourceAndKey';
 test('should match based on primary coding and dateTime and resource type', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -15,6 +16,7 @@ test('should match based on primary coding and dateTime and resource type', () =
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -39,6 +41,7 @@ test('should match based on primary coding and dateTime and resource type', () =
 test('should not match based on different dateTime', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -49,6 +52,7 @@ test('should not match based on different dateTime', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -69,6 +73,7 @@ test('should not match based on different dateTime', () => {
 test('should not match based on different code', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -79,6 +84,7 @@ test('should not match based on different code', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       primaryCode: '22778000',
@@ -99,6 +105,7 @@ test('should not match based on different code', () => {
 test('should not match based on different system', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -109,6 +116,7 @@ test('should not match based on different system', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -129,6 +137,7 @@ test('should not match based on different system', () => {
 test('should not match based on different resourceType', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -139,6 +148,7 @@ test('should not match based on different resourceType', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Observation/observation_bundle2' },
       resource: { resourceType: 'Observation', id: 'observation_bundle2' },
       resourceType: 'Observation',
       primaryCode: '142496001',
@@ -159,6 +169,7 @@ test('should not match based on different resourceType', () => {
 test('should not match missing dates', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -169,6 +180,7 @@ test('should not match missing dates', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -189,6 +201,7 @@ test('should not match missing dates', () => {
 test('should not match missing system', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -199,6 +212,7 @@ test('should not match missing system', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       primaryCode: '142496001',
@@ -219,6 +233,7 @@ test('should not match missing system', () => {
 test('should not match missing code', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       primaryCode: undefined,
@@ -229,6 +244,7 @@ test('should not match missing code', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       primaryCode: undefined,

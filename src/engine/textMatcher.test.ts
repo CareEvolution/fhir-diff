@@ -5,6 +5,7 @@ import { ResourceAndKey } from '../models/resourceAndKey';
 test('should match based on text and date and resource type', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       text: 'Colonoscopy went well',
@@ -14,6 +15,7 @@ test('should match based on text and date and resource type', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       text: 'Colonoscopy went well',
@@ -37,6 +39,7 @@ test('should match based on text and date and resource type', () => {
 test('should not match based on different date', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       text: 'Colonoscopy went well',
@@ -46,6 +49,7 @@ test('should not match based on different date', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       text: 'Colonoscopy went well',
@@ -65,6 +69,7 @@ test('should not match based on different date', () => {
 test('should not match based on different resourceType', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       text: 'Colonoscopy went well',
@@ -74,7 +79,8 @@ test('should not match based on different resourceType', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
-      resource: { resourceType: 'Observation', id: 'procedure_bundle2' },
+      reference: { reference: 'Observation/observation_bundle2' },
+      resource: { resourceType: 'Observation', id: 'observation_bundle2' },
       resourceType: 'Observation',
       text: 'Colonoscopy went well',
       dateTime: '2021-03-04',
@@ -93,6 +99,7 @@ test('should not match based on different resourceType', () => {
 test('should not match based on different text', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle1' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle1' },
       resourceType: 'Procedure',
       text: 'Colonoscopy went well',
@@ -102,6 +109,7 @@ test('should not match based on different text', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Procedure/procedure_bundle2' },
       resource: { resourceType: 'Procedure', id: 'procedure_bundle2' },
       resourceType: 'Procedure',
       text: 'Venipuncture',

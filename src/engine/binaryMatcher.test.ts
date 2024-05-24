@@ -5,6 +5,7 @@ import { ResourceAndKey } from '../models/resourceAndKey';
 test('should match based on contentType and data', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Binary/binary_bundle1' },
       resource: { resourceType: 'Binary', id: 'binary_bundle1' },
       resourceType: 'Binary',
       primaryCode: 'text/html',
@@ -14,6 +15,7 @@ test('should match based on contentType and data', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Binary/binary_bundle2' },
       resource: { resourceType: 'Binary', id: 'binary_bundle2' },
       resourceType: 'Binary',
       primaryCode: 'text/html',
@@ -33,6 +35,7 @@ test('should match based on contentType and data', () => {
 test('should not match based on different contentType', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Binary/binary_bundle1' },
       resource: { resourceType: 'Binary', id: 'binary_bundle1' },
       resourceType: 'Binary',
       primaryCode: 'text/html', // from the contentType property
@@ -42,6 +45,7 @@ test('should not match based on different contentType', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Binary/binary_bundle2' },
       resource: { resourceType: 'Binary', id: 'binary_bundle2' },
       resourceType: 'Binary',
       primaryCode: 'text/plain', // from the contentType property
@@ -59,6 +63,7 @@ test('should not match based on different contentType', () => {
 test('should not match based on different data', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Binary/binary_bundle1' },
       resource: { resourceType: 'Binary', id: 'binary_bundle1' },
       resourceType: 'Binary',
       primaryCode: 'text/html',
@@ -68,6 +73,7 @@ test('should not match based on different data', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Binary/binary_bundle2' },
       resource: { resourceType: 'Binary', id: 'binary_bundle2' },
       resourceType: 'Binary',
       primaryCode: 'text/html',

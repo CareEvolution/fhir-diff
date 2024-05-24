@@ -5,6 +5,7 @@ import { ResourceAndKey } from '../models/resourceAndKey';
 test('should match based on identifier with same resource type', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Patient/patient_bundle1' },
       resource: { resourceType: 'Patient', id: 'patient_bundle1' },
       resourceType: 'Patient',
       identifier: '123456',
@@ -13,6 +14,7 @@ test('should match based on identifier with same resource type', () => {
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Patient/patient_bundle2' },
       resource: { resourceType: 'Patient', id: 'patient_bundle2' },
       resourceType: 'Patient',
       identifier: '123456',
@@ -31,6 +33,7 @@ test('should match based on identifier with same resource type', () => {
 test('should not match based on identifier with different resource type', () => {
   const bundle1: ResourceAndKey[] = [
     {
+      reference: { reference: 'Patient/patient_bundle1' },
       resource: { resourceType: 'Encounter', id: 'encounter_bundle1' },
       resourceType: 'Encounter',
       identifier: '123456',
@@ -39,6 +42,7 @@ test('should not match based on identifier with different resource type', () => 
 
   const bundle2: ResourceAndKey[] = [
     {
+      reference: { reference: 'Patient/patient_bundle2' },
       resource: { resourceType: 'Patient', id: 'patient_bundle2' },
       resourceType: 'Patient',
       identifier: '123456',
