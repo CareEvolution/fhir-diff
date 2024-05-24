@@ -14,6 +14,7 @@ import { CrossResourceTextMatcher } from './engine/crossResourceTextMatcher';
 import { PrimaryCodeAndSystemDateMatcher } from './engine/primaryCodeAndSystemDateMatcher';
 import { PrimaryCodeDateMatcher } from './engine/primaryCodeDateMatcher';
 import { CrossResourcePrimaryCodeDateMatcher } from './engine/crossResourcePrimaryCodeDateMatcher';
+import { ResourceIdMatcher } from './engine/resourceIdMatcher';
 
 export const fhirBundlesMatch = (
   bundle1: Bundle,
@@ -44,6 +45,7 @@ export const fhirBundlesMatch = (
   };
 
   const matchers: Matcher[] = [
+    ResourceIdMatcher,
     IdentifierMatcher,
     BinaryMatcher,
     PrimaryCodeAndSystemMatcher,

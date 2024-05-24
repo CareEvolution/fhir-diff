@@ -12,6 +12,26 @@ function expectMatch(match: FhirMatch, bundle1Ref: string, bundle2Ref: string) {
   );
 
   if (!theMatch) {
+    const badMatchForBundle1 = match.common.find(
+      (m) => m.bundle1.reference === bundle1Ref,
+    );
+
+    if (badMatchForBundle1) {
+      console.log(
+        `Found bad match for bundle 1 ${bundle1Ref}: ${badMatchForBundle1.bundle2.reference} [${badMatchForBundle1.reason}]`,
+      );
+    }
+
+    const badMatchForBundle2 = match.common.find(
+      (m) => m.bundle2.reference === bundle2Ref,
+    );
+
+    if (badMatchForBundle2) {
+      console.log(
+        `Found bad match for bundle 2 ${bundle2Ref}: ${badMatchForBundle2.bundle1.reference} [${badMatchForBundle2.reason}]`,
+      );
+    }
+
     const bundle1 = match.bundle1Store.byFhirRef.get(bundle1Ref);
     const bundle2 = match.bundle2Store.byFhirRef.get(bundle2Ref);
 
