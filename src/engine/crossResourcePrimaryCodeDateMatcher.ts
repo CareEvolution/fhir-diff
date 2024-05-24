@@ -29,22 +29,22 @@ const CrossResourcePrimaryCodeDateMatcher: Matcher = (
       continue;
     }
 
-    const bundle2Key = bundle2Copy.findIndex(
+    const bundle2Index = bundle2Copy.findIndex(
       (k) =>
         resourceTypeGroup.includes(k.resourceType) &&
         k.date === bundle1Key.date &&
         k.primaryCode === bundle1Key.primaryCode,
     );
 
-    if (bundle2Key === -1) {
+    if (bundle2Index === -1) {
       result.unmatched1.push(bundle1Key);
     } else {
       result.matched.push({
         bundle1: bundle1Key.reference,
-        bundle2: bundle2Copy[bundle2Key].reference,
+        bundle2: bundle2Copy[bundle2Index].reference,
         reason: 'cross-reference primary code + date matched',
       });
-      bundle2Copy.splice(bundle2Key, 1);
+      bundle2Copy.splice(bundle2Index, 1);
     }
   }
 

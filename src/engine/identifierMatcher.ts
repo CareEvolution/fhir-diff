@@ -15,21 +15,27 @@ const IdentifierMatcher: Matcher = (
 
   for (let bundle1Index = 0; bundle1Index < bundle1.length; bundle1Index++) {
     const bundle1Key = bundle1[bundle1Index];
-    const bundle2Key = bundle2Copy.findIndex(
+
+    if (!bundle1Key.identifier) {
+      result.unmatched1.push(bundle1Key);
+      continue;
+    }
+
+    const bundle2Index = bundle2Copy.findIndex(
       (k) =>
         k.resourceType === bundle1Key.resourceType &&
         k.identifier === bundle1Key.identifier,
     );
 
-    if (bundle2Key === -1) {
+    if (bundle2Index === -1) {
       result.unmatched1.push(bundle1Key);
     } else {
       result.matched.push({
         bundle1: bundle1Key.reference,
-        bundle2: bundle2Copy[bundle2Key].reference,
-        reason: 'identifiers matched',
+        bundle2: bundle2Copy[bundle2Index].reference,
+        reason: `identifiers matched`,
       });
-      bundle2Copy.splice(bundle2Key, 1);
+      bundle2Copy.splice(bundle2Index, 1);
     }
   }
 

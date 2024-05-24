@@ -1,7 +1,7 @@
 import { ResourceAndKey } from '../models/resourceAndKey';
 import { MatchResult, Matcher } from './matcher';
 
-const ValueMatcher: Matcher = (
+const ResourceIdMatcher: Matcher = (
   bundle1: ResourceAndKey[],
   bundle2: ResourceAndKey[],
 ) => {
@@ -16,7 +16,7 @@ const ValueMatcher: Matcher = (
   for (let bundle1Index = 0; bundle1Index < bundle1.length; bundle1Index++) {
     const bundle1Key = bundle1[bundle1Index];
 
-    if (!bundle1Key.dateTime || !bundle1Key.text) {
+    if (!bundle1Key.resource.id) {
       result.unmatched1.push(bundle1Key);
       continue;
     }
@@ -24,8 +24,7 @@ const ValueMatcher: Matcher = (
     const bundle2Index = bundle2Copy.findIndex(
       (k) =>
         k.resourceType === bundle1Key.resourceType &&
-        k.text === bundle1Key.text &&
-        k.dateTime === bundle1Key.dateTime,
+        k.resource.id === bundle1Key.resource.id,
     );
 
     if (bundle2Index === -1) {
@@ -34,7 +33,7 @@ const ValueMatcher: Matcher = (
       result.matched.push({
         bundle1: bundle1Key.reference,
         bundle2: bundle2Copy[bundle2Index].reference,
-        reason: 'value + dateTime matched',
+        reason: 'resource id and type matched',
       });
       bundle2Copy.splice(bundle2Index, 1);
     }
@@ -45,4 +44,4 @@ const ValueMatcher: Matcher = (
   return result;
 };
 
-export { ValueMatcher };
+export { ResourceIdMatcher };
