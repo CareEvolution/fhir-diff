@@ -108,11 +108,9 @@ export class KeyStore {
 
     const dateMatch = dateField.match(dateRegex);
     if (dateMatch) {
-      // eslint-disable-next-line no-param-reassign
       [, key.date] = dateMatch;
 
       if (key.date !== dateField) {
-        // eslint-disable-next-line no-param-reassign
         key.dateTime = dateField;
       }
     }
@@ -208,12 +206,9 @@ export class KeyStore {
         medicationStatement.medicationReference.reference,
       );
       if (medicationKey && medicationKey.primaryCode) {
-        // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCode = medicationKey.primaryCode;
-        // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCodeSystem =
           medicationKey.primaryCodeSystem;
-        // eslint-disable-next-line no-param-reassign
         medicationStatementKey.primaryCoding = medicationKey.primaryCoding;
       }
     }

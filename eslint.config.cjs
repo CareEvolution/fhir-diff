@@ -1,17 +1,11 @@
 const globals = require('globals');
 const pluginJs = require('@eslint/js');
 const tseslint = require('typescript-eslint');
-const { FlatCompat } = require('@eslint/eslintrc');
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+const eslintConfigPrettier = require('eslint-config-prettier/flat');
 
 module.exports = [
   pluginJs.configs.recommended,
-  ...compat.extends('airbnb-base'),
-  ...compat.extends('eslint-config-prettier'),
-  ...compat.extends('airbnb-typescript/base'),
+  eslintConfigPrettier,
   ...tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {

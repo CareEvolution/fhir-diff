@@ -63,7 +63,6 @@ export const fhirBundlesMatch = (
   let unmatchedBundle1 = bundle1KeyStore.all;
   let unmatchedBundle2 = bundle2KeyStore.all;
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const matcher of matchers) {
     const result = matcher(unmatchedBundle1, unmatchedBundle2);
 
