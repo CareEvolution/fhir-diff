@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "registry": "https://proget.careevolution.com/npm/npm/"
+    "registry": "https://registry.npmjs.org/"
   },
   "description": "",
   "dependencies": {
